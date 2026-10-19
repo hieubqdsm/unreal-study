@@ -14,39 +14,9 @@ for p in ["part1.html", "part2.html", "part3.html"]:
     html += open(os.path.join(SRC, p), encoding="utf-8").read()
 
 # ---- typo fixes ----
+# Toàn bộ lỗi chính tả/ký tự lỗi đã được bake thẳng vào course_src (2026-10-19).
+# Giữ list rỗng để còn chỗ vá nhanh lúc build nếu cần.
 FIXES = [
-    ("kéo thá", "kéo thả"),
-    ("công nghệ标志", "công nghệ biểu tượng"),
-    ("ting cài với C++", "tương thích với C++"),
-    ("đổi pitch/g因子", "đổi pitch/giá trị"),
-    ("nảybounce", "nảy (bounce)"),
-    ("vfd tay lên tường", "ví dụ tay đặt lên tường"),
-    ("hiện/hện menu", "hiện/ẩn menu"),
-    ("Pakks", "Paks"),
-    ("exe Mage Movie Render Queue", "Movie Render Queue (MRQ)"),
-    ("Ba macro靈 hồn", "Ba macro linh hồn"),
-    ("Ba macro灵 hồn", "Ba macro linh hồn"),
-    ("cho物 liệu", "cho vật liệu"),
-    ("Materia同 Landscape/Spline/Decal?", "Material domain khác: Landscape/Spline/Decal?"),
-    ("Data Layer思路 pattern", "Data Layer pattern"),
-    ("Thương ngườiBanNgày", "ThươngNhânBanNgày"),
-    ("kiểm chứng", "kiểm chứng"),
-    ("Bay camera验证", "Bay camera kiểm chứng"),
-    ("bay camera验证", "bay camera kiểm chứng"),
-    ("đ tán lá thật", "tán lá thật"),
-    ("hàng tỷ tri vẫn", "hàng tỷ tam giác vẫn"),
-    ("mechan ic", "mechanic"),
-    ("Event Tick = reo ruỗi", "Event Tick = gánh nặng"),
-    ("GPU RTX/giờ ko chuyên", "GPU RTX hoặc GPU không chuyên"),
-    ("phối duet", "phối hợp"),
-    ("gọi DestroyActor +.Broadcast delegates", "gọi DestroyActor và broadcast delegate"),
-    ("even procedural animation runtime", "thậm chí procedural animation runtime"),
-    ("marketplace/Compose nhớ format này", "marketplace theo format này"),
-    ('<td><th switch giữa các tool: Select, Landscape, Foliage, Mesh Paint…</td>',
-     '<td>Switch giữa các tool: Select, Landscape, Foliage, Mesh Paint…</td>'),
-    ('<p>Mode <span class="term-en">Foliage</p> (Shift+3)',
-     '<p>Mode <span class="term-en">Foliage</span> (Shift+3)'),
-    ('Niagara — Visual Effects</span></h2>', 'Niagara — Visual Effects</h2>'),
 ]
 for a, b in FIXES:
     if a in html:
@@ -94,6 +64,28 @@ html = re.sub(r"\{\{I:([a-z0-9/-]+):(\d+)(?:\|([^}]*))?\}\}", img_repl, html)
 leftover = re.findall(r"\{\{[LI]:[^}]*\}\}", html)
 if leftover:
     print("!! UNRESOLVED TOKENS:", leftover)
+
+# ---- GitHub Pages shim: link docs mirror -> dev.epicgames.com khi chạy trên github.io ----
+SHIM = """<script>
+/* Chạy trên GitHub Pages: docs mirror không được publish (giới hạn 1 GB) —
+   chuyển link tới trang docs sang site chính thức của Epic Developer Community.
+   Ở local (serve.py) link giữ nguyên, trỏ vào bản mirror. */
+(function () {
+  if (!/(^|\\.)github\\.io$/.test(location.hostname)) return;
+  var EPIC = "https://dev.epicgames.com/documentation/en-us/unreal-engine";
+  var PRE = "unreal-engine-5.8-docs/site/";
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest("a[href^='" + PRE + "']");
+    if (!a) return;
+    var rest = a.getAttribute("href").slice(PRE).split("#")[0].split("?")[0].replace(/\\/+$/, "");
+    if (!rest || rest.indexOf("images/") === 0) return;
+    e.preventDefault();
+    location.href = EPIC + "/" + rest;
+  }, true);
+})();
+</script>
+"""
+html = html.replace("</body>", SHIM + "</body>")
 
 with open(OUT, "w", encoding="utf-8") as f:
     f.write(html)

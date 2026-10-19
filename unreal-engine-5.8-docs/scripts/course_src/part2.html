@@ -4,7 +4,7 @@
       <!-- ==================== CHƯƠNG 8 ==================== -->
       <section class="chapter" id="ch8">
         <h2 class="ch-title"><span class="num">Chương 8</span> Lumen — Global Illumination &amp; Reflections</h2>
-        <p class="ch-sub">Ánh sáng nảybounce thời gian thực — "công nghệ huyền thoại" của UE5.</p>
+        <p class="ch-sub">Ánh sáng nảy (bounce) thời gian thực — "công nghệ huyền thoại" của UE5.</p>
 
         <h3 class="sec">Lumen giải quyết vấn đề gì?</h3>
         <p>Trước đây, ánh sáng gián tiếp (<span class="term-en">Global Illumination — GI</span>) phải "bake" trước — mất giờ và tĩnh. <span class="term-en">Lumen</span> tính GI + phản chiếu <strong>thời gian thực</strong>: tắt đèn → bóng tối lan đúng vật lý; đổi màu tường → ánh nảy theo luôn. Lumen mặc định bật trong project UE5.8 khi dùng template.</p>
@@ -29,7 +29,7 @@
         {{I:local-fog-volumes-in-unreal-engine:0|Local Fog Volume tạo vùng sương cục bộ có ánh sáng}}
         <div class="box warn">
           <span class="box-title">Lumen cần gì?</span>
-          Lumen hoạt động tốt nhất trên GPU RTX/giờ ko chuyên cũng chạy được qua <span class="term-en">Software Ray Tracing</span> — dùng <span class="term-en">Mesh Distance Fields</span> (Project Settings → Generate Mesh Distance Fields). Mobile: chỉ màn hình cao cấp (Ch16 sẽ bàn scalability).
+          Lumen hoạt động tốt nhất trên GPU RTX hoặc GPU không chuyên cũng chạy được qua <span class="term-en">Software Ray Tracing</span> — dùng <span class="term-en">Mesh Distance Fields</span> (Project Settings → Generate Mesh Distance Fields). Mobile: chỉ màn hình cao cấp (Ch16 sẽ bàn scalability).
         </div>
 
         <div class="exercise">
@@ -60,7 +60,7 @@
         {{I:landscape-materials-in-unreal-engine:0|Landscape Material trộn nhiều layer texture}}
 
         <h3 class="sec">Foliage — rắc cây</h3>
-        <p>Mode <span class="term-en">Foliage</p> (Shift+3): kéo mesh (nên tick <span class="term-en">Nanite</span> cho tán lá — Ch20) vào danh sách, chỉnh mật độ rồi <strong>click/vẽ</strong> lên landscape. <span class="term-en">Procedural Foliage</span> (v2) tự rắc theo quy tắc (độ dốc, tầng đất).</p>
+        <p>Mode <span class="term-en">Foliage</span> (Shift+3): kéo mesh (nên tick <span class="term-en">Nanite</span> cho tán lá — Ch20) vào danh sách, chỉnh mật độ rồi <strong>click/vẽ</strong> lên landscape. <span class="term-en">Procedural Foliage</span> (v2) tự rắc theo quy tắc (độ dốc, tầng đất).</p>
         {{I:foliage-mode-in-unreal-engine:0|Foliage mode — rắc cây lên địa hình}}
         <div class="box tip">
           <span class="box-title">Cây cỏ xấu vì "đứng hình"? </span>
@@ -133,7 +133,7 @@
         {{I:artist-09-adding-sounds-to-fire-traps-artist-track-unreal-engine:0|Gắn âm thanh cho fire trap — tutorial âm thanh của Epic}}
         <div class="box tip">
           <span class="box-title">Metadata quan trọng</span>
-          MetaSound expose <span class="term-en">Input parameters</span> (float/int/bool) — từ Blueprint gọi <code class="ic">Set Float Parameter</code> trên Audio Component để đổi pitch/g因子 theo gameplay (xe tăng tốc → động cơ cao tần).
+          MetaSound expose <span class="term-en">Input parameters</span> (float/int/bool) — từ Blueprint gọi <code class="ic">Set Float Parameter</code> trên Audio Component để đổi pitch/giá trị theo gameplay (xe tăng tốc → động cơ cao tần).
         </div>
 
         <div class="exercise">
@@ -145,7 +145,7 @@
 
       <!-- ==================== CHƯƠNG 12 ==================== -->
       <section class="chapter" id="ch12">
-        <h2 class="ch-title"><span class="num">Chương 12</span> Niagara — Visual Effects</span></h2>
+        <h2 class="ch-title"><span class="num">Chương 12</span> Niagara — Visual Effects</h2>
         <p class="ch-sub">Particles: lửa, khói, pháo hoa, mưa — hệ VFX của mọi game UE.</p>
 
         <h3 class="sec">Niagara thinking</h3>
@@ -193,7 +193,7 @@
           <tr><td><span class="term-en">Skeleton</span></td><td>Cây bone + hierarchy — chia sẻ giữa mesh &amp; animation</td></tr>
           <tr><td><span class="term-en">Physics Asset</span></td><td>Body + constraint cho cloth/ragdoll va chạm</td></tr>
           <tr><td><span class="term-en">Animation Blueprint</span></td><td>Chọn clip nào chạy theo state (đi/nhảy/tấn công)</td></tr>
-          <tr><td><span class="term-en">Control Rig</span></td><td>Rigging/IK procedural ngay trong UE (vfd tay lên tường)</td></tr>
+          <tr><td><span class="term-en">Control Rig</span></td><td>Rigging/IK procedural ngay trong UE (ví dụ tay đặt lên tường)</td></tr>
           <tr><td><span class="term-en">Anim Montage</span></td><td>Clip cắt theo section — dùng cho combo tấn công</td></tr>
         </table>
 
@@ -202,11 +202,11 @@
         {{I:animbp-graph:0|Animation Blueprint graph — luồng chọn animation theo điều kiện}}
 
         <h3 class="sec">Control Rig &amp; retarget</h3>
-        <p><span class="term-en">Control Rig</span> là rigging node-graph trong engine: làm FK/IK, sửa pose, even procedural animation runtime (tay nắm dây). <span class="term-en">IK Retargeter</span> chuyển animation từ skeleton này sang skeleton khác (Mannequin → nhân vật của bạn) mà không cần làm lại.</p>
+        <p><span class="term-en">Control Rig</span> là rigging node-graph trong engine: làm FK/IK, sửa pose, thậm chí procedural animation runtime (tay nắm dây). <span class="term-en">IK Retargeter</span> chuyển animation từ skeleton này sang skeleton khác (Mannequin → nhân vật của bạn) mà không cần làm lại.</p>
         {{I:how-to-create-control-rigs-in-unreal-engine:0|Control Rig — chỉnh pose trực tiếp trong editor}}
         <div class="box tip">
           <span class="box-title">Bộ xương mẫu Epic</span>
-          Dùng <span class="term-en">UE5 Manny/Quinn Mannequin</span> skeleton làm chuẩn: hầu hết animation marketplace/Compose nhớ format này, retarget về sau dễ.
+          Dùng <span class="term-en">UE5 Manny/Quinn Mannequin</span> skeleton làm chuẩn: hầu hết animation marketplace theo format này, retarget về sau dễ.
         </div>
 
         <div class="exercise">
@@ -245,7 +245,7 @@
 
         <div class="exercise">
           <div class="ex-head">🏋️ Bài tập 14 <span class="lvl">Mid</span></div>
-          <p>Làm WBP_HUD: Text "Coins: X" + Progress Bar máu. Gắn vào character. Nâng cấp BP_Coin: khi nhặt, tăng biến CoinCount trên character và cập nhật HUD (qua bind hoặc event dispatcher). Bấm Escape hiện/hện menu pause đơn giản (Add to Viewport + Set Game Paused).</p>
+          <p>Làm WBP_HUD: Text "Coins: X" + Progress Bar máu. Gắn vào character. Nâng cấp BP_Coin: khi nhặt, tăng biến CoinCount trên character và cập nhật HUD (qua bind hoặc event dispatcher). Bấm Escape hiện/ẩn menu pause đơn giản (Add to Viewport + Set Game Paused).</p>
         </div>
         <p class="docs-ref">📚 Xem docs đầy đủ: {{L:umg-ui-designer-quick-start-guide-in-unreal-engine}} · {{L:designer-04-player-hud-in-unreal-engine}} · {{L:umg-viewmodel-for-unreal-engine}}</p>
       </section>
@@ -273,7 +273,7 @@
         {{I:cinematics-and-movie-making-in-unreal-engine:0|Cảnh cinematic dựng hoàn toàn trong Unreal Engine}}
         <div class="box info">
           <span class="box-title">Render phim ra video</span>
-          Sequencer → Render Movie Settings: exe Mage Movie Render Queue (MRQ) để render cao cấp nhiều pass (anti-aliasing cao, motion blur đúng). Xuất PNG sequence/AVI/MP4.
+          Sequencer → Render Movie Settings: dùng Movie Render Queue (MRQ) để render cao cấp nhiều pass (anti-aliasing cao, motion blur đúng). Xuất PNG sequence/AVI/MP4.
         </div>
 
         <div class="exercise">
@@ -289,7 +289,7 @@
         <p class="ch-sub">Từ project thành file .exe gửi bạn bè — và checklist trước khi ship.</p>
 
         <h3 class="sec">Packaging là gì?</h3>
-        <p><span class="term-en">Packaging</span> nén project: cook assets (chuyển sang format nền tảng đích), compile code, tạo executable. Vào <strong>Platforms → Windows → Package Project</strong>. Kết quả: thư mục <code class="ic">Windows/</code> chứa <code class="ic">MyGame.exe</code> + <code class="ic">MyGame/Pakks/*.pak</code>.</p>
+        <p><span class="term-en">Packaging</span> nén project: cook assets (chuyển sang format nền tảng đích), compile code, tạo executable. Vào <strong>Platforms → Windows → Package Project</strong>. Kết quả: thư mục <code class="ic">Windows/</code> chứa <code class="ic">MyGame.exe</code> + <code class="ic">MyGame/Paks/*.pak</code>.</p>
         {{I:packaging-your-project:0|Packaging settings và kết quả đầu ra}}
 
         <h3 class="sec">Build Configuration</h3>

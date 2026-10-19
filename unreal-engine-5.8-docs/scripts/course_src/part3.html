@@ -4,7 +4,7 @@
       <!-- ==================== CHƯƠNG 17 ==================== -->
       <section class="chapter" id="ch17">
         <h2 class="ch-title"><span class="num">Chương 17</span> Lập trình C++ trong UE</h2>
-        <p class="ch-sub">Nâng gameplay lên tốc độ C++ — và phối duet Blueprint/C++ đúng chuẩn Epic.</p>
+        <p class="ch-sub">Nâng gameplay lên tốc độ C++ — và phối hợp Blueprint/C++ đúng chuẩn Epic.</p>
 
         <h3 class="sec">Chuẩn bị công cụ</h3>
         <p>Cần <strong>Visual Studio 2022</strong> (Windows) + workload <em>Game development with C++</em>, hoặc <strong>Xcode</strong> (macOS), hoặc clang/gcc (Linux). Tạo project chọn template <strong>C++</strong>, hoặc thêm class C++ vào project Blueprint có sẵn (Tools → New C++ Class). Lần đầu compile sẽ chậm — UE generate project files.</p>
@@ -42,7 +42,7 @@
     <span class="k">virtual</span> <span class="k">void</span> <span class="f">Tick</span>(<span class="t">float</span> DeltaSeconds) <span class="k">override</span>;
 };</pre>
         </div>
-        <p>Ba macro靈 hồn của UE: <span class="term-en">UCLASS/USTRUCT</span> (đăng ký class), <span class="term-en">UPROPERTY</span> (expose biến ra editor/Blueprint/GC/save), <span class="term-en">UFUNCTION</span> (gọi từ Blueprint, RPC network). Không có macro → C++ thường, engine "không thấy".</p>
+        <p>Ba macro linh hồn của UE: <span class="term-en">UCLASS/USTRUCT</span> (đăng ký class), <span class="term-en">UPROPERTY</span> (expose biến ra editor/Blueprint/GC/save), <span class="term-en">UFUNCTION</span> (gọi từ Blueprint, RPC network). Không có macro → C++ thường, engine "không thấy".</p>
         {{I:coder-01-set-up-and-compile-a-cplusplus-project-in-unreal-engine:2|Các bước tạo Game Mode C++ class trong editor}}
 
         <h3 class="sec">C++ &amp; Blueprint — ai làm gì?</h3>
@@ -58,7 +58,7 @@
 
         <div class="exercise">
           <div class="ex-head">🏋️ Bài tập 17 <span class="lvl hard">Advanced</span></div>
-          <p>Viết APickup C++ hoàn chỉnh: UStaticMeshComponent (SetStaticMesh trong constructor bằng ConstructorHelpers), UBoxComponent overlap, hàm Collect() gọi DestroyActor +.Broadcast delegates. Kế thừa thành BP_CoinCpp, đặt vào level so tốc độ với BP_Coin thuần ở Ch4.</p>
+          <p>Viết APickup C++ hoàn chỉnh: UStaticMeshComponent (SetStaticMesh trong constructor bằng ConstructorHelpers), UBoxComponent overlap, hàm Collect() gọi DestroyActor và broadcast delegate. Kế thừa thành BP_CoinCpp, đặt vào level so tốc độ với BP_Coin thuần ở Ch4.</p>
         </div>
         <p class="docs-ref">📚 Xem docs đầy đủ: {{L:coder-01-set-up-and-compile-a-cplusplus-project-in-unreal-engine}} · {{L:programming-with-cplusplus-in-unreal-engine}} · {{L:cpp-and-blueprints-example}} · {{L:game-mode-and-game-state-in-unreal-engine}}</p>
       </section>
@@ -69,7 +69,7 @@
         <p class="ch-sub">Material Functions, Dynamic Material Instances, World Position Offset — material "biết suy nghĩ".</p>
 
         <h3 class="sec">Material Layers &amp; Functions</h3>
-        <p><span class="term-en">Material Function</span> là node tái sử dụng (ví dụ hàm "chi tiết ẩm ướt" dùng chung mọi material). <span class="term-en">Material Layers + Blends</span> (5.x) cho物 liệu ghép tầng như Photoshop: layer đá + blend rêu + layer ẩm.</p>
+        <p><span class="term-en">Material Function</span> là node tái sử dụng (ví dụ hàm "chi tiết ẩm ướt" dùng chung mọi material). <span class="term-en">Material Layers + Blends</span> (5.x) cho vật liệu ghép tầng như Photoshop: layer đá + blend rêu + layer ẩm.</p>
         {{I:artist-04-expanded-material-instances:0|Material động — tay nhân vật phát sáng emissive sau powerup}}
 
         <h3 class="sec">Dynamic Material Instance — đổi màu lúc runtime</h3>
@@ -86,7 +86,7 @@
         <p><span class="term-en">World Position Offset</span> dịch vertex trong shader: cỏ lay gió, cờ phấp phới, vật "thở". Kết hợp <code class="ic">Time</code> + <code class="ic">TextureCoordinate</code> + sin → hiệu ứng chất lượng với chi phí gần 0.</p>
         {{I:utility-material-expressions-in-unreal-engine:1|Utility expressions dùng cho WPO và hiệu ứng}}
         <div class="box info">
-          <span class="box-title">Materia同 Landscape/Spline/Decal?</span>
+          <span class="box-title">Material domain khác: Landscape/Spline/Decal?</span>
           Material domain còn có: <span class="term-en">UI</span>, <span class="term-en">Decal</span> (chi tiết dán tường), <span class="term-en">Post Process</span> (toàn màn hình — Ch23), <span class="term-en">Landscape</span> (Ch9), <span class="term-en">Volume</span> (fog/đám mây). Chuyển domain đổi bộ pin output hoàn toàn.
         </div>
 
@@ -117,13 +117,13 @@
         <h3 class="sec">Bật và cấu hình</h3>
         <p>Project mới: template có sẵn (Open World). Project cũ: File → Convert Project… hoặc tạo map mới tick <span class="term-en">Enable World Partition</span>. Vào <span class="term-en">World Settings → World Partition</span> chỉnh cell size + Loading Range. Mở panel <span class="term-en">World Partition</span> (Window → World Partition) xem lưới, kéo riêng ô nào để force-load khi chỉnh.</p>
         <div class="box tip">
-          <span class="box-title">Data Layer思路 pattern</span>
-          Vùng chợ: layer "Thương ngườiBanNgày" + layer "Đêm có quái". Kịch bản đổi layer bằng node <code class="ic">Set Data Layer State</code> (chỉ server trong multiplayer). Cẩn thận: actor thuộc nhiều layer chỉ hiện khi tất cả layer bật.
+          <span class="box-title">Data Layer pattern</span>
+          Vùng chợ: layer "ThươngNhânBanNgày" + layer "Đêm có quái". Kịch bản đổi layer bằng node <code class="ic">Set Data Layer State</code> (chỉ server trong multiplayer). Cẩn thận: actor thuộc nhiều layer chỉ hiện khi tất cả layer bật.
         </div>
 
         <div class="exercise">
           <div class="ex-head">🏋️ Bài tập 19 <span class="lvl hard">Advanced</span></div>
-          <p>Tạo map Open World mới 4×4 km, đặt 3 khu (làng/rừng/đỉnh núi) cách nhau &gt;1 km. Cấu hình 2 runtime grid: chính 256 m range 2 km; phụ (HLOD) range 10 km. Bay camera验证 vùng xa chỉ hiện HLOD (xem bằng <code class="ic">stat streaming</code>).</p>
+          <p>Tạo map Open World mới 4×4 km, đặt 3 khu (làng/rừng/đỉnh núi) cách nhau &gt;1 km. Cấu hình 2 runtime grid: chính 256 m range 2 km; phụ (HLOD) range 10 km. Bay camera kiểm chứng vùng xa chỉ hiện HLOD (xem bằng <code class="ic">stat streaming</code>).</p>
         </div>
         <p class="docs-ref">📚 Xem docs đầy đủ: {{L:world-partition-in-unreal-engine}} · {{L:world-partition---data-layers-in-unreal-engine}} · {{L:world-partition---hierarchical-level-of-detail-in-unreal-engine}}</p>
       </section>
@@ -134,12 +134,12 @@
         <p class="ch-sub">Nhập model hàng trăm triệu tam giác — engine tự lo mức chi tiết.</p>
 
         <h3 class="sec">Nanite làm được gì?</h3>
-        <p><span class="term-en">Nanite</span> là geometry ảo hóa: mesh gốc chia nhỏ cluster, GPU chỉ vẽ những cluster đủ nhỏ trên màn hình — ZoomOut hàng tỷ tri vẫn mượt. Nghệ 3D scan, ZBrush sculpt khủng nhập thẳng không cần decimate. Đổi lại: tốn disk/VRAM hơn, không hỗ trợ vài feature (skinning phiên bản cũ, vertex deformation phức tạp).</p>
+        <p><span class="term-en">Nanite</span> là geometry ảo hóa: mesh gốc chia nhỏ cluster, GPU chỉ vẽ những cluster đủ nhỏ trên màn hình — ZoomOut hàng tỷ tam giác vẫn mượt. Nghệ 3D scan, ZBrush sculpt khủng nhập thẳng không cần decimate. Đổi lại: tốn disk/VRAM hơn, không hỗ trợ vài feature (skinning phiên bản cũ, vertex deformation phức tạp).</p>
         {{I:nanite-virtualized-geometry-in-unreal-engine:0|So sánh tường Laptop: LOD truyền thống vs Nanite}}
         <table>
           <tr><th>Nên bật Nanite</th><th>Không nên</th></tr>
           <tr><td>Đá/tường/địa hình tách chi tiết cao</td><td>Mesh nhân vật dùng morph target cũ</td></tr>
-          <tr><td>Foliage tán cây (đ tán lá thật)</td><td>Mesh quá nhỏ/simple (cube, khuôn)</td></tr>
+          <tr><td>Foliage tán cây (tán lá thật)</td><td>Mesh quá nhỏ/simple (cube, khuôn)</td></tr>
           <tr><td>Prop scan 3D, kitbash</td><td>Translucent phức tạp cần custom material path</td></tr>
         </table>
 
@@ -266,7 +266,7 @@
         {{I:scalability-reference-for-unreal-engine:0|Bảng Scalability Reference — mỗi cấp chỉnh gì}}
         <div class="box tip">
           <span class="box-title">Checklist tối ưu nhanh</span>
-          (1) <code class="ic">stat unit</code> tìm cổ chai → (2) GPU nặng: giảm đèn Movable, kiểm tra Lumen quality, Nanite thay LOD → (3) Game thread: tắt Tick không cần (Event Tick = reo ruỗi), bỏ logic trong Tick chu kỳ → (4) Draw calls: merge mesh, instance foliage, HLOD vùng xa → (5) Test trên máy thật mục tiêu.
+          (1) <code class="ic">stat unit</code> tìm cổ chai → (2) GPU nặng: giảm đèn Movable, kiểm tra Lumen quality, Nanite thay LOD → (3) Game thread: tắt Tick không cần (Event Tick = gánh nặng), bỏ logic trong Tick chu kỳ → (4) Draw calls: merge mesh, instance foliage, HLOD vùng xa → (5) Test trên máy thật mục tiêu.
         </div>
 
         <div class="exercise">
@@ -302,7 +302,7 @@
         <h3 class="sec">Thói quen để lên advanced thật sự</h3>
         <ol>
           <li><strong>Đọc docs gốc</strong> — mirror này có 3.644 trang, dùng search box.</li>
-          <li><strong>Mỗi tuần một mechan ic</strong> nhỏ: grappling hook, inventory, save system — publish lên itch.io.</li>
+          <li><strong>Mỗi tuần một mechanic</strong> nhỏ: grappling hook, inventory, save system — publish lên itch.io.</li>
           <li><strong>Đo mọi thứ</strong> — Insights trước khi "tối ưu bằng cảm giác".</li>
           <li><strong>Đọc source</strong> — UE mở mã nguồn: tra Actor.cpp khi thắc mắc lifecycle.</li>
         </ol>

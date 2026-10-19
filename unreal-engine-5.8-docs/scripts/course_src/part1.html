@@ -234,14 +234,14 @@
         <p class="ch-sub">Unreal Engine là gì, vì sao chọn nó, và thiết lập môi trường làm việc đầu tiên.</p>
 
         <h3 class="sec">Unreal Engine là gì?</h3>
-        <p><strong>Unreal Engine (UE)</strong> là game engine mã nguồn mở (source-available) của Epic Games, được dùng từ game AAA (<em>Fortnite</em>, <em>Matrix Awakens</em>) tới phim ảo hóa, kiến trúc, ô tô. Phiên bản 5.8 tiếp tục hoàn thiện bộ ba công nghệ标志 của UE5: <span class="term-en">Nanite</span> (geometry ảo hóa), <span class="term-en">Lumen</span> (global illumination thời gian thực) và <span class="term-en">World Partition</span> (world khổng lồ).</p>
+        <p><strong>Unreal Engine (UE)</strong> là game engine mã nguồn mở (source-available) của Epic Games, được dùng từ game AAA (<em>Fortnite</em>, <em>Matrix Awakens</em>) tới phim ảo hóa, kiến trúc, ô tô. Phiên bản 5.8 tiếp tục hoàn thiện bộ ba công nghệ biểu tượng của UE5: <span class="term-en">Nanite</span> (geometry ảo hóa), <span class="term-en">Lumen</span> (global illumination thời gian thực) và <span class="term-en">World Partition</span> (world khổng lồ).</p>
         {{I:install-unreal-engine:0|Epic Games Launcher — nơi cài đặt Unreal Engine}}
         <table>
           <tr><th>Khái niệm</th><th>Giải thích</th></tr>
           <tr><td><span class="term-en">Epic Games Launcher</span></td><td>Ứng dụng quản lý: cài engine versions, project, Fab marketplace</td></tr>
           <tr><td><span class="term-en">Project</span></td><td>Một game/ứng dụng UE — chứa levels, assets, code, settings</td></tr>
           <tr><td><span class="term-en">Template</span></td><td>Dự án mẫu: First Person, Third Person, Top Down… có sẵn gameplay</td></tr>
-          <tr><td><span class="term-en">Blueprint vs C++</span></td><td>Hai cách lập trình: visual scripting (kéo thá) và code thật — dùng song song được</td></tr>
+          <tr><td><span class="term-en">Blueprint vs C++</span></td><td>Hai cách lập trình: visual scripting (kéo thả) và code thật — dùng song song được</td></tr>
         </table>
 
         <h3 class="sec">Cấu hình máy &amp; cài đặt</h3>
@@ -291,7 +291,7 @@
           <tr><td><span class="term-en">Content Browser</span></td><td>Quản lý mọi assets (mesh, texture, Blueprint…)</td><td>Ctrl+B mở asset trong Explorer</td></tr>
           <tr><td><span class="term-en">World Outliner</span></td><td>Danh sách Actor trong level theo cây</td><td>Ctrl+Shift+F tìm trong outliner</td></tr>
           <tr><td><span class="term-en">Details</span></td><td>Properties của Actor đang chọn</td><td>—</td></tr>
-          <tr><td><span class="term-en">Modes</span></td><th switch giữa các tool: Select, Landscape, Foliage, Mesh Paint…</td><td>Shift+1/2/3</td></tr>
+          <tr><td><span class="term-en">Modes</span></td><td>Switch giữa các tool: Select, Landscape, Foliage, Mesh Paint…</td><td>Shift+1/2/3</td></tr>
         </table>
 
         <h3 class="sec">Điều hướng Viewport như pro</h3>
@@ -344,7 +344,7 @@
 
         <h3 class="sec">Đặt object: Place Actors panel</h3>
         <p>Kéo thá từ <span class="term-en">Place Actors</span> (Window → Place Actors) vào viewport: cube, sphere, light, camera… Hoặc kéo mesh từ Content Browser thẳng vào level. <strong>End</strong> = snap xuống mặt dưới, <strong>End+Shift</strong> = snap lên mặt trên — tuyệt vời đặt prop lên sàn.</p>
-        {{I:level-designer-quick-start-in-unreal-engine:0|Place Actors — kéo thá object vào level}}
+        {{I:level-designer-quick-start-in-unreal-engine:0|Place Actors — kéo thả object vào level}}
 
         <h3 class="sec">Snap &amp; grid — độ chính xác của level designer</h3>
         <ul>
@@ -372,10 +372,10 @@
       <!-- ==================== CHƯƠNG 4 ==================== -->
       <section class="chapter" id="ch4">
         <h2 class="ch-title"><span class="num">Chương 4</span> Blueprint — Visual Scripting căn bản</h2>
-        <p class="ch-sub">Lập trình bằng kéo thá node — ngôn ngữ "ruột" của Unreal.</p>
+        <p class="ch-sub">Lập trình bằng kéo thả node — ngôn ngữ "ruột" của Unreal.</p>
 
         <h3 class="sec">Blueprint là gì?</h3>
-        <p><span class="term-en">Blueprint Visual Scripting</span> là hệ thống lập trình bằng node của UE: mỗi node là một hàm/sự kiện, dây nối = luồng thực thi (dây trắng) hoặc dữ liệu (dây màu). Blueprint chạy trên máy ảo riêng, đủ nhanh cho 90% gameplay logic, và <strong>dùng chung ting cài với C++</strong>.</p>
+        <p><span class="term-en">Blueprint Visual Scripting</span> là hệ thống lập trình bằng node của UE: mỗi node là một hàm/sự kiện, dây nối = luồng thực thi (dây trắng) hoặc dữ liệu (dây màu). Blueprint chạy trên máy ảo riêng, đủ nhanh cho 90% gameplay logic, và <strong>dùng chung tương thích với C++</strong>.</p>
         {{I:module-3-create-a-coin-pickup-with-modeling-tools-and-blueprints:0|Dựng mesh coin pickup bằng in-editor Modeling Tools}}
 
         <h3 class="sec">Các loại Blueprint</h3>
@@ -409,7 +409,7 @@
         <p><span class="term-en">Cast</span> là cách hỏi "Actor chạm vào tôi có phải là Player không?" — chỉ khi đúng mới chạy nhánh tiếp. Kéo mesh vào level làm vài bản — mỗi bản là một instance riêng.</p>
 
         <h3 class="sec">Variables &amp; phát triển logic</h3>
-        <p>Panel <span class="term-en">My Blueprint</span> → Variables → + : tạo <code class="ic">Score</code> (Integer), <code class="ic">bIsOpen</code> (Boolean), <code class="ic">TargetPoint</code> (Vector)… Tick <span class="term-en">Instance Editable</span> để chỉnh giá trị từng instance trong Details panel ngay trong level. Get/Set bằng kéo thá tên biến vào graph.</p>
+        <p>Panel <span class="term-en">My Blueprint</span> → Variables → + : tạo <code class="ic">Score</code> (Integer), <code class="ic">bIsOpen</code> (Boolean), <code class="ic">TargetPoint</code> (Vector)… Tick <span class="term-en">Instance Editable</span> để chỉnh giá trị từng instance trong Details panel ngay trong level. Get/Set bằng kéo thả tên biến vào graph.</p>
         {{I:bp-event-graph:0|Event Graph thật từ tutorial Epic — node, exec wire (trắng) và data wire (màu)}}
         <div class="box tip">
           <span class="box-title">Thói quen tốt ngay từ đầu</span>

@@ -63,6 +63,11 @@
   .edge { fill:none; stroke:#1b2942; stroke-width:1.6; opacity:.75; }
   .edge.avail { stroke:#33507a; stroke-width:2.2; opacity:1; }
   .edge.on { stroke-dasharray:7 5; animation:flow 1.2s linear infinite; }
+  /* cạnh xuyên ≥2 nhánh: mờ bớt cho đỡ rối; hover node liên quan thì sáng lên */
+  .edge.far { opacity:.28; }
+  .edge.far.avail { opacity:.55; }
+  .edge.hi { stroke:#2ae5b2; stroke-width:2.6; opacity:1; }
+  .edge-focus .edge:not(.hi) { opacity:.08; }
   @keyframes flow { to { stroke-dashoffset:-12; } }
 
   .node { position:absolute; width:var(--nw); border-radius:13px; background:linear-gradient(160deg,var(--panel),#0d1522);
@@ -341,16 +346,33 @@ const NODES = [
 
 // ================= ENGINE =================
 const NW = 168, NH = 82, GX = 46, GY = 136, PAD_X = 120, PAD_Y = 110;
+const ROW_H = NH + 26; // chiều cao 1 hàng trong tier band
 const laneOf = id => LANES.find(l => l.id === id);
 const nodeOf = id => NODES.find(n => n.id === id);
 let learned = new Set(JSON.parse(localStorage.getItem("ue-skill-tree") || "[]"));
 let selected = null;
 
+// Mỗi tier là một band cao vừa đủ cho số node tối đa mà một nhánh có trong tier đó:
+// nhánh có 2 node cùng tier → xếp 2 hàng dọc trong band, hết đè nhau.
+const TIERS = [...new Set(NODES.map(n=>n.t))].sort((a,b)=>a-b);
+const slotInTier = {}, bandRows = {}, bandTop = {};
+TIERS.forEach(t => {
+  const groups = {};
+  NODES.forEach(n => {
+    if (n.t !== t) return;
+    groups[n.lane] = (groups[n.lane] || 0) + 1;
+    slotInTier[n.id] = groups[n.lane] - 1;
+  });
+  bandRows[t] = Math.max(1, ...Object.values(groups));
+});
+{
+  let y = PAD_Y;
+  TIERS.forEach(t => { bandTop[t] = y; y += (bandRows[t]-1)*ROW_H + GY; });
+}
+
 function pos(n){
   const li = LANES.findIndex(l => l.id === n.lane);
-  const laneNodes = NODES.filter(x => x.lane === n.lane).sort((a,b)=>a.t-b.t);
-  const slot = laneNodes.indexOf(n);
-  return { x: PAD_X + li*(NW+GX), y: PAD_Y + (n.t-1)*GY + slot*4 };
+  return { x: PAD_X + li*(NW+GX), y: bandTop[n.t] + slotInTier[n.id]*ROW_H };
 }
 
 function build(){
@@ -383,7 +405,7 @@ function build(){
     const [lv, cls] = TIER_LV(t);
     const el = document.createElement("div");
     el.className = "tier-label";
-    el.style.top = (PAD_Y + (t-1)*GY + 18) + "px";
+    el.style.top = (bandTop[t] + 18) + "px";
     el.innerHTML = `<div class="t">Tier ${t}</div><span class="lv ${cls}">${lv}</span>`;
     stage.appendChild(el);
   });
@@ -410,7 +432,8 @@ function build(){
     eIdx++;
     const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
     path.setAttribute("d", d);
-    path.setAttribute("class", "edge");
+    const laneDist = Math.abs(LANES.findIndex(l=>l.id===p.lane) - LANES.findIndex(l=>l.id===n.lane));
+    path.setAttribute("class", "edge" + (laneDist >= 2 ? " far" : ""));
     path.dataset.from = r; path.dataset.to = n.id;
     svg.appendChild(path);
   }));
@@ -427,12 +450,22 @@ function build(){
     el.innerHTML = `<span class="cost">${n.cap ? "★" : "SP"}</span><div class="ic">${n.ic}</div>
       <div class="nm">${n.nm}</div><div class="en">${n.en}</div>`;
     el.onclick = () => select(n.id);
+    el.onmouseenter = () => focusEdges(n.id, true);
+    el.onmouseleave = () => focusEdges(n.id, false);
     stage.appendChild(el);
   });
   refresh();
 }
 
 function isAvail(n){ return (n.req||[]).every(r => learned.has(r)); }
+
+// Hover node: làm nổi các cạnh liên quan, mờ phần còn lại
+function focusEdges(id, on){
+  document.querySelector(".stage-wrap").classList.toggle("edge-focus", on);
+  document.querySelectorAll(".edge").forEach(e => {
+    e.classList.toggle("hi", on && (e.dataset.from === id || e.dataset.to === id));
+  });
+}
 
 function refresh(){
   let avail = 0;
