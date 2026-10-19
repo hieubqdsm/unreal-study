@@ -29,8 +29,8 @@ python serve.py            # mặc định 8766
 | Nội dung | URL |
 |---|---|
 | 🏠 Trang chủ | http://127.0.0.1:8766/ |
-| 🎓 Khóa học 24 chương (Starter → Advanced) | http://127.0.0.1:8766/khoa-hoc-unreal-engine.html |
-| 🌳 Skill tree RPG (38 node, lưu tiến độ localStorage) | http://127.0.0.1:8766/unreal-skill-tree.html |
+| 🎓 Khóa học 26 chương (Starter → Advanced) | http://127.0.0.1:8766/khoa-hoc-unreal-engine.html |
+| 🌳 Skill tree RPG (40 node, lưu tiến độ localStorage) | http://127.0.0.1:8766/unreal-skill-tree.html |
 | 📚 Bản đối chiếu MD (Mermaid + bảng + checklist) | `unreal-skill-tree.md` |
 | 📖 Docs mirror 3.644 trang | http://127.0.0.1:8766/unreal-engine-5.8-docs/site/ |
 
@@ -44,7 +44,7 @@ link đó tự chuyển sang dev.epicgames.com (nhờ script chèn cuối 2 file
 
 ```
 ├─ index.html                    # trang chủ (GitHub Pages root)
-├─ khoa-hoc-unreal-engine.html   # khóa học tiếng Việt, 24 chương + quiz + flashcards
+├─ khoa-hoc-unreal-engine.html   # khóa học tiếng Việt, 26 chương + quiz + flashcards
 ├─ unreal-skill-tree.html        # sơ đồ kỹ năng RPG: 7 nhánh × 8 tier, unlock theo tiền đề
 ├─ unreal-skill-tree.md          # bản MD để kiểm tra/enum; regen bằng scripts/export_skilltree_md.py
 ├─ images/                       # 63 ảnh minh họa của khóa học (lấy từ docs Epic)

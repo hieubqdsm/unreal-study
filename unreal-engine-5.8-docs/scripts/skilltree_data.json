@@ -1,1 +1,1029 @@
-{"nodes":[{"id":"install","lane":"core","t":1,"ic":"💾","nm":"Cài đặt & Project","en":"Install · Project Setup","d":"Cài Epic Games Launcher, engine 5.8, tạo project từ template (Third Person / First Person), hiểu Blueprint project vs C++ project.","terms":["Epic Games Launcher","Project","Template","Starter Content"],"refs":{"ch":1,"docs":["install-unreal-engine","module-1-install-ue-and-create-your-first-project"]}},{"id":"editor","lane":"core","t":2,"ic":"🧭","nm":"Điều hướng Editor","en":"Editor Interface","d":"Làm chủ Viewport (WASD + chuột phải), Content Browser, World Outliner, Details, Modes. Phân biệt Main Toolbar vs Viewport Toolbar.","terms":["Viewport","Content Browser","World Outliner","Details","Game View"],"refs":{"ch":2,"docs":["unreal-editor-interface","tools-and-editors-in-unreal-engine"]},"req":["install"]},{"id":"actor","lane":"core","t":3,"ic":"📦","nm":"Actor & Component","en":"Actor · Component · Transform","d":"Mọi thứ trong level là Actor; Actor ghép từ Component. Transform (Location/Rotation/Scale), Mobility Static vs Movable, Spawn/Destroy.","terms":["Actor","Component","Root Component","Transform","Mobility"],"refs":{"ch":3,"docs":["actors-in-unreal-engine","transforming-actors-in-unreal-engine"]},"req":["editor"]},{"id":"content","lane":"core","t":4,"ic":"📥","nm":"Content Pipeline","en":"Import · Interchange","d":"Nhập Static Mesh / Skeletal Mesh / Texture qua Interchange, chuẩn FBX/glTF (đơn vị cm, pivot, collision), naming convention SM_/SK_/T_/M_/MI_.","terms":["Static Mesh","Skeletal Mesh","Interchange","FBX","Naming Convention"],"refs":{"ch":5,"docs":["importing-assets-using-interchange-in-unreal-engine","importing-static-meshes-in-unreal-engine"]},"req":["actor"]},{"id":"blocking","lane":"world","t":2,"ic":"🧱","nm":"Dựng Level khối","en":"Blocking · Player Start","d":"Dựng phòng/khu chơi bằng cube + snap grid, đặt Player Start, đèn tạm, tư duy 4 lớp: geometry → lighting → gameplay → art pass.","terms":["Grid Snapping","Player Start","Blocking","Layered Level Design"],"refs":{"ch":3,"docs":["level-designer-quick-start-in-unreal-engine"]},"req":["editor"]},{"id":"landscape","lane":"world","t":3,"ic":"⛰","nm":"Landscape","en":"Landscape Sculpt & Paint","d":"Tạo địa hình bằng cọ Sculpt/Erosion, tô layer vật liệu (cỏ/đá/tuyết) bằng LandscapeLayerBlend, quản lý component & LOD.","terms":["Landscape","Sculpt","Layer Blend","Heightmap"],"refs":{"ch":9,"docs":["landscape-quick-start-guide-in-unreal-engine","landscape-materials-in-unreal-engine"]},"req":["blocking"]},{"id":"foliage","lane":"world","t":4,"ic":"🌲","nm":"Foliage","en":"Foliage Painting","d":"Rắc cây cỏ bằng Foliage mode, chỉnh mật độ, procedural foliage theo độ dốc/tầng đất, wind cho tán lá qua material WPO.","terms":["Foliage","Procedural Foliage","Paint Tool"],"refs":{"ch":9,"docs":["foliage-mode-in-unreal-engine"]},"req":["landscape"]},{"id":"wpartition","lane":"world","t":5,"ic":"🗺","nm":"World Partition","en":"World Partition · Data Layers","d":"Map lớn tự streaming theo cell, One File Per Actor cho teamwork, Data Layers bật/tắt theo ngữ cảnh, HLOD gom mesh vùng xa.","terms":["World Partition","Data Layer","HLOD","OFPA","Streaming"],"refs":{"ch":19,"docs":["world-partition-in-unreal-engine","world-partition---data-layers-in-unreal-engine"]},"req":["foliage","content"]},{"id":"pcg","lane":"world","t":6,"ic":"🌳","nm":"PCG Framework","en":"Procedural Content Generation","d":"Sinh rừng/đá/thành phố bằng node graph: Surface Sampler → Filter → Noise → Mesh Spawner. PCG tự chia theo World Partition cell.","terms":["PCG","Surface Sampler","Attribute Noise","Static Mesh Spawner"],"refs":{"ch":21,"docs":["procedural-content-generation-overview","pcg-editor-mode-in-unreal-engine"]},"req":["wpartition"]},{"id":"cap-ow","lane":"world","t":7,"ic":"🏆","nm":"CAPSTONE: Open World","en":"Open World Slice","d":"Dựng vertical slice open world 2×2 km: landscape + foliage + PCG + World Partition + HLOD — chạy ổn 60 FPS trên máy trung bình.","terms":["Vertical Slice","HLOD","Performance Budget"],"refs":{"ch":24,"docs":["city-sample-pcg-for-unreal-engine"]},"req":["pcg"],"cap":1},{"id":"bpb","lane":"logic","t":2,"ic":"🔵","nm":"Blueprint căn bản","en":"Event · Node · Wire","d":"Event Graph, exec wire (trắng) vs data wire (màu), Event BeginPlay/Tick/Overlap, Cast, Print String — làm đồng xu tự xoay nhặt được.","terms":["Event Graph","Exec Pin","Cast","Blueprint Class"],"refs":{"ch":4,"docs":["blueprints-visual-scripting-in-unreal-engine","module-3-create-a-coin-pickup-with-modeling-tools-and-blueprints"]},"req":["editor"]},{"id":"bpvar","lane":"logic","t":3,"ic":"🔢","nm":"Variables & Branch","en":"Variables · Flow Control","d":"Biến (Instance Editable), Branch/Sequence/ForEach, timeline, giao tiếp giữa Blueprint qua Cast & Event Dispatcher.","terms":["Variable","Branch","Event Dispatcher","Timeline"],"refs":{"ch":4,"docs":["blueprint-variables-in-unreal-engine","blueprint-communications-in-unreal-engine"]},"req":["bpb"]},{"id":"collision","lane":"logic","t":4,"ic":"💥","nm":"Collision & Overlap","en":"Collision Presets","d":"Collision Presets, Object/Trace Channels, Hit vs Overlap events, physics runtime (Simulate, Impulse, Launch Character).","terms":["BlockAll","Overlap","Trace Channel","Simulate Physics"],"refs":{"ch":10,"docs":["collision-in-unreal-engine","physics-in-unreal-engine"]},"req":["bpvar"]},{"id":"bpfunc","lane":"logic","t":5,"ic":"🧩","nm":"Functions & Interfaces","en":"Functions · Interfaces","d":"Tổ chức code: Functions, Macro Libraries, Blueprint Interfaces, Blueprint Function Libraries — hết cảnh copy chuỗi node.","terms":["Function","Macro","Interface","Function Library"],"refs":{"ch":4,"docs":["blueprint-function-libraries-in-unreal-engine","implementing-blueprint-interfaces-in-unreal-engine"]},"req":["bpvar"]},{"id":"cpp","lane":"logic","t":6,"ic":"⌨️","nm":"C++ nhập môn","en":"C++ Basics · UPROPERTY","d":"Visual Studio workflow, UCLASS/UPROPERTY/UFUNCTION, expose C++ cho Blueprint, Live Coding. Quy tắc: hệ thống nặng C++, designer chỉnh Blueprint.","terms":["UCLASS","UPROPERTY","UFUNCTION","Live Coding"],"refs":{"ch":17,"docs":["coder-01-set-up-and-compile-a-cplusplus-project-in-unreal-engine","exposing-cplusplus-to-blueprints-visual-scripting-in-unreal-engine"]},"req":["bpfunc"]},{"id":"framework","lane":"logic","t":7,"ic":"🏗","nm":"Gameplay Framework","en":"GameMode · Pawn · Controller","d":"Bộ khung: GameMode → PlayerController → Pawn/Character → ActorComponent. Custom Character movement, Enhanced Input.","terms":["GameMode","PlayerController","Pawn","Character","Enhanced Input"],"refs":{"ch":17,"docs":["game-mode-and-game-state-in-unreal-engine","pawn-in-unreal-engine"]},"req":["cpp"]},{"id":"network","lane":"logic","t":8,"ic":"🌐","nm":"Multiplayer","en":"Replication · RPC","d":"Server-authoritative model, biến Replicated + RepNotify, Server/Client RPC, Network Emulation test ngay trong editor.","terms":["Authority","Replication","RepNotify","RPC","Relevancy"],"refs":{"ch":22,"docs":["basics-of-network-multiplayer-in-unreal-engine","multiplayer-programming-quick-start-for-unreal-engine"]},"req":["framework"]},{"id":"mat","lane":"visual","t":2,"ic":"🎨","nm":"Material căn bản","en":"Base Color · Metallic · Roughness","d":"Material là shader graph: Base Color / Metallic / Roughness / Normal. Node cơ bản, Apply & compile, preview.","terms":["Material","PBR","Roughness","Normal Map"],"refs":{"ch":6,"docs":["artist-03-create-materials-and-material-instances","physically-based-materials-in-unreal-engine"]},"req":["content"]},{"id":"matinst","lane":"visual","t":3,"ic":"🎚","nm":"Material Instances","en":"Parameters · Instances","d":"Convert to Parameter + Material Instance: đổi màu/roughness không recompile. Dynamic Material Instance đổi runtime (flash sát thương, tint).","terms":["Parameter","Material Instance","MID"],"refs":{"ch":6,"docs":["artist-03-create-materials-and-material-instances","instanced-materials-in-unreal-engine"]},"req":["mat"]},{"id":"light","lane":"visual","t":3,"ic":"💡","nm":"Lighting cơ bản","en":"Direct · Sky · Fog","d":"Directional Light, Sky Light, Height Fog, Point/Spot; intensity vật lý, auto exposure, đèn Movable vs Static.","terms":["Directional Light","Sky Light","Height Fog","Auto Exposure"],"refs":{"ch":7,"docs":["lighting-the-environment-in-unreal-engine","features-and-properties-of-lights-in-unreal-engine"]},"req":["blocking"]},{"id":"lumen","lane":"visual","t":4,"ic":"🔆","nm":"Lumen GI","en":"Global Illumination","d":"GI + reflection thời gian thực, Surface Cache, cấu hình qua Post Process Volume, final gather quality, software ray tracing cho máy yếu.","terms":["Lumen","Surface Cache","Final Gather"],"refs":{"ch":8,"docs":["lumen-global-illumination-and-reflections-in-unreal-engine","local-fog-volumes-in-unreal-engine"]},"req":["light"]},{"id":"post","lane":"visual","t":5,"ic":"🎞","nm":"Post Process","en":"Exposure · Color Grading","d":"Post Process Volume: khóa exposure, bloom, DOF, color grading, LUT — 'đạo diễn' cảm giác hình ảnh cuối cùng.","terms":["Post Process Volume","Bloom","Depth of Field","LUT"],"refs":{"ch":8,"docs":["post-process-effects-in-unreal-engine"]},"req":["lumen"]},{"id":"nanite","lane":"visual","t":5,"ic":"🗿","nm":"Nanite","en":"Virtualized Geometry","d":"Mesh triệu polygon chạy mượt nhờ cluster đa cấp; biết khi nào bật (đá/foliage/scan) và khi nào không (mesh nhỏ, morph cũ).","terms":["Nanite","Cluster","Nanite Foliage","Fallback Mesh"],"refs":{"ch":20,"docs":["nanite-virtualized-geometry-in-unreal-engine","nanite-technical-details"]},"req":["content"]},{"id":"cap-look","lane":"visual","t":7,"ic":"🏆","nm":"CAPSTONE: Look Dev","en":"Art Direction Pass","d":"Một scene 'postcard': Lumen + Nanite + post process + local fog volumes đúng mood — benchmark bằng stat gpu trước/sau.","terms":["Look Development","Mood","stat gpu"],"refs":{"ch":8,"docs":["07-adjust-environment-lighting-features"]},"req":["post","nanite"],"cap":1},{"id":"niagara","lane":"fx","t":3,"ic":"✨","nm":"Niagara VFX","en":"System · Emitter · Module","d":"Particle từ template (Fountain/Fire/Smoke), hiểu stack Emitter Spawn/Update → Particle Spawn/Update, đổi renderer Sprite/Mesh.","terms":["Niagara","Emitter","Module","Renderer"],"refs":{"ch":12,"docs":["overview-of-niagara-effects-for-unreal-engine","quick-start-for-niagara-effects-in-unreal-engine"]},"req":["bpvar"]},{"id":"niagara2","lane":"fx","t":5,"ic":"🌀","nm":"Niagara nâng cao","en":"GPU Sim · Events","d":"GPU sim cho hàng trăm nghìn hạt, collision module, Niagara Events chuyển từ gameplay sang, debug bằng Scratch Pad.","terms":["GPU Sim","Simulation Target","Niagara Events"],"refs":{"ch":12,"docs":["debugging-and-optimization-in-niagara-effects-for-unreal-engine"]},"req":["niagara"]},{"id":"meta","lane":"fx","t":4,"ic":"🔊","nm":"MetaSounds","en":"Sound Sources","d":"Graph DSP cho âm thanh: pitch random, crossfade, parameter runtime. Play Sound at Location / Attached, Sound Class & Mix.","terms":["MetaSound","Sound Cue","Sound Class","Audio Component"],"refs":{"ch":11,"docs":["metasounds-in-unreal-engine","metasound-templates-quick-start-in-unreal-engine"]},"req":["bpvar"]},{"id":"sounddesign","lane":"fx","t":6,"ic":"🎼","nm":"Sound Design","en":"Mix · Ambient","d":"Phối âm cảnh: ambient beds, reverb zone, attenuation, ducking nhạc khi dialogue — tầng âm 'vô hình' nhưng bán cảm xúc.","terms":["Attenuation","Reverb","Sound Mix","Ambient"],"refs":{"ch":11,"docs":["artist-09-adding-sounds-to-fire-traps-artist-track-unreal-engine","audio-volume-actor-in-unreal-engine"]},"req":["meta"]},{"id":"skel","lane":"motion","t":4,"ic":"🦴","nm":"Skeletal Mesh","en":"Skeleton · Physics Asset","d":"Pipeline animation: Skeleton chia sẻ, Physics Asset cho cloth/ragdoll, retarget animation giữa các skeleton (IK Rig).","terms":["Skeletal Mesh","Skeleton","Physics Asset","Retarget"],"refs":{"ch":13,"docs":["skeletal-mesh-assets-in-unreal-engine","animation-retargeting-in-unreal-engine"]},"req":["content"]},{"id":"animbp","lane":"motion","t":5,"ic":"🏃","nm":"Animation Blueprint","en":"Anim Graph · State Machine","d":"Event Graph tính biến (Speed, IsInAir) → State Machine chọn pose; Blend Space trộn idle/walk/run mượt.","terms":["Animation Blueprint","State Machine","Blend Space","Anim Montage"],"refs":{"ch":13,"docs":["animation-blueprints-in-unreal-engine"]},"req":["skel"]},{"id":"controlrig","lane":"motion","t":6,"ic":"🕹","nm":"Control Rig","en":"Procedural Animation","d":"Rigging trong engine: FK/IK, sửa pose, procedural runtime (tay nắm vật), full-body IK.","terms":["Control Rig","IK","FK"],"refs":{"ch":13,"docs":["how-to-create-control-rigs-in-unreal-engine"]},"req":["animbp"]},{"id":"sequencer","lane":"motion","t":5,"ic":"🎬","nm":"Sequencer","en":"Cinematics Timeline","d":"Level Sequence: Camera Cuts, transform track, keyframe, Cine Camera, Track Event gọi Blueprint lúc chiếu.","terms":["Sequencer","Level Sequence","Camera Cuts","Cine Camera"],"refs":{"ch":15,"docs":["cinematics-and-movie-making-in-unreal-engine","sequencer-cinematic-editor-unreal-engine"]},"req":["editor"]},{"id":"mrq","lane":"motion","t":7,"ic":"🎥","nm":"Movie Render Queue","en":"MRQ Render","d":"Render cinematic ra video cao cấp: multi-pass AA, motion blur đúng, xuất PNG sequence/MP4.","terms":["Movie Render Queue","Anti-aliasing Pass"],"refs":{"ch":15,"docs":["rendering-out-cinematic-movies-in-unreal-engine"]},"req":["sequencer"]},{"id":"umg","lane":"prod","t":3,"ic":"🖥","nm":"UMG / HUD","en":"Widget Blueprint","d":"Widget Blueprint, Canvas + Anchors co giãn, bind dữ liệu, Add to Viewport, menu pause. Viewmodel (MVVM) cho dự án lớn.","terms":["UMG","Widget","Anchor","Viewmodel"],"refs":{"ch":14,"docs":["umg-ui-designer-quick-start-guide-in-unreal-engine","designer-04-player-hud-in-unreal-engine"]},"req":["bpb"]},{"id":"package","lane":"prod","t":5,"ic":"📦","nm":"Packaging","en":"Cook · Build · Ship","d":"Đóng gói Windows: build configurations, pre-flight checklist (redirectors, default map, test exe trên máy sạch).","terms":["Packaging","Shipping","Development Build","Pak"],"refs":{"ch":16,"docs":["packaging-your-project","build-configurations-reference-for-unreal-engine"]},"req":["bpfunc","umg"]},{"id":"insights","lane":"prod","t":6,"ic":"📊","nm":"Profiling","en":"Unreal Insights · stat","d":"stat unit/gpu tìm thread cổ chai, Unreal Insights timeline trace từng hàm, perf map trước khi tối ưu — không đo bằng cảm giác.","terms":["stat unit","stat gpu","Game Thread","Trace"],"refs":{"ch":23,"docs":["unreal-insights-in-unreal-engine"]},"req":["package"]},{"id":"scalability","lane":"prod","t":7,"ic":"🎚","nm":"Scalability","en":"Auto Quality","d":"Bộ preset Low→Epic cho một build chạy nhiều cấu hình; tự scale theo máy, cân nhắc mobile (sg. commands).","terms":["Scalability Settings","sg. commands"],"refs":{"ch":23,"docs":["scalability-reference-for-unreal-engine"]},"req":["insights"]},{"id":"cap-ship","lane":"prod","t":8,"ic":"🏆","nm":"CAPSTONE: Ship It","en":"Vertical Slice Release","d":"Ghép tất cả: gameplay + UI + audio + VFX + lighting, tối ưu theo insights, package Shipping và phát hành (itch.io cho bạn bè).","terms":["Vertical Slice","Shipping Build","Release"],"refs":{"ch":24,"docs":["packaging-and-shipping-in-unreal-engine"]},"req":["scalability","animbp","meta"],"cap":1}],"lanes":[{"id":"core","name":"Nền tảng","ico":"🏛"},{"id":"world","name":"Thế giới","ico":"🌍"},{"id":"logic","name":"Logic","ico":"⚙️"},{"id":"visual","name":"Hình ảnh","ico":"🎨"},{"id":"fx","name":"Hiệu ứng","ico":"✨"},{"id":"motion","name":"Chuyển động","ico":"🎭"},{"id":"prod","name":"Sản xuất","ico":"🚀"}]}
+{
+  "nodes": [
+    {
+      "id": "install",
+      "lane": "core",
+      "t": 1,
+      "ic": "💾",
+      "nm": "Cài đặt & Project",
+      "en": "Install · Project Setup",
+      "d": "Cài Epic Games Launcher, engine 5.8, tạo project từ template (Third Person / First Person), hiểu Blueprint project vs C++ project.",
+      "terms": [
+        "Epic Games Launcher",
+        "Project",
+        "Template",
+        "Starter Content"
+      ],
+      "refs": {
+        "ch": 1,
+        "docs": [
+          "install-unreal-engine",
+          "module-1-install-ue-and-create-your-first-project"
+        ]
+      }
+    },
+    {
+      "id": "editor",
+      "lane": "core",
+      "t": 2,
+      "ic": "🧭",
+      "nm": "Điều hướng Editor",
+      "en": "Editor Interface",
+      "d": "Làm chủ Viewport (WASD + chuột phải), Content Browser, World Outliner, Details, Modes. Phân biệt Main Toolbar vs Viewport Toolbar.",
+      "terms": [
+        "Viewport",
+        "Content Browser",
+        "World Outliner",
+        "Details",
+        "Game View"
+      ],
+      "refs": {
+        "ch": 2,
+        "docs": [
+          "unreal-editor-interface",
+          "tools-and-editors-in-unreal-engine"
+        ]
+      },
+      "req": [
+        "install"
+      ]
+    },
+    {
+      "id": "actor",
+      "lane": "core",
+      "t": 3,
+      "ic": "📦",
+      "nm": "Actor & Component",
+      "en": "Actor · Component · Transform",
+      "d": "Mọi thứ trong level là Actor; Actor ghép từ Component. Transform (Location/Rotation/Scale), Mobility Static vs Movable, Spawn/Destroy.",
+      "terms": [
+        "Actor",
+        "Component",
+        "Root Component",
+        "Transform",
+        "Mobility"
+      ],
+      "refs": {
+        "ch": 3,
+        "docs": [
+          "actors-in-unreal-engine",
+          "transforming-actors-in-unreal-engine"
+        ]
+      },
+      "req": [
+        "editor"
+      ]
+    },
+    {
+      "id": "input",
+      "lane": "core",
+      "t": 3,
+      "ic": "🎮",
+      "nm": "Enhanced Input",
+      "en": "IA · IMC · SaveGame",
+      "d": "Input Action (Value Type, Modifier, Trigger), Input Mapping Context, Add Mapping Context. Lưu/đọc tiến trình: SaveGame + SaveGameToSlot/LoadGameFromSlot.",
+      "terms": [
+        "Input Action",
+        "Input Mapping Context",
+        "Trigger",
+        "SaveGameToSlot"
+      ],
+      "refs": {
+        "ch": 8,
+        "docs": [
+          "enhanced-input-in-unreal-engine",
+          "saving-and-loading-your-game-in-unreal-engine"
+        ]
+      },
+      "req": [
+        "bpb"
+      ]
+    },
+    {
+      "id": "content",
+      "lane": "core",
+      "t": 4,
+      "ic": "📥",
+      "nm": "Content Pipeline",
+      "en": "Import · Interchange",
+      "d": "Nhập Static Mesh / Skeletal Mesh / Texture qua Interchange, chuẩn FBX/glTF (đơn vị cm, pivot, collision), naming convention SM_/SK_/T_/M_/MI_.",
+      "terms": [
+        "Static Mesh",
+        "Skeletal Mesh",
+        "Interchange",
+        "FBX",
+        "Naming Convention"
+      ],
+      "refs": {
+        "ch": 5,
+        "docs": [
+          "importing-assets-using-interchange-in-unreal-engine",
+          "importing-static-meshes-in-unreal-engine"
+        ]
+      },
+      "req": [
+        "actor"
+      ]
+    },
+    {
+      "id": "blocking",
+      "lane": "world",
+      "t": 2,
+      "ic": "🧱",
+      "nm": "Dựng Level khối",
+      "en": "Blocking · Player Start",
+      "d": "Dựng phòng/khu chơi bằng cube + snap grid, đặt Player Start, đèn tạm, tư duy 4 lớp: geometry → lighting → gameplay → art pass.",
+      "terms": [
+        "Grid Snapping",
+        "Player Start",
+        "Blocking",
+        "Layered Level Design"
+      ],
+      "refs": {
+        "ch": 3,
+        "docs": [
+          "level-designer-quick-start-in-unreal-engine"
+        ]
+      },
+      "req": [
+        "editor"
+      ]
+    },
+    {
+      "id": "landscape",
+      "lane": "world",
+      "t": 3,
+      "ic": "⛰",
+      "nm": "Landscape",
+      "en": "Landscape Sculpt & Paint",
+      "d": "Tạo địa hình bằng cọ Sculpt/Erosion, tô layer vật liệu (cỏ/đá/tuyết) bằng LandscapeLayerBlend, quản lý component & LOD.",
+      "terms": [
+        "Landscape",
+        "Sculpt",
+        "Layer Blend",
+        "Heightmap"
+      ],
+      "refs": {
+        "ch": 10,
+        "docs": [
+          "landscape-quick-start-guide-in-unreal-engine",
+          "landscape-materials-in-unreal-engine"
+        ]
+      },
+      "req": [
+        "blocking"
+      ]
+    },
+    {
+      "id": "foliage",
+      "lane": "world",
+      "t": 4,
+      "ic": "🌲",
+      "nm": "Foliage",
+      "en": "Foliage Painting",
+      "d": "Rắc cây cỏ bằng Foliage mode, chỉnh mật độ, procedural foliage theo độ dốc/tầng đất, wind cho tán lá qua material WPO.",
+      "terms": [
+        "Foliage",
+        "Procedural Foliage",
+        "Paint Tool"
+      ],
+      "refs": {
+        "ch": 10,
+        "docs": [
+          "foliage-mode-in-unreal-engine"
+        ]
+      },
+      "req": [
+        "landscape"
+      ]
+    },
+    {
+      "id": "wpartition",
+      "lane": "world",
+      "t": 5,
+      "ic": "🗺",
+      "nm": "World Partition",
+      "en": "World Partition · Data Layers",
+      "d": "Map lớn tự streaming theo cell, One File Per Actor cho teamwork, Data Layers bật/tắt theo ngữ cảnh, HLOD gom mesh vùng xa.",
+      "terms": [
+        "World Partition",
+        "Data Layer",
+        "HLOD",
+        "OFPA",
+        "Streaming"
+      ],
+      "refs": {
+        "ch": 21,
+        "docs": [
+          "world-partition-in-unreal-engine",
+          "world-partition---data-layers-in-unreal-engine"
+        ]
+      },
+      "req": [
+        "foliage",
+        "content"
+      ]
+    },
+    {
+      "id": "pcg",
+      "lane": "world",
+      "t": 6,
+      "ic": "🌳",
+      "nm": "PCG Framework",
+      "en": "Procedural Content Generation",
+      "d": "Sinh rừng/đá/thành phố bằng node graph: Surface Sampler → Filter → Noise → Mesh Spawner. PCG tự chia theo World Partition cell.",
+      "terms": [
+        "PCG",
+        "Surface Sampler",
+        "Attribute Noise",
+        "Static Mesh Spawner"
+      ],
+      "refs": {
+        "ch": 23,
+        "docs": [
+          "procedural-content-generation-overview",
+          "pcg-editor-mode-in-unreal-engine"
+        ]
+      },
+      "req": [
+        "wpartition"
+      ]
+    },
+    {
+      "id": "cap-ow",
+      "lane": "world",
+      "t": 7,
+      "ic": "🏆",
+      "nm": "CAPSTONE: Open World",
+      "en": "Open World Slice",
+      "d": "Dựng vertical slice open world 2×2 km: landscape + foliage + PCG + World Partition + HLOD — chạy ổn 60 FPS trên máy trung bình.",
+      "terms": [
+        "Vertical Slice",
+        "HLOD",
+        "Performance Budget"
+      ],
+      "refs": {
+        "ch": 26,
+        "docs": [
+          "city-sample-pcg-for-unreal-engine"
+        ]
+      },
+      "req": [
+        "pcg"
+      ],
+      "cap": 1
+    },
+    {
+      "id": "bpb",
+      "lane": "logic",
+      "t": 2,
+      "ic": "🔵",
+      "nm": "Blueprint căn bản",
+      "en": "Event · Node · Wire",
+      "d": "Event Graph, exec wire (trắng) vs data wire (màu), Event BeginPlay/Tick/Overlap, Cast, Print String — làm đồng xu tự xoay nhặt được.",
+      "terms": [
+        "Event Graph",
+        "Exec Pin",
+        "Cast",
+        "Blueprint Class"
+      ],
+      "refs": {
+        "ch": 4,
+        "docs": [
+          "blueprints-visual-scripting-in-unreal-engine",
+          "module-3-create-a-coin-pickup-with-modeling-tools-and-blueprints"
+        ]
+      },
+      "req": [
+        "editor"
+      ]
+    },
+    {
+      "id": "bpvar",
+      "lane": "logic",
+      "t": 3,
+      "ic": "🔢",
+      "nm": "Variables & Branch",
+      "en": "Variables · Flow Control",
+      "d": "Biến (Instance Editable), Branch/Sequence/ForEach, timeline, giao tiếp giữa Blueprint qua Cast & Event Dispatcher.",
+      "terms": [
+        "Variable",
+        "Branch",
+        "Event Dispatcher",
+        "Timeline"
+      ],
+      "refs": {
+        "ch": 4,
+        "docs": [
+          "blueprint-variables-in-unreal-engine",
+          "blueprint-communications-in-unreal-engine"
+        ]
+      },
+      "req": [
+        "bpb"
+      ]
+    },
+    {
+      "id": "collision",
+      "lane": "logic",
+      "t": 4,
+      "ic": "💥",
+      "nm": "Collision & Overlap",
+      "en": "Collision Presets",
+      "d": "Collision Presets, Object/Trace Channels, Hit vs Overlap events, physics runtime (Simulate, Impulse, Launch Character).",
+      "terms": [
+        "BlockAll",
+        "Overlap",
+        "Trace Channel",
+        "Simulate Physics"
+      ],
+      "refs": {
+        "ch": 11,
+        "docs": [
+          "collision-in-unreal-engine",
+          "physics-in-unreal-engine"
+        ]
+      },
+      "req": [
+        "bpvar"
+      ]
+    },
+    {
+      "id": "ai",
+      "lane": "logic",
+      "t": 5,
+      "ic": "🤖",
+      "nm": "AI cơ bản",
+      "en": "NavMesh · Perception · BT",
+      "d": "NavMeshBounds Volume + AI MoveTo, AIPerception (Sight/Hearing), Behavior Tree: Selector/Sequence → Task đọc ghi Blackboard.",
+      "terms": [
+        "NavMesh",
+        "AI Perception",
+        "Behavior Tree",
+        "Blackboard"
+      ],
+      "refs": {
+        "ch": 12,
+        "docs": [
+          "behavior-trees-in-unreal-engine",
+          "navigation-system-in-unreal-engine",
+          "ai-perception-in-unreal-engine"
+        ]
+      },
+      "req": [
+        "collision"
+      ]
+    },
+    {
+      "id": "bpfunc",
+      "lane": "logic",
+      "t": 5,
+      "ic": "🧩",
+      "nm": "Functions & Interfaces",
+      "en": "Functions · Interfaces",
+      "d": "Tổ chức code: Functions, Macro Libraries, Blueprint Interfaces, Blueprint Function Libraries — hết cảnh copy chuỗi node.",
+      "terms": [
+        "Function",
+        "Macro",
+        "Interface",
+        "Function Library"
+      ],
+      "refs": {
+        "ch": 4,
+        "docs": [
+          "blueprint-function-libraries-in-unreal-engine",
+          "implementing-blueprint-interfaces-in-unreal-engine"
+        ]
+      },
+      "req": [
+        "bpvar"
+      ]
+    },
+    {
+      "id": "cpp",
+      "lane": "logic",
+      "t": 6,
+      "ic": "⌨️",
+      "nm": "C++ nhập môn",
+      "en": "C++ Basics · UPROPERTY",
+      "d": "Visual Studio workflow, UCLASS/UPROPERTY/UFUNCTION, expose C++ cho Blueprint, Live Coding. Quy tắc: hệ thống nặng C++, designer chỉnh Blueprint.",
+      "terms": [
+        "UCLASS",
+        "UPROPERTY",
+        "UFUNCTION",
+        "Live Coding"
+      ],
+      "refs": {
+        "ch": 19,
+        "docs": [
+          "coder-01-set-up-and-compile-a-cplusplus-project-in-unreal-engine",
+          "exposing-cplusplus-to-blueprints-visual-scripting-in-unreal-engine"
+        ]
+      },
+      "req": [
+        "bpfunc"
+      ]
+    },
+    {
+      "id": "framework",
+      "lane": "logic",
+      "t": 7,
+      "ic": "🏗",
+      "nm": "Gameplay Framework",
+      "en": "GameMode · Pawn · Controller",
+      "d": "Bộ khung: GameMode → PlayerController → Pawn/Character → ActorComponent. Custom Character movement, Enhanced Input.",
+      "terms": [
+        "GameMode",
+        "PlayerController",
+        "Pawn",
+        "Character",
+        "Enhanced Input"
+      ],
+      "refs": {
+        "ch": 19,
+        "docs": [
+          "game-mode-and-game-state-in-unreal-engine",
+          "pawn-in-unreal-engine"
+        ]
+      },
+      "req": [
+        "cpp"
+      ]
+    },
+    {
+      "id": "network",
+      "lane": "logic",
+      "t": 8,
+      "ic": "🌐",
+      "nm": "Multiplayer",
+      "en": "Replication · RPC",
+      "d": "Server-authoritative model, biến Replicated + RepNotify, Server/Client RPC, Network Emulation test ngay trong editor.",
+      "terms": [
+        "Authority",
+        "Replication",
+        "RepNotify",
+        "RPC",
+        "Relevancy"
+      ],
+      "refs": {
+        "ch": 24,
+        "docs": [
+          "basics-of-network-multiplayer-in-unreal-engine",
+          "multiplayer-programming-quick-start-for-unreal-engine"
+        ]
+      },
+      "req": [
+        "framework"
+      ]
+    },
+    {
+      "id": "mat",
+      "lane": "visual",
+      "t": 2,
+      "ic": "🎨",
+      "nm": "Material căn bản",
+      "en": "Base Color · Metallic · Roughness",
+      "d": "Material là shader graph: Base Color / Metallic / Roughness / Normal. Node cơ bản, Apply & compile, preview.",
+      "terms": [
+        "Material",
+        "PBR",
+        "Roughness",
+        "Normal Map"
+      ],
+      "refs": {
+        "ch": 6,
+        "docs": [
+          "artist-03-create-materials-and-material-instances",
+          "physically-based-materials-in-unreal-engine"
+        ]
+      },
+      "req": [
+        "content"
+      ]
+    },
+    {
+      "id": "matinst",
+      "lane": "visual",
+      "t": 3,
+      "ic": "🎚",
+      "nm": "Material Instances",
+      "en": "Parameters · Instances",
+      "d": "Convert to Parameter + Material Instance: đổi màu/roughness không recompile. Dynamic Material Instance đổi runtime (flash sát thương, tint).",
+      "terms": [
+        "Parameter",
+        "Material Instance",
+        "MID"
+      ],
+      "refs": {
+        "ch": 6,
+        "docs": [
+          "artist-03-create-materials-and-material-instances",
+          "instanced-materials-in-unreal-engine"
+        ]
+      },
+      "req": [
+        "mat"
+      ]
+    },
+    {
+      "id": "light",
+      "lane": "visual",
+      "t": 3,
+      "ic": "💡",
+      "nm": "Lighting cơ bản",
+      "en": "Direct · Sky · Fog",
+      "d": "Directional Light, Sky Light, Height Fog, Point/Spot; intensity vật lý, auto exposure, đèn Movable vs Static.",
+      "terms": [
+        "Directional Light",
+        "Sky Light",
+        "Height Fog",
+        "Auto Exposure"
+      ],
+      "refs": {
+        "ch": 7,
+        "docs": [
+          "lighting-the-environment-in-unreal-engine",
+          "features-and-properties-of-lights-in-unreal-engine"
+        ]
+      },
+      "req": [
+        "blocking"
+      ]
+    },
+    {
+      "id": "lumen",
+      "lane": "visual",
+      "t": 4,
+      "ic": "🔆",
+      "nm": "Lumen GI",
+      "en": "Global Illumination",
+      "d": "GI + reflection thời gian thực, Surface Cache, cấu hình qua Post Process Volume, final gather quality, software ray tracing cho máy yếu.",
+      "terms": [
+        "Lumen",
+        "Surface Cache",
+        "Final Gather"
+      ],
+      "refs": {
+        "ch": 9,
+        "docs": [
+          "lumen-global-illumination-and-reflections-in-unreal-engine",
+          "local-fog-volumes-in-unreal-engine"
+        ]
+      },
+      "req": [
+        "light"
+      ]
+    },
+    {
+      "id": "post",
+      "lane": "visual",
+      "t": 5,
+      "ic": "🎞",
+      "nm": "Post Process",
+      "en": "Exposure · Color Grading",
+      "d": "Post Process Volume: khóa exposure, bloom, DOF, color grading, LUT — 'đạo diễn' cảm giác hình ảnh cuối cùng.",
+      "terms": [
+        "Post Process Volume",
+        "Bloom",
+        "Depth of Field",
+        "LUT"
+      ],
+      "refs": {
+        "ch": 9,
+        "docs": [
+          "post-process-effects-in-unreal-engine"
+        ]
+      },
+      "req": [
+        "lumen"
+      ]
+    },
+    {
+      "id": "nanite",
+      "lane": "visual",
+      "t": 5,
+      "ic": "🗿",
+      "nm": "Nanite",
+      "en": "Virtualized Geometry",
+      "d": "Mesh triệu polygon chạy mượt nhờ cluster đa cấp; biết khi nào bật (đá/foliage/scan) và khi nào không (mesh nhỏ, morph cũ).",
+      "terms": [
+        "Nanite",
+        "Cluster",
+        "Nanite Foliage",
+        "Fallback Mesh"
+      ],
+      "refs": {
+        "ch": 22,
+        "docs": [
+          "nanite-virtualized-geometry-in-unreal-engine",
+          "nanite-technical-details"
+        ]
+      },
+      "req": [
+        "content"
+      ]
+    },
+    {
+      "id": "cap-look",
+      "lane": "visual",
+      "t": 7,
+      "ic": "🏆",
+      "nm": "CAPSTONE: Look Dev",
+      "en": "Art Direction Pass",
+      "d": "Một scene 'postcard': Lumen + Nanite + post process + local fog volumes đúng mood — benchmark bằng stat gpu trước/sau.",
+      "terms": [
+        "Look Development",
+        "Mood",
+        "stat gpu"
+      ],
+      "refs": {
+        "ch": 9,
+        "docs": [
+          "07-adjust-environment-lighting-features"
+        ]
+      },
+      "req": [
+        "post",
+        "nanite"
+      ],
+      "cap": 1
+    },
+    {
+      "id": "niagara",
+      "lane": "fx",
+      "t": 3,
+      "ic": "✨",
+      "nm": "Niagara VFX",
+      "en": "System · Emitter · Module",
+      "d": "Particle từ template (Fountain/Fire/Smoke), hiểu stack Emitter Spawn/Update → Particle Spawn/Update, đổi renderer Sprite/Mesh.",
+      "terms": [
+        "Niagara",
+        "Emitter",
+        "Module",
+        "Renderer"
+      ],
+      "refs": {
+        "ch": 14,
+        "docs": [
+          "overview-of-niagara-effects-for-unreal-engine",
+          "quick-start-for-niagara-effects-in-unreal-engine"
+        ]
+      },
+      "req": [
+        "bpvar"
+      ]
+    },
+    {
+      "id": "niagara2",
+      "lane": "fx",
+      "t": 5,
+      "ic": "🌀",
+      "nm": "Niagara nâng cao",
+      "en": "GPU Sim · Events",
+      "d": "GPU sim cho hàng trăm nghìn hạt, collision module, Niagara Events chuyển từ gameplay sang, debug bằng Scratch Pad.",
+      "terms": [
+        "GPU Sim",
+        "Simulation Target",
+        "Niagara Events"
+      ],
+      "refs": {
+        "ch": 14,
+        "docs": [
+          "debugging-and-optimization-in-niagara-effects-for-unreal-engine"
+        ]
+      },
+      "req": [
+        "niagara"
+      ]
+    },
+    {
+      "id": "meta",
+      "lane": "fx",
+      "t": 4,
+      "ic": "🔊",
+      "nm": "MetaSounds",
+      "en": "Sound Sources",
+      "d": "Graph DSP cho âm thanh: pitch random, crossfade, parameter runtime. Play Sound at Location / Attached, Sound Class & Mix.",
+      "terms": [
+        "MetaSound",
+        "Sound Cue",
+        "Sound Class",
+        "Audio Component"
+      ],
+      "refs": {
+        "ch": 13,
+        "docs": [
+          "metasounds-in-unreal-engine",
+          "metasound-templates-quick-start-in-unreal-engine"
+        ]
+      },
+      "req": [
+        "bpvar"
+      ]
+    },
+    {
+      "id": "sounddesign",
+      "lane": "fx",
+      "t": 6,
+      "ic": "🎼",
+      "nm": "Sound Design",
+      "en": "Mix · Ambient",
+      "d": "Phối âm cảnh: ambient beds, reverb zone, attenuation, ducking nhạc khi dialogue — tầng âm 'vô hình' nhưng bán cảm xúc.",
+      "terms": [
+        "Attenuation",
+        "Reverb",
+        "Sound Mix",
+        "Ambient"
+      ],
+      "refs": {
+        "ch": 13,
+        "docs": [
+          "artist-09-adding-sounds-to-fire-traps-artist-track-unreal-engine",
+          "audio-volume-actor-in-unreal-engine"
+        ]
+      },
+      "req": [
+        "meta"
+      ]
+    },
+    {
+      "id": "skel",
+      "lane": "motion",
+      "t": 4,
+      "ic": "🦴",
+      "nm": "Skeletal Mesh",
+      "en": "Skeleton · Physics Asset",
+      "d": "Pipeline animation: Skeleton chia sẻ, Physics Asset cho cloth/ragdoll, retarget animation giữa các skeleton (IK Rig).",
+      "terms": [
+        "Skeletal Mesh",
+        "Skeleton",
+        "Physics Asset",
+        "Retarget"
+      ],
+      "refs": {
+        "ch": 15,
+        "docs": [
+          "skeletal-mesh-assets-in-unreal-engine",
+          "animation-retargeting-in-unreal-engine"
+        ]
+      },
+      "req": [
+        "content"
+      ]
+    },
+    {
+      "id": "animbp",
+      "lane": "motion",
+      "t": 5,
+      "ic": "🏃",
+      "nm": "Animation Blueprint",
+      "en": "Anim Graph · State Machine",
+      "d": "Event Graph tính biến (Speed, IsInAir) → State Machine chọn pose; Blend Space trộn idle/walk/run mượt.",
+      "terms": [
+        "Animation Blueprint",
+        "State Machine",
+        "Blend Space",
+        "Anim Montage"
+      ],
+      "refs": {
+        "ch": 15,
+        "docs": [
+          "animation-blueprints-in-unreal-engine"
+        ]
+      },
+      "req": [
+        "skel"
+      ]
+    },
+    {
+      "id": "controlrig",
+      "lane": "motion",
+      "t": 6,
+      "ic": "🕹",
+      "nm": "Control Rig",
+      "en": "Procedural Animation",
+      "d": "Rigging trong engine: FK/IK, sửa pose, procedural runtime (tay nắm vật), full-body IK.",
+      "terms": [
+        "Control Rig",
+        "IK",
+        "FK"
+      ],
+      "refs": {
+        "ch": 15,
+        "docs": [
+          "how-to-create-control-rigs-in-unreal-engine"
+        ]
+      },
+      "req": [
+        "animbp"
+      ]
+    },
+    {
+      "id": "sequencer",
+      "lane": "motion",
+      "t": 5,
+      "ic": "🎬",
+      "nm": "Sequencer",
+      "en": "Cinematics Timeline",
+      "d": "Level Sequence: Camera Cuts, transform track, keyframe, Cine Camera, Track Event gọi Blueprint lúc chiếu.",
+      "terms": [
+        "Sequencer",
+        "Level Sequence",
+        "Camera Cuts",
+        "Cine Camera"
+      ],
+      "refs": {
+        "ch": 17,
+        "docs": [
+          "cinematics-and-movie-making-in-unreal-engine",
+          "sequencer-cinematic-editor-unreal-engine"
+        ]
+      },
+      "req": [
+        "editor"
+      ]
+    },
+    {
+      "id": "mrq",
+      "lane": "motion",
+      "t": 7,
+      "ic": "🎥",
+      "nm": "Movie Render Queue",
+      "en": "MRQ Render",
+      "d": "Render cinematic ra video cao cấp: multi-pass AA, motion blur đúng, xuất PNG sequence/MP4.",
+      "terms": [
+        "Movie Render Queue",
+        "Anti-aliasing Pass"
+      ],
+      "refs": {
+        "ch": 17,
+        "docs": [
+          "rendering-out-cinematic-movies-in-unreal-engine"
+        ]
+      },
+      "req": [
+        "sequencer"
+      ]
+    },
+    {
+      "id": "umg",
+      "lane": "prod",
+      "t": 3,
+      "ic": "🖥",
+      "nm": "UMG / HUD",
+      "en": "Widget Blueprint",
+      "d": "Widget Blueprint, Canvas + Anchors co giãn, bind dữ liệu, Add to Viewport, menu pause. Viewmodel (MVVM) cho dự án lớn.",
+      "terms": [
+        "UMG",
+        "Widget",
+        "Anchor",
+        "Viewmodel"
+      ],
+      "refs": {
+        "ch": 16,
+        "docs": [
+          "umg-ui-designer-quick-start-guide-in-unreal-engine",
+          "designer-04-player-hud-in-unreal-engine"
+        ]
+      },
+      "req": [
+        "bpb"
+      ]
+    },
+    {
+      "id": "package",
+      "lane": "prod",
+      "t": 5,
+      "ic": "📦",
+      "nm": "Packaging",
+      "en": "Cook · Build · Ship",
+      "d": "Đóng gói Windows: build configurations, pre-flight checklist (redirectors, default map, test exe trên máy sạch).",
+      "terms": [
+        "Packaging",
+        "Shipping",
+        "Development Build",
+        "Pak"
+      ],
+      "refs": {
+        "ch": 18,
+        "docs": [
+          "packaging-your-project",
+          "build-configurations-reference-for-unreal-engine"
+        ]
+      },
+      "req": [
+        "bpfunc",
+        "umg"
+      ]
+    },
+    {
+      "id": "insights",
+      "lane": "prod",
+      "t": 6,
+      "ic": "📊",
+      "nm": "Profiling",
+      "en": "Unreal Insights · stat",
+      "d": "stat unit/gpu tìm thread cổ chai, Unreal Insights timeline trace từng hàm, perf map trước khi tối ưu — không đo bằng cảm giác.",
+      "terms": [
+        "stat unit",
+        "stat gpu",
+        "Game Thread",
+        "Trace"
+      ],
+      "refs": {
+        "ch": 25,
+        "docs": [
+          "unreal-insights-in-unreal-engine"
+        ]
+      },
+      "req": [
+        "package"
+      ]
+    },
+    {
+      "id": "scalability",
+      "lane": "prod",
+      "t": 7,
+      "ic": "🎚",
+      "nm": "Scalability",
+      "en": "Auto Quality",
+      "d": "Bộ preset Low→Epic cho một build chạy nhiều cấu hình; tự scale theo máy, cân nhắc mobile (sg. commands).",
+      "terms": [
+        "Scalability Settings",
+        "sg. commands"
+      ],
+      "refs": {
+        "ch": 25,
+        "docs": [
+          "scalability-reference-for-unreal-engine"
+        ]
+      },
+      "req": [
+        "insights"
+      ]
+    },
+    {
+      "id": "cap-ship",
+      "lane": "prod",
+      "t": 8,
+      "ic": "🏆",
+      "nm": "CAPSTONE: Ship It",
+      "en": "Vertical Slice Release",
+      "d": "Ghép tất cả: gameplay + UI + audio + VFX + lighting, tối ưu theo insights, package Shipping và phát hành (itch.io cho bạn bè).",
+      "terms": [
+        "Vertical Slice",
+        "Shipping Build",
+        "Release"
+      ],
+      "refs": {
+        "ch": 26,
+        "docs": [
+          "packaging-and-shipping-in-unreal-engine"
+        ]
+      },
+      "req": [
+        "scalability",
+        "animbp",
+        "meta"
+      ],
+      "cap": 1
+    }
+  ],
+  "lanes": [
+    {
+      "id": "core",
+      "name": "Nền tảng",
+      "ico": "🏛"
+    },
+    {
+      "id": "world",
+      "name": "Thế giới",
+      "ico": "🌍"
+    },
+    {
+      "id": "logic",
+      "name": "Logic",
+      "ico": "⚙️"
+    },
+    {
+      "id": "visual",
+      "name": "Hình ảnh",
+      "ico": "🎨"
+    },
+    {
+      "id": "fx",
+      "name": "Hiệu ứng",
+      "ico": "✨"
+    },
+    {
+      "id": "motion",
+      "name": "Chuyển động",
+      "ico": "🎭"
+    },
+    {
+      "id": "prod",
+      "name": "Sản xuất",
+      "ico": "🚀"
+    }
+  ]
+}

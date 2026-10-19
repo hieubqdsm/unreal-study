@@ -1,9 +1,9 @@
 
       <div class="level-divider" id="level2"><div class="tag tag-l2">Level 2 · Intermediate — Trung cấp</div><div class="line"></div></div>
 
-      <!-- ==================== CHƯƠNG 8 ==================== -->
-      <section class="chapter" id="ch8">
-        <h2 class="ch-title"><span class="num">Chương 8</span> Lumen — Global Illumination &amp; Reflections</h2>
+      <!-- ==================== CHƯƠNG 9 ==================== -->
+      <section class="chapter" id="ch9">
+        <h2 class="ch-title"><span class="num">Chương 9</span> Lumen — Global Illumination &amp; Reflections</h2>
         <p class="ch-sub">Ánh sáng nảy (bounce) thời gian thực — "công nghệ huyền thoại" của UE5.</p>
 
         <h3 class="sec">Lumen giải quyết vấn đề gì?</h3>
@@ -29,19 +29,19 @@
         {{I:local-fog-volumes-in-unreal-engine:0|Local Fog Volume tạo vùng sương cục bộ có ánh sáng}}
         <div class="box warn">
           <span class="box-title">Lumen cần gì?</span>
-          Lumen hoạt động tốt nhất trên GPU RTX hoặc GPU không chuyên cũng chạy được qua <span class="term-en">Software Ray Tracing</span> — dùng <span class="term-en">Mesh Distance Fields</span> (Project Settings → Generate Mesh Distance Fields). Mobile: chỉ màn hình cao cấp (Ch16 sẽ bàn scalability).
+          Lumen hoạt động tốt nhất trên GPU RTX hoặc GPU không chuyên cũng chạy được qua <span class="term-en">Software Ray Tracing</span> — dùng <span class="term-en">Mesh Distance Fields</span> (Project Settings → Generate Mesh Distance Fields). Mobile: chỉ màn hình cao cấp (Ch18 sẽ bàn scalability).
         </div>
 
         <div class="exercise">
-          <div class="ex-head">🏋️ Bài tập 8 <span class="lvl">Mid</span></div>
+          <div class="ex-head">🏋️ Bài tập 9 <span class="lvl">Mid</span></div>
           <p>Trong 1 phòng kín: đặt 1 Point Light màu đỏ Movable, tắt Directional/Sky Light. Quan sát ánh đỏ nảy ra trần/sàn. Bật tắt <code class="ic">r.Lumen.Scene.Lighting 0/1</code> trong console để thấy khác biệt khi mất GI.</p>
         </div>
         <p class="docs-ref">📚 Xem docs đầy đủ: {{L:lumen-global-illumination-and-reflections-in-unreal-engine}} · {{L:local-fog-volumes-in-unreal-engine}} · {{L:07-adjust-environment-lighting-features}}</p>
       </section>
 
-      <!-- ==================== CHƯƠNG 9 ==================== -->
-      <section class="chapter" id="ch9">
-        <h2 class="ch-title"><span class="num">Chương 9</span> Landscape &amp; Foliage</h2>
+      <!-- ==================== CHƯƠNG 10 ==================== -->
+      <section class="chapter" id="ch10">
+        <h2 class="ch-title"><span class="num">Chương 10</span> Landscape &amp; Foliage</h2>
         <p class="ch-sub">Tạo núi đồi sông hồ bằng cọ vẽ — và rắc cây khắp thế giới.</p>
 
         <h3 class="sec">Landscape — địa hình</h3>
@@ -51,7 +51,7 @@
           <tr><th>Thông số</th><th>Ý nghĩa</th><th>Gợi ý</th></tr>
           <tr><td>Section Size / Sections Per Component</td><td>Mật độ lưới</td><td>63×63 quadrants/section cho chi tiết gần</td></tr>
           <tr><td><span class="term-en">Landscape Material</span></td><td>Material nhiều layer (cỏ, đá, đất)</td><td>Dùng node <code class="ic">LandscapeLayerBlend</code></td></tr>
-          <tr><td><span class="term-en">Data Layers</span></td><td>Bật/tắt vùng landscape runtime</td><td>Nâng cao — Ch19</td></tr>
+          <tr><td><span class="term-en">Data Layers</span></td><td>Bật/tắt vùng landscape runtime</td><td>Nâng cao — Ch21</td></tr>
         </table>
         {{I:landscape-quick-start-guide-in-unreal-engine:1|Đắp núi bằng cọ Sculpt — Alt để đào}}
 
@@ -60,7 +60,7 @@
         {{I:landscape-materials-in-unreal-engine:0|Landscape Material trộn nhiều layer texture}}
 
         <h3 class="sec">Foliage — rắc cây</h3>
-        <p>Mode <span class="term-en">Foliage</span> (Shift+3): kéo mesh (nên tick <span class="term-en">Nanite</span> cho tán lá — Ch20) vào danh sách, chỉnh mật độ rồi <strong>click/vẽ</strong> lên landscape. <span class="term-en">Procedural Foliage</span> (v2) tự rắc theo quy tắc (độ dốc, tầng đất).</p>
+        <p>Mode <span class="term-en">Foliage</span> (Shift+3): kéo mesh (nên tick <span class="term-en">Nanite</span> cho tán lá — Ch22) vào danh sách, chỉnh mật độ rồi <strong>click/vẽ</strong> lên landscape. <span class="term-en">Procedural Foliage</span> (v2) tự rắc theo quy tắc (độ dốc, tầng đất).</p>
         {{I:foliage-mode-in-unreal-engine:0|Foliage mode — rắc cây lên địa hình}}
         <div class="box tip">
           <span class="box-title">Cây cỏ xấu vì "đứng hình"? </span>
@@ -68,15 +68,15 @@
         </div>
 
         <div class="exercise">
-          <div class="ex-head">🏋️ Bài tập 9 <span class="lvl">Mid</span></div>
+          <div class="ex-head">🏋️ Bài tập 10 <span class="lvl">Mid</span></div>
           <p>Tạo landscape 1009×1009, đắp 1 ngọn núi + 1 thung lũng, tô 3 layer (cỏ/đá tuyết), rắc 2 loại cây từ Starter Content (SM_Pine). Camera bay chụp 1 shot "postcard".</p>
         </div>
         <p class="docs-ref">📚 Xem docs đầy đủ: {{L:landscape-quick-start-guide-in-unreal-engine}} · {{L:landscape-materials-in-unreal-engine}} · {{L:foliage-mode-in-unreal-engine}} · {{L:editing-landscapes-in-unreal-engine}}</p>
       </section>
 
-      <!-- ==================== CHƯƠNG 10 ==================== -->
-      <section class="chapter" id="ch10">
-        <h2 class="ch-title"><span class="num">Chương 10</span> Physics &amp; Collision</h2>
+      <!-- ==================== CHƯƠNG 11 ==================== -->
+      <section class="chapter" id="ch11">
+        <h2 class="ch-title"><span class="num">Chương 11</span> Physics &amp; Collision</h2>
         <p class="ch-sub">Cho vật rơi, va chạm, phát đạn — thế giới có "trọng lực thật".</p>
 
         <h3 class="sec">Chaos Physics</h3>
@@ -108,15 +108,74 @@
         </div>
 
         <div class="exercise">
-          <div class="ex-head">🏋️ Bài tập 10 <span class="lvl">Mid</span></div>
+          <div class="ex-head">🏋️ Bài tập 11 <span class="lvl">Mid</span></div>
           <p>Làm <strong>jump pad</strong>: 1 tấm đĩa, khi Player overlap → <code class="ic">Launch Character</code> (Z velocity 1200). Làm <strong>bowl</strong> bằng 5 cube chặn + 1 quả cầu Simulate Physics; bắn cầu ra khỏi bowl bằng Add Impulse khi bấm E gần cầu.</p>
         </div>
         <p class="docs-ref">📚 Xem docs đầy đủ: {{L:physics-in-unreal-engine}} · {{L:collision-in-unreal-engine}} · {{L:designer-06-puzzles-moving-platforms-in-unreal-engine}}</p>
       </section>
 
-      <!-- ==================== CHƯƠNG 11 ==================== -->
-      <section class="chapter" id="ch11">
-        <h2 class="ch-title"><span class="num">Chương 11</span> Audio với MetaSounds</h2>
+      <!-- ==================== CHƯƠNG 12 (MỚI) ==================== -->
+      <section class="chapter" id="ch12">
+        <h2 class="ch-title"><span class="num">Chương 12</span> AI cơ bản — NavMesh &amp; Behavior Tree</h2>
+        <p class="ch-sub">Cho NPC biết đi, biết thấy và biết quyết định — bộ ba NavMesh · AI Perception · Behavior Tree.</p>
+
+        <h3 class="sec">NavMesh — vùng đất AI đi được</h3>
+        <p>Kéo <span class="term-en">NavMeshBounds Volume</span> scale bao quanh map, engine tự "quét" mọi mặt phẳng đi được thành lưới polygon — nhấn <b>P</b> trong viewport để xem lớp phủ màu xanh lá. AI không "nhìn thấy" tường: nó chỉ tìm đường trên lưới này, nên sửa geometry là phải chờ build lại NavMesh.</p>
+        {{I:navigation-system-in-unreal-engine:0|Nhấn P trong viewport: vùng xanh lá là NavMesh — nơi AI đi được}}
+        <p>Cho AI di chuyển bằng node <span class="term-en">AI MoveTo</span> (hoặc task Move To trong Behavior Tree): engine tự tìm đường né vật cản, và tự tính lại đường nếu bạn đẩy vật chặn ra giữa lúc runtime.</p>
+        {{I:navigation-system-in-unreal-engine:1|Bot tự tìm đường đuổi theo người chơi trên NavMesh}}
+
+        <h3 class="sec">AI Controller — "bộ não" của NPC</h3>
+        <p>Mỗi Pawn có một Controller điều khiển: người chơi nối <span class="term-en">PlayerController</span> (nhận input), NPC nối <span class="term-en">AIController</span> (chạy logic tự động). Trong Character class đặt <b>AI Controller Class</b> = BP_GuardController của bạn — Behavior Tree và Perception sẽ treo vào Controller này.</p>
+
+        <h3 class="sec">AI Perception — cho AI mắt và tai</h3>
+        <p>Add Component <span class="term-en">AIPerception</span> vào AIController, đăng ký sense cho AI:</p>
+        <table>
+          <tr><th>Sense</th><th>Ý nghĩa</th><th>Thông số chính</th></tr>
+          <tr><td><span class="term-en">Sight</span></td><td>Thấy mục tiêu trong tầm + góc nhìn</td><td>Sight Radius, Lose Sight Radius, Peripheral Vision Angle</td></tr>
+          <tr><td><span class="term-en">Hearing</span></td><td>Nghe tiếng động từ Report Noise Event</td><td>Hearing Range</td></tr>
+          <tr><td><span class="term-en">Damage</span></td><td>Cảm nhận khi bị tấn công</td><td>—</td></tr>
+        </table>
+        {{I:ai-perception-in-unreal-engine:0|Add Component: AIPerception, Behavior Tree, Blackboard gắn vào Controller/Pawn}}
+        {{I:ai-perception-in-unreal-engine:1|Sight config: tầm nhìn, tầm mất dấu và góc nhìn ngoại vi}}
+        <p>Bắt sự kiện <span class="term-en">On Perceived (AIPerception)</span>: thấy người chơi → ghi vào Blackboard key <code class="ic">TargetActor</code>; mất dấu → sự kiện bắn lần nữa, set key về rỗng để nhánh tuần tra chạy lại.</p>
+
+        <h3 class="sec">Behavior Tree + Blackboard — quyết định theo nhánh</h3>
+        <table>
+          <tr><th>Thành phần</th><th>Vai trò</th></tr>
+          <tr><td><span class="term-en">Blackboard</span></td><td>"Bộ nhớ" — các key (TargetActor, HomeLocation, PatrolIndex) do tree đọc/ghi</td></tr>
+          <tr><td><span class="term-en">Selector</span></td><td>HOẶC — chạy nhánh con đầu tiên thành công, thất bại hết mới chịu thua</td></tr>
+          <tr><td><span class="term-en">Sequence</span></td><td>VÀ — chạy lần lượt từng con, một con fail là cả nhánh fail</td></tr>
+          <tr><td><span class="term-en">Task</span></td><td>Hành động cụ thể: Move To, Wait, Play Animation, hoặc Task tự viết</td></tr>
+          <tr><td><span class="term-en">Decorator / Service</span></td><td>Điều kiện vào nhánh (Decorator) / việc chạy nền theo nhịp (Service)</td></tr>
+        </table>
+        <div class="box tip">
+          <span class="box-title">Công thức nhớ nhánh</span>
+          Selector = <b>"hoặc"</b> (thử tới khi có nhánh thành công). Sequence = <b>"và"</b> (làm trọn bộ mới tính xong). Tree mẫu cho guard: Selector( Sequence(có TargetActor? → Move To TargetActor → Attack), Sequence tuần tra 3 điểm vòng tròn ).
+        </div>
+        <p>Kích hoạt: AIController BeginPlay → node <span class="term-en">Run Behavior Tree</span> (BT_Guard) + <span class="term-en">Use Blackboard</span> (BB_Guard). Từ đó mọi quyết định nằm trong asset BT — designer chỉnh hành vi AI mà không đụng Blueprint của Pawn.</p>
+
+        <h3 class="sec">Mini project — Bot gác kho</h3>
+        <div class="checklist">
+          <h4>🎯 Checklist Bot gác kho (ghép Chương 11 + 12)</h4>
+          <label><input type="checkbox"><span>NavMeshBounds Volume phủ map, nhấn P kiểm tra không hở góc</span></label>
+          <label><input type="checkbox"><span>BP_Guard (Character) + BP_GuardController với AIPerception Sight 15 m</span></label>
+          <label><input type="checkbox"><span>BT_Guard: Selector(đuổi khi thấy, tuần tra 3 điểm khi mất dấu)</span></label>
+          <label><input type="checkbox"><span>Test: đi vòng sau lưng bot, bị phát hiện khi vào góc nhìn; nấp sau tường ~3 giây bot quay về tuần tra</span></label>
+        </div>
+
+        <div class="exercise">
+          <div class="ex-head">🏋️ Bài tập 12 <span class="lvl">Mid</span></div>
+          <p>Thêm Hearing cho guard: người chơi chạy (bước chân) trong 8 m thì bot quay người nhìn về phía phát ra tiếng động dù chưa thấy. Gợi ý: Report Noise Event trong Character khi tốc độ &gt; ngưỡng, Blackboard thêm key LastNoiseLocation.</p>
+        </div>
+
+        <p class="docs-ref">📚 Xem docs đầy đủ: {{L:behavior-trees-in-unreal-engine}} · {{L:navigation-system-in-unreal-engine}} · {{L:ai-perception-in-unreal-engine}}</p>
+      </section>
+
+
+      <!-- ==================== CHƯƠNG 13 ==================== -->
+      <section class="chapter" id="ch13">
+        <h2 class="ch-title"><span class="num">Chương 13</span> Audio với MetaSounds</h2>
         <p class="ch-sub">Âm thanh thế hệ mới của UE5 — âm thanh cũng "lập trình bằng node".</p>
 
         <h3 class="sec">Từ Sound Cue tới MetaSound</h3>
@@ -137,15 +196,15 @@
         </div>
 
         <div class="exercise">
-          <div class="ex-head">🏋️ Bài tập 11 <span class="lvl">Mid</span></div>
+          <div class="ex-head">🏋️ Bài tập 13 <span class="lvl">Mid</span></div>
           <p>Cho BP_Coin (Ch4) một âm "ting" khi nhặt: Play Sound at Location tại vị trí coin. Sau đó tạo MetaSound pitch random ±10% mỗi lần phát để không nghe lặp.</p>
         </div>
         <p class="docs-ref">📚 Xem docs đầy đủ: {{L:metasounds-in-unreal-engine}} · {{L:metasound-templates-quick-start-in-unreal-engine}} · {{L:artist-09-adding-sounds-to-fire-traps-artist-track-unreal-engine}}</p>
       </section>
 
-      <!-- ==================== CHƯƠNG 12 ==================== -->
-      <section class="chapter" id="ch12">
-        <h2 class="ch-title"><span class="num">Chương 12</span> Niagara — Visual Effects</h2>
+      <!-- ==================== CHƯƠNG 14 ==================== -->
+      <section class="chapter" id="ch14">
+        <h2 class="ch-title"><span class="num">Chương 14</span> Niagara — Visual Effects</h2>
         <p class="ch-sub">Particles: lửa, khói, pháo hoa, mưa — hệ VFX của mọi game UE.</p>
 
         <h3 class="sec">Niagara thinking</h3>
@@ -174,15 +233,15 @@
         </div>
 
         <div class="exercise">
-          <div class="ex-head">🏋️ Bài tập 12 <span class="lvl">Mid</span></div>
+          <div class="ex-head">🏋️ Bài tập 14 <span class="lvl">Mid</span></div>
           <p>Tạo VFX "đồng xu vỡ": khi nhặt coin (Ch4), spawn Niagara system burst 20 hạt vàng bắn toé rồi biến mất (dùng template Burst + Lifetime ngắn). Gợi ý node: <code class="ic">Spawn System at Location</code>.</p>
         </div>
         <p class="docs-ref">📚 Xem docs đầy đủ: {{L:overview-of-niagara-effects-for-unreal-engine}} · {{L:quick-start-for-niagara-effects-in-unreal-engine}} · {{L:key-concepts-in-niagara-effects-for-unreal-engine}}</p>
       </section>
 
-      <!-- ==================== CHƯƠNG 13 ==================== -->
-      <section class="chapter" id="ch13">
-        <h2 class="ch-title"><span class="num">Chương 13</span> Character Animation</h2>
+      <!-- ==================== CHƯƠNG 15 ==================== -->
+      <section class="chapter" id="ch15">
+        <h2 class="ch-title"><span class="num">Chương 15</span> Character Animation</h2>
         <p class="ch-sub">Nhân vật chuyển động mượt: Skeleton, Animation Blueprint, Control Rig.</p>
 
         <h3 class="sec">Pipeline animation</h3>
@@ -210,15 +269,15 @@
         </div>
 
         <div class="exercise">
-          <div class="ex-head">🏋️ Bài tập 13 <span class="lvl">Mid</span></div>
+          <div class="ex-head">🏋️ Bài tập 15 <span class="lvl">Mid</span></div>
           <p>Mở AnimBP của Third Person character, xem state machine Idle/Walk/Run điều kiện gì. Thêm state <strong>Dance</strong> (dùng animation từ Starter Content hoặc FBX ngoài): khi bấm phím B → biến bDancing=true → chuyển state dance trong 3 giây rồi về Idle.</p>
         </div>
         <p class="docs-ref">📚 Xem docs đầy đủ: {{L:skeletal-mesh-assets-in-unreal-engine}} · {{L:animation-blueprints-in-unreal-engine}} · {{L:how-to-create-control-rigs-in-unreal-engine}}</p>
       </section>
 
-      <!-- ==================== CHƯƠNG 14 ==================== -->
-      <section class="chapter" id="ch14">
-        <h2 class="ch-title"><span class="num">Chương 14</span> UMG — UI / HUD</h2>
+      <!-- ==================== CHƯƠNG 16 ==================== -->
+      <section class="chapter" id="ch16">
+        <h2 class="ch-title"><span class="num">Chương 16</span> UMG — UI / HUD</h2>
         <p class="ch-sub">Máu, mana, điểm số, menu — giao diện bằng Widget Blueprints.</p>
 
         <h3 class="sec">Widget Blueprint cơ bản</h3>
@@ -244,15 +303,15 @@
         </div>
 
         <div class="exercise">
-          <div class="ex-head">🏋️ Bài tập 14 <span class="lvl">Mid</span></div>
+          <div class="ex-head">🏋️ Bài tập 16 <span class="lvl">Mid</span></div>
           <p>Làm WBP_HUD: Text "Coins: X" + Progress Bar máu. Gắn vào character. Nâng cấp BP_Coin: khi nhặt, tăng biến CoinCount trên character và cập nhật HUD (qua bind hoặc event dispatcher). Bấm Escape hiện/ẩn menu pause đơn giản (Add to Viewport + Set Game Paused).</p>
         </div>
         <p class="docs-ref">📚 Xem docs đầy đủ: {{L:umg-ui-designer-quick-start-guide-in-unreal-engine}} · {{L:designer-04-player-hud-in-unreal-engine}} · {{L:umg-viewmodel-for-unreal-engine}}</p>
       </section>
 
-      <!-- ==================== CHƯƠNG 15 ==================== -->
-      <section class="chapter" id="ch15">
-        <h2 class="ch-title"><span class="num">Chương 15</span> Sequencer &amp; Cinematics</h2>
+      <!-- ==================== CHƯƠNG 17 ==================== -->
+      <section class="chapter" id="ch17">
+        <h2 class="ch-title"><span class="num">Chương 17</span> Sequencer &amp; Cinematics</h2>
         <p class="ch-sub">Đạo diễn phim trong engine: camera cut, keyframe, cutscene.</p>
 
         <h3 class="sec">Level Sequence — timeline của bạn</h3>
@@ -277,15 +336,15 @@
         </div>
 
         <div class="exercise">
-          <div class="ex-head">🏋️ Bài tập 15 <span class="lvl">Mid</span></div>
+          <div class="ex-head">🏋️ Bài tập 17 <span class="lvl">Mid</span></div>
           <p>Làm intro 8 giây: 1 Level Sequence với 3 Cine Camera (toàn cảnh → trung cảnh → cận coin), transform camera bay nhẹ, kết thúc bằng Track Event gọi Blueprint đặt player vào vị trí spawn. Gọi sequence từ Level Blueprint khi BeginPlay.</p>
         </div>
         <p class="docs-ref">📚 Xem docs đầy đủ: {{L:cinematics-and-movie-making-in-unreal-engine}} · {{L:sequencer-cinematic-editor-unreal-engine}} · {{L:how-to-make-movies-in-unreal-engine}}</p>
       </section>
 
-      <!-- ==================== CHƯƠNG 16 ==================== -->
-      <section class="chapter" id="ch16">
-        <h2 class="ch-title"><span class="num">Chương 16</span> Packaging — Đóng gói game</h2>
+      <!-- ==================== CHƯƠNG 18 ==================== -->
+      <section class="chapter" id="ch18">
+        <h2 class="ch-title"><span class="num">Chương 18</span> Packaging — Đóng gói game</h2>
         <p class="ch-sub">Từ project thành file .exe gửi bạn bè — và checklist trước khi ship.</p>
 
         <h3 class="sec">Packaging là gì?</h3>
@@ -310,7 +369,7 @@
           <label><input type="checkbox"><span>Xem log packaging có warning "missing asset" không</span></label>
           <label><input type="checkbox"><span>Test .exe trên máy KHÔNG cài UE (thiếu DLL là lỗi hay gặp)</span></label>
           <label><input type="checkbox"><span>Icon + tên game + version trong Project Settings → Description</span></label>
-          <label><input type="checkbox"><span>Scalability settings auto (Ch23) để máy yếu vẫn chơi được</span></label>
+          <label><input type="checkbox"><span>Scalability settings auto (Ch25) để máy yếu vẫn chơi được</span></label>
         </div>
         <div class="box danger">
           <span class="box-title">"Works on my machine" ≠ chạy được</span>
@@ -336,6 +395,18 @@
             <label class="opt"><input type="radio" name="q6">Test</label>
             <label class="opt" data-ok><input type="radio" name="q6">Shipping</label>
             <div class="explain">Shipping tối ưu và bỏ debug/console — Development/Test dành cho dev và QA.</div>
+          </div>
+          <div class="q"><p>4. Muốn AI tự tìm đường tránh vật cản, map cần có gì?</p>
+            <label class="opt"><input type="radio" name="q12">Chỉ cần Static Mesh làm mặt sàn</label>
+            <label class="opt" data-ok><input type="radio" name="q12">NavMeshBounds Volume phủ map và NavMesh được build</label>
+            <label class="opt"><input type="radio" name="q12">Physics Actor với collision BlockAll</label>
+            <div class="explain">NavMesh là "bản đồ đường đi" của AI — không có volume phủ thì AI MoveTo đứng yên tại chỗ, kể cả đích ngay cạnh.</div>
+          </div>
+          <div class="q"><p>5. Blackboard trong hệ AI là gì?</p>
+            <label class="opt"><input type="radio" name="q13">Cây quyết định chạy mỗi frame</label>
+            <label class="opt" data-ok><input type="radio" name="q13">Bộ nhớ key-value mà Behavior Tree đọc/ghi</label>
+            <label class="opt"><input type="radio" name="q13">Component nghe tiếng động của AI</label>
+            <div class="explain">Blackboard chỉ là dữ liệu (TargetActor, PatrolIndex...); cây quyết định là Behavior Tree; nghe tiếng động là AIPerception.</div>
           </div>
           <button class="check" onclick="checkQuiz(this)">Kiểm tra</button>
         </div>

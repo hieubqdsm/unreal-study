@@ -1,1371 +1,1433 @@
 {
- "install-unreal-engine": [
-  {
-   "f": "images/8ebe4e86-a5d8-4771-a8af-214278d453f5.webp",
-   "w": 1200,
-   "h": 504,
-   "c": "Epic Games Launcher Download Page"
-  },
-  {
-   "f": "images/efb33e57-28b9-4e63-a8ba-fdc23c06a100.webp",
-   "w": 1200,
-   "h": 745,
-   "c": "Epic Games Launcher Sign In With Existing Account"
-  },
-  {
-   "f": "images/658f8b51-9bdf-4fc2-92f5-5cb2e6a12164.webp",
-   "w": 1200,
-   "h": 745,
-   "c": "Epic Games Launcher Sign In With Third-Party Platform"
-  },
-  {
-   "f": "images/3cd20c1d-2575-45bb-b569-939b74494410.webp",
-   "w": 1200,
-   "h": 745,
-   "c": "Epic Games Launcher Create Account"
-  },
-  {
-   "f": "images/8dd4f790-456f-44ef-87bf-c9ebe91ebe82.webp",
-   "w": 1200,
-   "h": 710,
-   "c": "Epic Games Launcher TOS And EULA"
-  },
-  {
-   "f": "images/8b8f11e6-1f1b-4957-a1b6-41f8cbef6245.webp",
-   "w": 1200,
-   "h": 706,
-   "c": "Epic Games Launcher Verify Email"
-  }
- ],
- "module-1-install-ue-and-create-your-first-project": [
-  {
-   "f": "images/4d1bbe13-2215-4cd9-8f48-b22a5581262b.webp",
-   "w": 1920,
-   "h": 1046,
-   "c": "A fresh 3rd person project using the Platformer variant."
-  }
- ],
- "first-hour-in-unreal-engine": [
-  {
-   "f": "images/de88b562-753a-484b-9ccf-d9faeef5819a.webp",
-   "w": 3835,
-   "h": 2085,
-   "c": "Platformer End Screen"
-  }
- ],
- "unreal-editor-interface": [
-  {
-   "f": "images/669481b3-c96f-4e63-9c89-2f8025e8210f.webp",
-   "w": 1916,
-   "h": 1125,
-   "c": ""
-  },
-  {
-   "f": "images/96d4b7e3-0822-4752-b8e4-1eedf68053a1.webp",
-   "w": 765,
-   "h": 97,
-   "c": ""
-  },
-  {
-   "f": "images/55cc5842-0874-4d8d-84fc-0f3fc2988797.webp",
-   "w": 1504,
-   "h": 104,
-   "c": ""
-  },
-  {
-   "f": "images/eafa8ca5-da06-4c39-8914-6e81cc0573f1.webp",
-   "w": 1617,
-   "h": 1111,
-   "c": ""
-  },
-  {
-   "f": "images/8ab4d964-b22f-42f6-8829-b9ea33ab99a3.webp",
-   "w": 1617,
-   "h": 1111,
-   "c": ""
-  },
-  {
-   "f": "images/7b4be143-d77b-4612-8292-0b2e87ddf8e3.webp",
-   "w": 1617,
-   "h": 1111,
-   "c": ""
-  }
- ],
- "level-designer-quick-start-in-unreal-engine": [
-  {
-   "f": "images/cd47b4df-de0d-431b-8d02-ec72825caf5b.webp",
-   "w": 775,
-   "h": 569,
-   "c": "At the end of this guide, you'll have a room similar to the one pictured above."
-  },
-  {
-   "f": "images/7770bea3-b127-4abd-a452-8ae76c4e4728.webp",
-   "w": 1491,
-   "h": 951,
-   "c": "Select Category on Windows."
-  },
-  {
-   "f": "images/28b0d6bd-3b33-4617-9c5b-b36a3c7d5394.webp",
-   "w": 1491,
-   "h": 951,
-   "c": "Select the Blank template on Windows"
-  },
-  {
-   "f": "images/1db11af9-1b5e-4ebd-ab2c-7c9563eff9c4.webp",
-   "w": 1491,
-   "h": 951,
-   "c": "Select Blueprint and With Starter Content on Windows"
-  },
-  {
-   "f": "images/fe1b0f01-e5da-4705-90f7-db09702de1a3.webp",
-   "w": 1064,
-   "h": 632,
-   "c": "Select Category on Mac."
-  },
-  {
-   "f": "images/5512a4b2-4c74-462b-957f-deffc74d3bb2.webp",
-   "w": 1076,
-   "h": 600,
-   "c": "Select the Blank template on Mac"
-  }
- ],
- "transforming-actors-in-unreal-engine": [
-  {
-   "f": "images/243cda68-835c-4965-a85d-6232f62e601c.webp",
-   "w": 2215,
-   "h": 2195,
-   "c": "The Level Viewport toolbar is located in the upper section of the viewport, with the gizmo selection icons on the right."
-  },
-  {
-   "f": "images/009ae634-2fc1-4280-b4b3-36acd7a4bfdd.webp",
-   "w": 2214,
-   "h": 86,
-   "c": "Left to right: Shortcuts to the Selection, Translation, Rotation, and Scaling gizmos in the Level Viewport toolbar."
-  },
-  {
-   "f": "images/f4e80042-567f-49f7-b20c-e34e2bba674a.webp",
-   "w": 1280,
-   "h": 720,
-   "c": "Translating a cube along two axes (a single plane)."
-  },
-  {
-   "f": "images/da99fbc9-d384-412c-9e39-bb0604e51709.webp",
-   "w": 1280,
-   "h": 720,
-   "c": "Translating a cube along all three axes."
-  },
-  {
-   "f": "images/420da6a7-4b01-4367-9847-ef1ba38967d4.webp",
-   "w": 1280,
-   "h": 720,
-   "c": "Duplicating an actor using the Translation gizmo."
-  },
-  {
-   "f": "images/f7937fcb-6245-4728-bee5-58729c5b83a7.jpg",
-   "w": 3083,
-   "h": 1955,
-   "c": "Duplicating an actor using the Rotation gizmo."
-  }
- ],
- "module-3-create-a-coin-pickup-with-modeling-tools-and-blueprints": [
-  {
-   "f": "images/2edc7c1c-893f-41db-b7b4-ab9dac464627.webp",
-   "w": 1916,
-   "h": 1046,
-   "c": "Building the coin pickup"
-  }
- ],
- "importing-assets-using-interchange-in-unreal-engine": [
-  {
-   "f": "images/aa6c5cc4-1b84-4131-b17d-7df50fb1c70d.webp",
-   "w": 2012,
-   "h": 1381,
-   "c": "Interchange Interface"
-  },
-  {
-   "f": "images/ca24ef8d-65cd-4cb0-96f2-e4188f1938c2.webp",
-   "w": 2012,
-   "h": 1380,
-   "c": "Use the interface to select your import settings and click Import to continue."
-  },
-  {
-   "f": "images/3b54c8da-4c3e-40bd-87be-8b08f4f66557.webp",
-   "w": 1238,
-   "h": 1062,
-   "c": "The Interchange Preview window shows a list of assets that will be created"
-  },
-  {
-   "f": "images/3bc1eff1-b19c-4ced-bdfa-2a687291ce4d.webp",
-   "w": 1260,
-   "h": 627,
-   "c": "The Interchange Conflicts Preview window shows changes to the material or skeleton structure on reimport"
-  },
-  {
-   "f": "images/7c9dd35c-13f9-46e0-a4c5-fd0669a34a31.webp",
-   "w": 1274,
-   "h": 645,
-   "c": "The Blueprint example creates an object that imports files at runtime using Interchange."
-  },
-  {
-   "f": "images/5d654a6a-7c14-46a8-81db-abce8d7cd0c5.webp",
-   "w": 1274,
-   "h": 645,
-   "c": "Click image for full size."
-  }
- ],
- "artist-01-project-setup-and-content-import": [
-  {
-   "f": "images/e349316f-e5f0-47a8-8959-4df34894425e.webp",
-   "w": 720,
-   "h": 370,
-   "c": ""
-  },
-  {
-   "f": "images/ff5ab1ef-d871-415b-9abe-bbffc25de472.webp",
-   "w": 1600,
-   "h": 870,
-   "c": ""
-  },
-  {
-   "f": "images/6d3a6f7c-3663-4088-ac1f-611456eb13cf.webp",
-   "w": 1387,
-   "h": 505,
-   "c": ""
-  }
- ],
- "artist-03-create-materials-and-material-instances": [
-  {
-   "f": "images/e33d7032-6d2b-4683-abe2-36460358de72.webp",
-   "w": 1628,
-   "h": 611,
-   "c": "From left to right: a bare mesh and a surfaced mesh."
-  },
-  {
-   "f": "images/0d9d87cd-5901-4d5c-9bf1-708327bf1312.webp",
-   "w": 1756,
-   "h": 713,
-   "c": ""
-  },
-  {
-   "f": "images/ad7c74e8-b609-4f76-952b-e1fe0f899768.webp",
-   "w": 1200,
-   "h": 409,
-   "c": "Water and sand, rock and ice, and opal substrate Materials."
-  },
-  {
-   "f": "images/3ffaded0-ec15-4859-a636-6f1e43aa9c7e.webp",
-   "w": 902,
-   "h": 355,
-   "c": "Using only one parent Material, Material Instances can hold blue, yellow, and red properties."
-  },
-  {
-   "f": "images/b4454b1d-08cf-4106-a008-1ebfe069d522.webp",
-   "w": 1538,
-   "h": 630,
-   "c": ""
-  },
-  {
-   "f": "images/a5709bce-2c66-4e2c-98df-49bb360652f1.webp",
-   "w": 1602,
-   "h": 966,
-   "c": "Material Editor"
-  }
- ],
- "artist-02-light-a-scene": [
-  {
-   "f": "images/fbae4337-515a-44c7-9db3-47adfdb6f0bb.webp",
-   "w": 1223,
-   "h": 667,
-   "c": "Start-room-no-lighting"
-  },
-  {
-   "f": "images/9b3623de-1e01-4836-bccd-306f3196dcda.webp",
-   "w": 1270,
-   "h": 720,
-   "c": "Placing-a-light-above-a-column"
-  },
-  {
-   "f": "images/3df49405-dc1b-4d48-a4da-a7050c855afb.webp",
-   "w": 921,
-   "h": 570,
-   "c": "Hard-shadow-vs-soft-shadow"
-  },
-  {
-   "f": "images/792ff83e-8001-4af5-9ab5-5b876bfb97cd.webp",
-   "w": 1557,
-   "h": 724,
-   "c": "Examples of volume scattering intensity values of 0, 15, 30, and 50."
-  },
-  {
-   "f": "images/c6bc8466-64d1-4ae1-ae19-2902ed0c2fac.webp",
-   "w": 1856,
-   "h": 928,
-   "c": "Select-a-trap-spike"
-  },
-  {
-   "f": "images/2d5c0ee0-7e9c-45c9-a5bc-32dedbb83177.webp",
-   "w": 1380,
-   "h": 831,
-   "c": "BP-trap-spikes-viewport-and-components-panel"
-  }
- ],
- "07-adjust-environment-lighting-features": [
-  {
-   "f": "images/f4c83ee1-b0c3-4b70-bfd3-3a19f63bbb07.webp",
-   "w": 1916,
-   "h": 1014,
-   "c": "Exponential Height Fog: Single Fog Layer"
-  },
-  {
-   "f": "images/99170a70-7879-420b-b4c0-e8b20502de65.webp",
-   "w": 1916,
-   "h": 1014,
-   "c": "Exponential Height Fog: Added Second Fog Layer"
-  },
-  {
-   "f": "images/c3a16850-1f22-44ab-9685-a97d3f1219d5.webp",
-   "w": 1600,
-   "h": 565,
-   "c": ""
-  },
-  {
-   "f": "images/98fb15c8-0eed-427e-9bbd-fcfc206f3201.webp",
-   "w": 1600,
-   "h": 550,
-   "c": ""
-  },
-  {
-   "f": "images/9b881db8-df6b-4914-96ad-ca4597655fdd.webp",
-   "w": 800,
-   "h": 559,
-   "c": ""
-  },
-  {
-   "f": "images/2dc96f1b-e544-4b21-a209-54bb69f184f2.webp",
-   "w": 1600,
-   "h": 465,
-   "c": ""
-  }
- ],
- "local-fog-volumes-in-unreal-engine": [
-  {
-   "f": "images/24e7786b-b513-41c4-beb3-603c42f68206.webp",
-   "w": 2518,
-   "h": 1190,
-   "c": "A scene with placed local fog volumes with | atmosphere and height fog."
-  },
-  {
-   "f": "images/e500f7ee-0a26-4a2d-a7f2-11ec0eb887e1.webp",
-   "w": 2518,
-   "h": 1190,
-   "c": "A scene using only atmosphere and height fog."
-  },
-  {
-   "f": "images/f6654d62-16b6-414a-b7a2-bcfd7a1ec713.webp",
-   "w": 2528,
-   "h": 1064,
-   "c": "Local fog volume only"
-  },
-  {
-   "f": "images/35a9da1c-9fda-45cf-881e-0de526d275de.webp",
-   "w": 2528,
-   "h": 1064,
-   "c": "Local fog volume with volumetric fog enabled."
-  },
-  {
-   "f": "images/3c2ef9b0-7c6f-4631-aec7-5a75cb165521.webp",
-   "w": 947,
-   "h": 479,
-   "c": "Local Fog Volume project settings."
-  },
-  {
-   "f": "images/c37aefeb-3b2b-4d9d-bf00-204d6a485be1.webp",
-   "w": 2522,
-   "h": 1082,
-   "c": "Albedo Color White"
-  }
- ],
- "lumen-global-illumination-and-reflections-in-unreal-engine": [
-  {
-   "f": "images/2a0386d0-db8d-4054-a440-16be1c4084b3.webp",
-   "w": 1254,
-   "h": 485,
-   "c": ""
-  },
-  {
-   "f": "images/1d4a1583-d0dd-4fb9-82d5-1e944515264e.webp",
-   "w": 1600,
-   "h": 845,
-   "c": ""
-  },
-  {
-   "f": "images/f9a0cdc7-a0ea-40c6-9455-3df13e938fa1.webp",
-   "w": 1600,
-   "h": 917,
-   "c": ""
-  },
-  {
-   "f": "images/670e29ea-a9ac-4380-9de8-2d4684f634c8.webp",
-   "w": 1600,
-   "h": 841,
-   "c": ""
-  },
-  {
-   "f": "images/9f872066-55bb-4523-a3f0-4b89839897bf.webp",
-   "w": 1600,
-   "h": 900,
-   "c": ""
-  },
-  {
-   "f": "images/d03d3251-33bc-4469-a90f-b2f851feeaec.webp",
-   "w": 2538,
-   "h": 1306,
-   "c": ""
-  }
- ],
- "landscape-outdoor-terrain-in-unreal-engine": [],
- "editing-landscapes-in-unreal-engine": [],
- "foliage-mode-in-unreal-engine": [
-  {
-   "f": "images/d972d48e-cfff-499e-825a-49062d12597c.jpg",
-   "w": 5120,
-   "h": 2880,
-   "c": "Foliage can quickly add detail to any outdoor environment."
-  },
-  {
-   "f": "images/6a6302af-dfad-48ff-bb58-768a15bf8506.webp",
-   "w": 1202,
-   "h": 559,
-   "c": "Click image for full size."
-  },
-  {
-   "f": "images/4dc4b5c6-2888-4819-91f6-ad68d2063f3f.webp",
-   "w": 1080,
-   "h": 227,
-   "c": "Click image for full size."
-  },
-  {
-   "f": "images/f04b39bf-b77b-40c9-ad99-4370e2ffb6da.webp",
-   "w": 1920,
-   "h": 1080,
-   "c": "Click image for full size."
-  },
-  {
-   "f": "images/5c96a7ab-fa6b-4f74-bd4f-cf61238e827f.webp",
-   "w": 956,
-   "h": 473,
-   "c": "Click image for full size."
-  },
-  {
-   "f": "images/8d1efbce-e14b-4d5f-8a13-b0b903d5803e.webp",
-   "w": 956,
-   "h": 473,
-   "c": "Click image for full size."
-  }
- ],
- "physics-in-unreal-engine": [
-  {
-   "f": "images/477b3aeb-33db-4f06-bd9a-6c941ef17039.webp",
-   "w": 800,
-   "h": 332,
-   "c": "Chaos Physics"
-  },
-  {
-   "f": "images/00d86f9d-f470-4ede-9699-6ef039904e2b.webp",
-   "w": 800,
-   "h": 437,
-   "c": "Chaos Destruction"
-  },
-  {
-   "f": "images/6ba137fa-e582-4c8d-a80c-d0207283e3f9.webp",
-   "w": 800,
-   "h": 340,
-   "c": "Networked Physics"
-  },
-  {
-   "f": "images/8fe5af91-ee8d-471f-9828-50bf2de89f2f.webp",
-   "w": 900,
-   "h": 506,
-   "c": "Chaos Visual Debugger"
-  },
-  {
-   "f": "images/f1f0aaf1-d45c-4abd-a225-c7019d173ae2.webp",
-   "w": 800,
-   "h": 511,
-   "c": "Physics Constraints"
-  },
-  {
-   "f": "images/d5ae45a1-cff5-4b21-9e27-84dca7605ce3.webp",
-   "w": 800,
-   "h": 450,
-   "c": "Ragdoll Physics"
-  }
- ],
- "designer-06-puzzles-moving-platforms-in-unreal-engine": [
-  {
-   "f": "images/79a3434c-8a07-4c16-b267-02a4dabd9781.webp",
-   "w": 1600,
-   "h": 952,
-   "c": "Image-of-a-material-with-color-picker-open"
-  },
-  {
-   "f": "images/e24144f3-ebab-43f5-b758-c2a5d812e3ac.webp",
-   "w": 1184,
-   "h": 429,
-   "c": "Image-of-materials-folder-content-assets"
-  },
-  {
-   "f": "images/f5f71829-b886-44c5-9889-70631b5fd22e.webp",
-   "w": 1577,
-   "h": 883,
-   "c": "New-blueprint-actor-named-bp-platform"
-  },
-  {
-   "f": "images/3e9e8e6b-2d45-4223-aed0-60ac08cad873.webp",
-   "w": 1600,
-   "h": 752,
-   "c": "Details-panel-with-base-color-orange-being-set"
-  },
-  {
-   "f": "images/5e079b04-f957-45e2-9070-d493d219ad9f.webp",
-   "w": 1088,
-   "h": 840,
-   "c": "Setting-the-platform-scale-values"
-  },
-  {
-   "f": "images/c844669e-3f8c-47c9-8631-5ded4e327174.webp",
-   "w": 1307,
-   "h": 691,
-   "c": "Blueprint-of-construction-script-node"
-  }
- ],
- "artist-09-adding-sounds-to-fire-traps-artist-track-unreal-engine": [
-  {
-   "f": "images/82ae485a-ec2f-4edf-80c7-1214b668d965.webp",
-   "w": 915,
-   "h": 312,
-   "c": "Content Browser view of Audio > Fire folder with a new Sound Cue"
-  },
-  {
-   "f": "images/0dd5f462-40c6-4691-88c8-50691bfe51ae.webp",
-   "w": 2048,
-   "h": 1151,
-   "c": ""
-  },
-  {
-   "f": "images/38ca0e60-f768-478b-b827-46c14057279e.webp",
-   "w": 921,
-   "h": 650,
-   "c": "Searching for a Wave Player node"
-  },
-  {
-   "f": "images/46866256-72d7-4714-aa74-b18db6d1ffbc.webp",
-   "w": 763,
-   "h": 402,
-   "c": ""
-  },
-  {
-   "f": "images/4eb1d257-8c1b-43b2-8344-07c99a15a3f3.webp",
-   "w": 2048,
-   "h": 678,
-   "c": ""
-  },
-  {
-   "f": "images/3d8ef8b8-7e87-4e76-bf5f-d9f50c5feaab.webp",
-   "w": 1174,
-   "h": 457,
-   "c": ""
-  }
- ],
- "metasounds-quick-start": [],
- "overview-of-niagara-effects-for-unreal-engine": [
-  {
-   "f": "images/06cc8496-4b5d-44ff-972c-e61b5a200438.webp",
-   "w": 1720,
-   "h": 551,
-   "c": "Click image for full size."
-  },
-  {
-   "f": "images/913a7b62-0082-4acf-88a7-7508686e0a86.webp",
-   "w": 1403,
-   "h": 787,
-   "c": "Click image for full size."
-  },
-  {
-   "f": "images/f53e28d1-8d87-48da-9e3e-75f77e8e429b.webp",
-   "w": 1050,
-   "h": 723,
-   "c": "Select any of the categories to see the systems and emitters available"
-  },
-  {
-   "f": "images/7822d3aa-465c-4f3d-a787-84449906c22f.png",
-   "w": 1050,
-   "h": 788,
-   "c": "Niagara emitter filter active"
-  },
-  {
-   "f": "images/d888dca9-52d2-48a0-9119-89509e2f6294.webp",
-   "w": 1050,
-   "h": 788,
-   "c": "Niagara emitter filter inactive"
-  },
-  {
-   "f": "images/1e8d17a3-46ac-43e7-9e84-1e4fbc49d3ed.webp",
-   "w": 1363,
-   "h": 829,
-   "c": "In this example an emitter is selected and you can see the asset’s details"
-  }
- ],
- "quick-start-for-niagara-effects-in-unreal-engine": [
-  {
-   "f": "images/826b5938-ed12-4443-9e4a-9201f9fc2cd1.webp",
-   "w": 1495,
-   "h": 938,
-   "c": "Create a New Project"
-  },
-  {
-   "f": "images/c880567a-334b-4077-8cea-8eeec22567d8.webp",
-   "w": 1114,
-   "h": 653,
-   "c": "Click image for full size."
-  },
-  {
-   "f": "images/15176259-13d5-4e2b-9112-ba133d0d7c64.webp",
-   "w": 1435,
-   "h": 680,
-   "c": "Click image for full size."
-  },
-  {
-   "f": "images/53950d39-6cd0-40ac-8c7b-5b6e6492e9b6.webp",
-   "w": 1793,
-   "h": 1388,
-   "c": "Click image for full size."
-  },
-  {
-   "f": "images/92a5eed1-c1be-493f-bb8c-44fa93ab9474.webp",
-   "w": 890,
-   "h": 512,
-   "c": "Click image for full size."
-  },
-  {
-   "f": "images/306d65d9-e31c-400b-bc81-ae157b38b9a4.webp",
-   "w": 1262,
-   "h": 845,
-   "c": "Click image for full size."
-  }
- ],
- "skeletal-mesh-assets-in-unreal-engine": [
-  {
-   "f": "images/b3d98715-44ec-4bf5-a800-4edcb5f85c7d.webp",
-   "w": 2174,
-   "h": 1117,
-   "c": "ImageAltText"
-  },
-  {
-   "f": "images/a66c1356-1294-49fc-823e-096ae4ac2ecf.webp",
-   "w": 2165,
-   "h": 1117,
-   "c": "ImageAltText"
-  },
-  {
-   "f": "images/57f79945-7ae8-4acb-bba2-e5516f3d598c.webp",
-   "w": 822,
-   "h": 375,
-   "c": "ImageAltText"
-  },
-  {
-   "f": "images/771ef4bb-c98d-41d0-bd30-13baac4fe7c4.webp",
-   "w": 1288,
-   "h": 196,
-   "c": "ImageAltText"
-  },
-  {
-   "f": "images/7133c2ef-1df3-4631-87eb-e0bab42f58d5.webp",
-   "w": 800,
-   "h": 350,
-   "c": "ImageAltText"
-  },
-  {
-   "f": "images/a2f30018-b66c-4f83-a1e6-76756488db8a.webp",
-   "w": 700,
-   "h": 420,
-   "c": "ImageAltText"
-  }
- ],
- "how-to-create-control-rigs-in-unreal-engine": [
-  {
-   "f": "images/316c068c-51e6-4d0d-aea8-4b0bbfef697a.webp",
-   "w": 1070,
-   "h": 455,
-   "c": "control rig editor overview"
-  },
-  {
-   "f": "images/9177c05e-924e-4e6b-a4c3-34915ab916b0.webp",
-   "w": 1462,
-   "h": 418,
-   "c": "Control-rig-asset-content-browser"
-  },
-  {
-   "f": "images/1513445a-ab66-4c8e-8d13-9a5e378424a7.webp",
-   "w": 1268,
-   "h": 506,
-   "c": "open control rig"
-  },
-  {
-   "f": "images/f0461ae1-f775-4929-b109-a371555141f4.webp",
-   "w": 783,
-   "h": 396,
-   "c": "get control graph"
-  },
-  {
-   "f": "images/e934eae8-6163-4945-a59d-89226ed100e0.webp",
-   "w": 783,
-   "h": 396,
-   "c": "set bone graph"
-  },
-  {
-   "f": "images/7c0520e9-07c5-4b45-8eb8-eb411718d520.webp",
-   "w": 1330,
-   "h": 334,
-   "c": "Animate-control-in-sequencer"
-  }
- ],
- "designer-04-player-hud-in-unreal-engine": [
-  {
-   "f": "images/f1e37e5f-e22d-4a30-bd00-afd03a1bd113.webp",
-   "w": 911,
-   "h": 444,
-   "c": ""
-  },
-  {
-   "f": "images/6c67e87c-f5d6-4c59-a316-cc43696df924.webp",
-   "w": 836,
-   "h": 326,
-   "c": ""
-  },
-  {
-   "f": "images/2c613ea7-ae6d-4b39-a1c0-a68eb7b12a5c.webp",
-   "w": 831,
-   "h": 394,
-   "c": ""
-  },
-  {
-   "f": "images/468dc93a-b335-4ff5-a4f1-49d43904dab2.webp",
-   "w": 1161,
-   "h": 708,
-   "c": ""
-  },
-  {
-   "f": "images/0ac60072-20b8-4719-8b2a-a5b0540b79ad.webp",
-   "w": 929,
-   "h": 560,
-   "c": ""
-  },
-  {
-   "f": "images/d51dc432-b217-41e6-b6f9-e4892653d64f.webp",
-   "w": 1000,
-   "h": 538,
-   "c": ""
-  }
- ],
- "umg-viewmodel-for-unreal-engine": [
-  {
-   "f": "images/626d320b-962d-4d5d-b36f-63bec9034800.webp",
-   "w": 1999,
-   "h": 331,
-   "c": "Flow chart describing the Viewmodel workflow"
-  },
-  {
-   "f": "images/77785f7a-3c30-40d0-9037-fbca305cea68.webp",
-   "w": 927,
-   "h": 400,
-   "c": "Enabling the Viewmodel plugin in the plugins menu"
-  },
-  {
-   "f": "images/3ac674f8-fc20-4d9c-9187-f1939887d4fc.webp",
-   "w": 963,
-   "h": 490,
-   "c": "Example of a Getter that converts Current Health and Max Health to a percentile"
-  },
-  {
-   "f": "images/7eef0fe4-c5b3-4fbe-b095-f64b67c0317a.webp",
-   "w": 1424,
-   "h": 638,
-   "c": "A function setting current health with limitations."
-  },
-  {
-   "f": "images/f3849b43-da69-48b2-9253-eac09ce615ea.webp",
-   "w": 1148,
-   "h": 496,
-   "c": "A function that outputs Current Health and Max Health as a string"
-  },
-  {
-   "f": "images/6b36887e-ab9c-4833-9d65-9f2592d286ca.webp",
-   "w": 1344,
-   "h": 520,
-   "c": "Example of the Manual creation mode"
-  }
- ],
- "cinematics-and-movie-making-in-unreal-engine": [
-  {
-   "f": "images/34d56187-f42f-4c60-8941-be0fe1441d70.webp",
-   "w": 1227,
-   "h": 642,
-   "c": "image alt text"
-  }
- ],
- "sequencer-cinematic-editor-unreal-engine": [
-  {
-   "f": "images/4fae29f8-a06e-46a8-8825-38fd79949801.webp",
-   "w": 1414,
-   "h": 455,
-   "c": "sequencer editor overview with highlights"
-  },
-  {
-   "f": "images/9183e3c2-43eb-4fa3-a663-f6cbbc7e36c5.webp",
-   "w": 1019,
-   "h": 36,
-   "c": "sequencer toolbar overview with highlights"
-  },
-  {
-   "f": "images/30e697d1-4fa4-4701-b6db-84a323350bf7.webp",
-   "w": 799,
-   "h": 450,
-   "c": "sequencer outliner overview with highlights"
-  },
-  {
-   "f": "images/8db0e44f-a6d1-43cc-b2d1-3ffc50f04d94.webp",
-   "w": 988,
-   "h": 388,
-   "c": "sequencer overview with highlights"
-  },
-  {
-   "f": "images/1bdc4fa0-d883-4718-9c42-66ea1f278855.webp",
-   "w": 797,
-   "h": 361,
-   "c": "sequencer vertical pan scroll bar"
-  },
-  {
-   "f": "images/e6ece45e-f77e-4097-9e4f-7e2a96cdaaa7.gif",
-   "w": 791,
-   "h": 359,
-   "c": "horizontal scrolling"
-  }
- ],
- "packaging-your-project": [
-  {
-   "f": "images/39be121d-9228-456f-becf-6177e45c0362.webp",
-   "w": 1559,
-   "h": 567,
-   "c": "The Development Pipeline"
-  },
-  {
-   "f": "images/847e4530-1586-46a8-a346-44efcfb5e5c7.webp",
-   "w": 1383,
-   "h": 168,
-   "c": "The Packaging Process"
-  },
-  {
-   "f": "images/e61ec49b-e154-4918-8580-9aee88a9a7a2.webp",
-   "w": 847,
-   "h": 562,
-   "c": "Project Settings Packaging"
-  },
-  {
-   "f": "images/a95bbd38-8b36-4268-ab95-c7b9a612930b.webp",
-   "w": 1794,
-   "h": 1293,
-   "c": "Unreal Project Browser"
-  },
-  {
-   "f": "images/d60a7de0-68b3-4006-be24-5addf2c6bd49.webp",
-   "w": 768,
-   "h": 548,
-   "c": "Unreal Editor Project Settings"
-  },
-  {
-   "f": "images/0f8b7c3e-96ad-4f72-ae81-d832f31679f4.webp",
-   "w": 744,
-   "h": 473,
-   "c": "Project Settings Maps And Modes"
-  }
- ],
- "module-6-package-your-project": [],
- "coder-01-set-up-and-compile-a-cplusplus-project-in-unreal-engine": [
-  {
-   "f": "images/efe4c4de-8f4b-47d5-863d-532c3e68dd4f.webp",
-   "w": 1072,
-   "h": 753,
-   "c": ""
-  },
-  {
-   "f": "images/d388129a-7e49-4d68-beb6-b73fb9991e49.webp",
-   "w": 1364,
-   "h": 535,
-   "c": ""
-  },
-  {
-   "f": "images/3f9a3d9f-27bd-435c-8c87-b8c92bddc709.webp",
-   "w": 946,
-   "h": 580,
-   "c": ""
-  },
-  {
-   "f": "images/af46962f-b380-40ca-a37b-beec79c15c63.webp",
-   "w": 946,
-   "h": 541,
-   "c": ""
-  },
-  {
-   "f": "images/9170f125-3468-4b46-9646-a9b54ce5d10b.webp",
-   "w": 1161,
-   "h": 655,
-   "c": ""
-  },
-  {
-   "f": "images/7bf17c19-4881-4bfc-b40e-933fec23d387.webp",
-   "w": 946,
-   "h": 520,
-   "c": ""
-  }
- ],
- "artist-04-expanded-material-instances": [
-  {
-   "f": "images/40d44538-133d-4c97-a727-7fc2a96eb562.webp",
-   "w": 1200,
-   "h": 670,
-   "c": "A character's arm becomes emissive after a powerup."
-  },
-  {
-   "f": "images/adef914d-01eb-417f-86fb-a772dd81a6b9.webp",
-   "w": 1565,
-   "h": 499,
-   "c": ""
-  },
-  {
-   "f": "images/928599e7-dec1-4f40-becc-e97edc4c6193.webp",
-   "w": 1623,
-   "h": 680,
-   "c": ""
-  },
-  {
-   "f": "images/f741eb46-c668-4299-8e0f-6815e6c8cd28.webp",
-   "w": 1554,
-   "h": 712,
-   "c": "Placeholder floor mesh of Room 3."
-  },
-  {
-   "f": "images/00f0045c-6da3-4796-a167-6b0c4cd19dc7.webp",
-   "w": 2800,
-   "h": 789,
-   "c": "(1) Appropriately scaled material. (2) Uniformly scaled-up material. (3) Non-uniformly scaled-up material."
-  },
-  {
-   "f": "images/475ba245-e05c-4477-8453-d8030bc78490.webp",
-   "w": 1200,
-   "h": 534,
-   "c": "Scaling a non-world-aligned texture across meshes with different UVs."
-  }
- ],
- "utility-material-expressions-in-unreal-engine": [
-  {
-   "f": "images/3c62b55c-e100-4dfa-9075-5fbcb91bc12a.webp",
-   "w": 1155,
-   "h": 465,
-   "c": "Blackbody Expression"
-  },
-  {
-   "f": "images/03d562c1-dce8-4de2-9209-b8442af5ca7b.webp",
-   "w": 1210,
-   "h": 491,
-   "c": "Bump Offset Expression"
-  },
-  {
-   "f": "images/284d91ec-51e5-4f2b-b03d-7f00ad8a928b.webp",
-   "w": 1072,
-   "h": 418,
-   "c": "Constant Bias Scale Expression"
-  },
-  {
-   "f": "images/7b79513e-1775-4af9-ab48-932767662fba.webp",
-   "w": 1159,
-   "h": 664,
-   "c": "Without Depth Fade"
-  },
-  {
-   "f": "images/f8d41ac2-2dcc-44f8-b447-b7ead27e1756.webp",
-   "w": 1159,
-   "h": 664,
-   "c": "With Depth Fade"
-  },
-  {
-   "f": "images/da8a336f-6e52-421b-b437-1e9ca93c2db5.webp",
-   "w": 1618,
-   "h": 977,
-   "c": "Blended Colors"
-  }
- ],
- "world-partition-in-unreal-engine": [
-  {
-   "f": "images/0ead0a47-0a29-4fa8-a408-1bbe08d95778.jpg",
-   "w": 1920,
-   "h": 1080,
-   "c": "Click image for full size."
-  },
-  {
-   "f": "images/e4ea786c-a54c-4a75-a155-4a4352fc863c.webp",
-   "w": 1193,
-   "h": 635,
-   "c": "Click image for full size."
-  },
-  {
-   "f": "images/cdca091e-cb56-44c1-9f7f-176d92b04d3f.webp",
-   "w": 1918,
-   "h": 1004,
-   "c": "Click image for full size."
-  },
-  {
-   "f": "images/de228752-2a1b-40d8-99ca-e0f7c6a8eabd.webp",
-   "w": 1920,
-   "h": 1080,
-   "c": "Click image for full size."
-  },
-  {
-   "f": "images/a13afee5-68fc-45f1-b8fb-51d162b70b6a.webp",
-   "w": 956,
-   "h": 473,
-   "c": ""
-  },
-  {
-   "f": "images/b9b7e914-7fc7-49b5-a0fa-038038cbc4bf.webp",
-   "w": 956,
-   "h": 473,
-   "c": ""
-  }
- ],
- "nanite-virtualized-geometry-in-unreal-engine": [
-  {
-   "f": "images/fa3c3c0a-8291-43a1-a956-04db7d4646b2.webp",
-   "w": 3840,
-   "h": 3174,
-   "c": "Example Scenes with Nanite"
-  },
-  {
-   "f": "images/3558d56b-9cfa-4f02-b3d0-caf66e1d5a95.webp",
-   "w": 1006,
-   "h": 605,
-   "c": "Enable Nanite on Batches of Asset in the Content Browser"
-  },
-  {
-   "f": "images/38714e44-b101-403b-be1e-d0346fb22c5f.webp",
-   "w": 803,
-   "h": 556,
-   "c": "Enable Nanite in the Static Mesh Editor"
-  },
-  {
-   "f": "images/f3d062a4-d84e-428c-98b6-117985f547ac.webp",
-   "w": 1400,
-   "h": 732,
-   "c": ""
-  },
-  {
-   "f": "images/4f985549-5ab6-447b-813b-0d63f13b6b3f.webp",
-   "w": 800,
-   "h": 431,
-   "c": ""
-  },
-  {
-   "f": "images/f77a7bee-373d-445b-be0a-7366afbfb1f0.webp",
-   "w": 1311,
-   "h": 335,
-   "c": ""
-  }
- ],
- "nanite-technical-details": [
-  {
-   "f": "images/6a2b8060-2583-4f8a-8c83-b001a435b3b3.webp",
-   "w": 1400,
-   "h": 972,
-   "c": "Nanite Mesh Editor Settings"
-  },
-  {
-   "f": "images/df9b78ec-a0ed-4cc4-b919-1b9d07f77225.webp",
-   "w": 1400,
-   "h": 1056,
-   "c": "Vertex Position Precision Options"
-  },
-  {
-   "f": "images/d4876de2-beb3-4664-a8a2-3398d47c14e5.webp",
-   "w": 1600,
-   "h": 1055,
-   "c": "High Poly Nanite Mesh"
-  },
-  {
-   "f": "images/bb97055f-6045-4bc0-9df1-85b71c1aeced.webp",
-   "w": 1600,
-   "h": 1055,
-   "c": "Nanite-generated Fallback mesh with Default Settings"
-  },
-  {
-   "f": "images/8541e722-7b76-4be2-b56f-c33223832c9a.webp",
-   "w": 1600,
-   "h": 1055,
-   "c": "Nanite-generated Fallback Mesh with Default Settings"
-  },
-  {
-   "f": "images/efc30caa-11ba-475d-a3c5-f2e2f5d01a31.webp",
-   "w": 1600,
-   "h": 1055,
-   "c": ""
-  }
- ],
- "procedural-content-generation-overview": [
-  {
-   "f": "images/5b3dbc40-ed30-4856-b924-1719a5eae70c.webp",
-   "w": 2489,
-   "h": 1400,
-   "c": "Advanced PCG Forest"
-  },
-  {
-   "f": "images/6b69b27c-15e1-4661-bc99-d9a6284f5f53.webp",
-   "w": 1920,
-   "h": 1050,
-   "c": "Click image for full size."
-  },
-  {
-   "f": "images/fc71b471-f05f-4618-800d-07b63a6cb9b1.webp",
-   "w": 1924,
-   "h": 1061,
-   "c": "PCG Graph Diagram"
-  },
-  {
-   "f": "images/2a727c25-8b91-43d3-9fd5-dbea5c879a10.webp",
-   "w": 1256,
-   "h": 520,
-   "c": "PCG Math node"
-  },
-  {
-   "f": "images/b8aed8e0-6d7d-40e7-b119-8617dcc1287d.webp",
-   "w": 734,
-   "h": 722,
-   "c": "Click image for full size."
-  },
-  {
-   "f": "images/824a7e6f-6475-465e-b2b1-17be27b24dc0.webp",
-   "w": 735,
-   "h": 339,
-   "c": "Click image for full size."
-  }
- ],
- "pcg-editor-mode-in-unreal-engine": [
-  {
-   "f": "images/86a3a84f-0e9d-48a4-9c0d-9b05fd61eff6.webp",
-   "w": 716,
-   "h": 258,
-   "c": "PCG raycast rules"
-  },
-  {
-   "f": "images/30dbb36d-3090-42f0-92c5-633971c50f79.webp",
-   "w": 808,
-   "h": 250,
-   "c": "Setting up a tool graph for PCG"
-  },
-  {
-   "f": "images/0cae81b5-0fdf-4fcb-a367-c8e34f020d23.webp",
-   "w": 1115,
-   "h": 133,
-   "c": "PCG Tool Data Overrides"
-  },
-  {
-   "f": "images/e3c734ab-0388-454f-961e-4aa4ea2dacaa.webp",
-   "w": 1600,
-   "h": 957,
-   "c": "PCG editor mode tool settings"
-  }
- ],
- "multiplayer-programming-quick-start-for-unreal-engine": [],
- "optimizing-and-debugging-projects-for-realtime-rendering-in-unreal-engine": [],
- "landscape-quick-start-guide-in-unreal-engine": [
-  {
-   "f": "images/1be23ccb-39e4-4eb8-bdfa-30f811bd3677.webp",
-   "w": 914,
-   "h": 450,
-   "c": "Landscape Mode"
-  },
-  {
-   "f": "images/2f8d1725-6e34-4787-a03a-29f9ad6a31aa.webp",
-   "w": 1495,
-   "h": 953,
-   "c": "Click image for full size."
-  },
-  {
-   "f": "images/9a1e38d3-54d5-430f-9f94-3edaa29a68d4.webp",
-   "w": 1495,
-   "h": 953,
-   "c": "Click image for full size."
-  },
-  {
-   "f": "images/67c86646-115a-4a37-b7d2-0ed553e440c2.webp",
-   "w": 1913,
-   "h": 1021,
-   "c": "Click image for full size."
-  },
-  {
-   "f": "images/0ea60d7d-2750-4282-ae87-a49bdfd6cecc.webp",
-   "w": 1913,
-   "h": 1021,
-   "c": "Click image for full size."
-  },
-  {
-   "f": "images/b95a44f0-f630-4954-85a7-d179ed003a22.webp",
-   "w": 914,
-   "h": 450,
-   "c": "Click image for full size."
-  }
- ],
- "landscape-materials-in-unreal-engine": [
-  {
-   "f": "images/b632b57f-f61b-4cda-a171-e47f8e98a995.webp",
-   "w": 1020,
-   "h": 653,
-   "c": "Click image for full size."
-  },
-  {
-   "f": "images/a237623c-ffdf-4378-ba52-66d9474893fa.webp",
-   "w": 1047,
-   "h": 510,
-   "c": "Click image for full size."
-  },
-  {
-   "f": "images/d0d94b25-1733-4738-a0b8-3bbf5be80f7d.webp",
-   "w": 1152,
-   "h": 372,
-   "c": "Click image for full size."
-  },
-  {
-   "f": "images/1cfa415f-6781-4e97-9155-476772833f95.webp",
-   "w": 994,
-   "h": 378,
-   "c": "Click image for full size."
-  },
-  {
-   "f": "images/28232a67-7324-4cde-aa72-e97e7da8c412.webp",
-   "w": 956,
-   "h": 392,
-   "c": "Landscape-layer-weight-menu-options"
-  },
-  {
-   "f": "images/4a8439c5-e210-4a4d-8a35-bf24ca94d228.webp",
-   "w": 1400,
-   "h": 762,
-   "c": "Landscape-layer-weight-in-Blueprints"
-  }
- ],
- "metasound-templates-quick-start-in-unreal-engine": [
-  {
-   "f": "images/f14405ef-e383-4ea3-b485-b4d999232cb1.webp",
-   "w": 720,
-   "h": 197,
-   "c": "The MetaSound Editor toolbar Template dropdown opened over a MetaSound Source asset, with Randomizer selected. The Details panel exposes the"
-  },
-  {
-   "f": "images/d20e6ff8-0dfb-49d2-86af-1ac649ebda17.webp",
-   "w": 751,
-   "h": 70,
-   "c": ""
-  }
- ],
- "creating-procedural-music-with-metasounds": [],
- "unreal-insights-in-unreal-engine": [
-  {
-   "f": "images/2e91ed25-b93e-4a0d-9d2d-2909ad6d6270.jpg",
-   "w": 1501,
-   "h": 415,
-   "c": "insights-diagram"
-  },
-  {
-   "f": "images/2602df9a-4b69-4edf-a9d9-b393a8aa8b52.webp",
-   "w": 995,
-   "h": 575,
-   "c": "insights-widget"
-  },
-  {
-   "f": "images/937ea69e-6848-4631-a00c-e631f9121f75.webp",
-   "w": 1646,
-   "h": 646,
-   "c": ""
-  },
-  {
-   "f": "images/7b9ee987-7334-48e7-abe1-c35ce03b230d.webp",
-   "w": 1648,
-   "h": 1159,
-   "c": ""
-  },
-  {
-   "f": "images/de2d667f-9ef4-4256-bcf1-c59864d7d4e6.webp",
-   "w": 1648,
-   "h": 528,
-   "c": ""
-  },
-  {
-   "f": "images/27fde8fc-d898-44d2-ae79-92ac0f70c497.webp",
-   "w": 1648,
-   "h": 776,
-   "c": ""
-  }
- ],
- "scalability-reference-for-unreal-engine": [
-  {
-   "f": "images/a0e95651-99b1-4572-bfa6-935ee3456a88.webp",
-   "w": 1600,
-   "h": 1295,
-   "c": "Viewport Performance and Scalability menu and Scalability Groups window"
-  },
-  {
-   "f": "images/034b25e1-6361-43e1-9f7b-a55d73ff0b11.webp",
-   "w": 939,
-   "h": 353,
-   "c": "Left: 50% no AA, Middle: 50% with AA, Right: 100% (no resolution scale) with AA"
-  },
-  {
-   "f": "images/06c8d50b-2840-4d89-913e-017f75e082fb.webp",
-   "w": 1431,
-   "h": 314,
-   "c": "left: r.ViewDistanceScale 0.4, middle: r.ViewDistanceScale 0.7, right: r.ViewDistanceScale 1.0 (default)"
-  },
-  {
-   "f": "images/56a02d1d-d927-4c43-9904-7f2679200d18.webp",
-   "w": 920,
-   "h": 216,
-   "c": "From the left: r.PostProcessAAQuality 0 to 6. The first 3 equal the Low, Medium, High, Epic settings in the Scalability Groups > AA (TSR) se"
-  },
-  {
-   "f": "images/7690821d-72a7-4310-8d25-5bbc67450210.webp",
-   "w": 1600,
-   "h": 261,
-   "c": "sg.PostProcessQuality set from 0 on the left to 3 on the right."
-  },
-  {
-   "f": "images/24635009-a661-40f7-b6cb-6fddfb08e989.webp",
-   "w": 1600,
-   "h": 262,
-   "c": "sg.ShadowQuality set from 0 on the left to 3 on the right."
-  }
- ],
- "bp-event-graph": [
-  {
-   "f": "images/24088a30-80eb-479a-a8d5-ae3122c86b56.webp",
-   "w": 1999,
-   "h": 553,
-   "c": "Blueprint of Event Graph"
-  }
- ],
- "animbp-graph": [
-  {
-   "f": "images/1bf0fb01-bd73-49bb-9b94-3058bb6908b2.webp",
-   "w": 864,
-   "h": 463,
-   "c": "Animation Blueprint graph"
-  }
- ]
+  "install-unreal-engine": [
+    {
+      "f": "images/8ebe4e86-a5d8-4771-a8af-214278d453f5.webp",
+      "w": 1200,
+      "h": 504,
+      "c": "Epic Games Launcher Download Page"
+    },
+    {
+      "f": "images/efb33e57-28b9-4e63-a8ba-fdc23c06a100.webp",
+      "w": 1200,
+      "h": 745,
+      "c": "Epic Games Launcher Sign In With Existing Account"
+    },
+    {
+      "f": "images/658f8b51-9bdf-4fc2-92f5-5cb2e6a12164.webp",
+      "w": 1200,
+      "h": 745,
+      "c": "Epic Games Launcher Sign In With Third-Party Platform"
+    },
+    {
+      "f": "images/3cd20c1d-2575-45bb-b569-939b74494410.webp",
+      "w": 1200,
+      "h": 745,
+      "c": "Epic Games Launcher Create Account"
+    },
+    {
+      "f": "images/8dd4f790-456f-44ef-87bf-c9ebe91ebe82.webp",
+      "w": 1200,
+      "h": 710,
+      "c": "Epic Games Launcher TOS And EULA"
+    },
+    {
+      "f": "images/8b8f11e6-1f1b-4957-a1b6-41f8cbef6245.webp",
+      "w": 1200,
+      "h": 706,
+      "c": "Epic Games Launcher Verify Email"
+    }
+  ],
+  "module-1-install-ue-and-create-your-first-project": [
+    {
+      "f": "images/4d1bbe13-2215-4cd9-8f48-b22a5581262b.webp",
+      "w": 1920,
+      "h": 1046,
+      "c": "A fresh 3rd person project using the Platformer variant."
+    }
+  ],
+  "first-hour-in-unreal-engine": [
+    {
+      "f": "images/de88b562-753a-484b-9ccf-d9faeef5819a.webp",
+      "w": 3835,
+      "h": 2085,
+      "c": "Platformer End Screen"
+    }
+  ],
+  "unreal-editor-interface": [
+    {
+      "f": "images/669481b3-c96f-4e63-9c89-2f8025e8210f.webp",
+      "w": 1916,
+      "h": 1125,
+      "c": ""
+    },
+    {
+      "f": "images/96d4b7e3-0822-4752-b8e4-1eedf68053a1.webp",
+      "w": 765,
+      "h": 97,
+      "c": ""
+    },
+    {
+      "f": "images/55cc5842-0874-4d8d-84fc-0f3fc2988797.webp",
+      "w": 1504,
+      "h": 104,
+      "c": ""
+    },
+    {
+      "f": "images/eafa8ca5-da06-4c39-8914-6e81cc0573f1.webp",
+      "w": 1617,
+      "h": 1111,
+      "c": ""
+    },
+    {
+      "f": "images/8ab4d964-b22f-42f6-8829-b9ea33ab99a3.webp",
+      "w": 1617,
+      "h": 1111,
+      "c": ""
+    },
+    {
+      "f": "images/7b4be143-d77b-4612-8292-0b2e87ddf8e3.webp",
+      "w": 1617,
+      "h": 1111,
+      "c": ""
+    }
+  ],
+  "level-designer-quick-start-in-unreal-engine": [
+    {
+      "f": "images/cd47b4df-de0d-431b-8d02-ec72825caf5b.webp",
+      "w": 775,
+      "h": 569,
+      "c": "At the end of this guide, you'll have a room similar to the one pictured above."
+    },
+    {
+      "f": "images/7770bea3-b127-4abd-a452-8ae76c4e4728.webp",
+      "w": 1491,
+      "h": 951,
+      "c": "Select Category on Windows."
+    },
+    {
+      "f": "images/28b0d6bd-3b33-4617-9c5b-b36a3c7d5394.webp",
+      "w": 1491,
+      "h": 951,
+      "c": "Select the Blank template on Windows"
+    },
+    {
+      "f": "images/1db11af9-1b5e-4ebd-ab2c-7c9563eff9c4.webp",
+      "w": 1491,
+      "h": 951,
+      "c": "Select Blueprint and With Starter Content on Windows"
+    },
+    {
+      "f": "images/fe1b0f01-e5da-4705-90f7-db09702de1a3.webp",
+      "w": 1064,
+      "h": 632,
+      "c": "Select Category on Mac."
+    },
+    {
+      "f": "images/5512a4b2-4c74-462b-957f-deffc74d3bb2.webp",
+      "w": 1076,
+      "h": 600,
+      "c": "Select the Blank template on Mac"
+    }
+  ],
+  "transforming-actors-in-unreal-engine": [
+    {
+      "f": "images/243cda68-835c-4965-a85d-6232f62e601c.webp",
+      "w": 2215,
+      "h": 2195,
+      "c": "The Level Viewport toolbar is located in the upper section of the viewport, with the gizmo selection icons on the right."
+    },
+    {
+      "f": "images/009ae634-2fc1-4280-b4b3-36acd7a4bfdd.webp",
+      "w": 2214,
+      "h": 86,
+      "c": "Left to right: Shortcuts to the Selection, Translation, Rotation, and Scaling gizmos in the Level Viewport toolbar."
+    },
+    {
+      "f": "images/f4e80042-567f-49f7-b20c-e34e2bba674a.webp",
+      "w": 1280,
+      "h": 720,
+      "c": "Translating a cube along two axes (a single plane)."
+    },
+    {
+      "f": "images/da99fbc9-d384-412c-9e39-bb0604e51709.webp",
+      "w": 1280,
+      "h": 720,
+      "c": "Translating a cube along all three axes."
+    },
+    {
+      "f": "images/420da6a7-4b01-4367-9847-ef1ba38967d4.webp",
+      "w": 1280,
+      "h": 720,
+      "c": "Duplicating an actor using the Translation gizmo."
+    },
+    {
+      "f": "images/f7937fcb-6245-4728-bee5-58729c5b83a7.jpg",
+      "w": 3083,
+      "h": 1955,
+      "c": "Duplicating an actor using the Rotation gizmo."
+    }
+  ],
+  "module-3-create-a-coin-pickup-with-modeling-tools-and-blueprints": [
+    {
+      "f": "images/2edc7c1c-893f-41db-b7b4-ab9dac464627.webp",
+      "w": 1916,
+      "h": 1046,
+      "c": "Building the coin pickup"
+    }
+  ],
+  "importing-assets-using-interchange-in-unreal-engine": [
+    {
+      "f": "images/aa6c5cc4-1b84-4131-b17d-7df50fb1c70d.webp",
+      "w": 2012,
+      "h": 1381,
+      "c": "Interchange Interface"
+    },
+    {
+      "f": "images/ca24ef8d-65cd-4cb0-96f2-e4188f1938c2.webp",
+      "w": 2012,
+      "h": 1380,
+      "c": "Use the interface to select your import settings and click Import to continue."
+    },
+    {
+      "f": "images/3b54c8da-4c3e-40bd-87be-8b08f4f66557.webp",
+      "w": 1238,
+      "h": 1062,
+      "c": "The Interchange Preview window shows a list of assets that will be created"
+    },
+    {
+      "f": "images/3bc1eff1-b19c-4ced-bdfa-2a687291ce4d.webp",
+      "w": 1260,
+      "h": 627,
+      "c": "The Interchange Conflicts Preview window shows changes to the material or skeleton structure on reimport"
+    },
+    {
+      "f": "images/7c9dd35c-13f9-46e0-a4c5-fd0669a34a31.webp",
+      "w": 1274,
+      "h": 645,
+      "c": "The Blueprint example creates an object that imports files at runtime using Interchange."
+    },
+    {
+      "f": "images/5d654a6a-7c14-46a8-81db-abce8d7cd0c5.webp",
+      "w": 1274,
+      "h": 645,
+      "c": "Click image for full size."
+    }
+  ],
+  "artist-01-project-setup-and-content-import": [
+    {
+      "f": "images/e349316f-e5f0-47a8-8959-4df34894425e.webp",
+      "w": 720,
+      "h": 370,
+      "c": ""
+    },
+    {
+      "f": "images/ff5ab1ef-d871-415b-9abe-bbffc25de472.webp",
+      "w": 1600,
+      "h": 870,
+      "c": ""
+    },
+    {
+      "f": "images/6d3a6f7c-3663-4088-ac1f-611456eb13cf.webp",
+      "w": 1387,
+      "h": 505,
+      "c": ""
+    }
+  ],
+  "artist-03-create-materials-and-material-instances": [
+    {
+      "f": "images/e33d7032-6d2b-4683-abe2-36460358de72.webp",
+      "w": 1628,
+      "h": 611,
+      "c": "From left to right: a bare mesh and a surfaced mesh."
+    },
+    {
+      "f": "images/0d9d87cd-5901-4d5c-9bf1-708327bf1312.webp",
+      "w": 1756,
+      "h": 713,
+      "c": ""
+    },
+    {
+      "f": "images/ad7c74e8-b609-4f76-952b-e1fe0f899768.webp",
+      "w": 1200,
+      "h": 409,
+      "c": "Water and sand, rock and ice, and opal substrate Materials."
+    },
+    {
+      "f": "images/3ffaded0-ec15-4859-a636-6f1e43aa9c7e.webp",
+      "w": 902,
+      "h": 355,
+      "c": "Using only one parent Material, Material Instances can hold blue, yellow, and red properties."
+    },
+    {
+      "f": "images/b4454b1d-08cf-4106-a008-1ebfe069d522.webp",
+      "w": 1538,
+      "h": 630,
+      "c": ""
+    },
+    {
+      "f": "images/a5709bce-2c66-4e2c-98df-49bb360652f1.webp",
+      "w": 1602,
+      "h": 966,
+      "c": "Material Editor"
+    }
+  ],
+  "artist-02-light-a-scene": [
+    {
+      "f": "images/fbae4337-515a-44c7-9db3-47adfdb6f0bb.webp",
+      "w": 1223,
+      "h": 667,
+      "c": "Start-room-no-lighting"
+    },
+    {
+      "f": "images/9b3623de-1e01-4836-bccd-306f3196dcda.webp",
+      "w": 1270,
+      "h": 720,
+      "c": "Placing-a-light-above-a-column"
+    },
+    {
+      "f": "images/3df49405-dc1b-4d48-a4da-a7050c855afb.webp",
+      "w": 921,
+      "h": 570,
+      "c": "Hard-shadow-vs-soft-shadow"
+    },
+    {
+      "f": "images/792ff83e-8001-4af5-9ab5-5b876bfb97cd.webp",
+      "w": 1557,
+      "h": 724,
+      "c": "Examples of volume scattering intensity values of 0, 15, 30, and 50."
+    },
+    {
+      "f": "images/c6bc8466-64d1-4ae1-ae19-2902ed0c2fac.webp",
+      "w": 1856,
+      "h": 928,
+      "c": "Select-a-trap-spike"
+    },
+    {
+      "f": "images/2d5c0ee0-7e9c-45c9-a5bc-32dedbb83177.webp",
+      "w": 1380,
+      "h": 831,
+      "c": "BP-trap-spikes-viewport-and-components-panel"
+    }
+  ],
+  "07-adjust-environment-lighting-features": [
+    {
+      "f": "images/f4c83ee1-b0c3-4b70-bfd3-3a19f63bbb07.webp",
+      "w": 1916,
+      "h": 1014,
+      "c": "Exponential Height Fog: Single Fog Layer"
+    },
+    {
+      "f": "images/99170a70-7879-420b-b4c0-e8b20502de65.webp",
+      "w": 1916,
+      "h": 1014,
+      "c": "Exponential Height Fog: Added Second Fog Layer"
+    },
+    {
+      "f": "images/c3a16850-1f22-44ab-9685-a97d3f1219d5.webp",
+      "w": 1600,
+      "h": 565,
+      "c": ""
+    },
+    {
+      "f": "images/98fb15c8-0eed-427e-9bbd-fcfc206f3201.webp",
+      "w": 1600,
+      "h": 550,
+      "c": ""
+    },
+    {
+      "f": "images/9b881db8-df6b-4914-96ad-ca4597655fdd.webp",
+      "w": 800,
+      "h": 559,
+      "c": ""
+    },
+    {
+      "f": "images/2dc96f1b-e544-4b21-a209-54bb69f184f2.webp",
+      "w": 1600,
+      "h": 465,
+      "c": ""
+    }
+  ],
+  "local-fog-volumes-in-unreal-engine": [
+    {
+      "f": "images/24e7786b-b513-41c4-beb3-603c42f68206.webp",
+      "w": 2518,
+      "h": 1190,
+      "c": "A scene with placed local fog volumes with | atmosphere and height fog."
+    },
+    {
+      "f": "images/e500f7ee-0a26-4a2d-a7f2-11ec0eb887e1.webp",
+      "w": 2518,
+      "h": 1190,
+      "c": "A scene using only atmosphere and height fog."
+    },
+    {
+      "f": "images/f6654d62-16b6-414a-b7a2-bcfd7a1ec713.webp",
+      "w": 2528,
+      "h": 1064,
+      "c": "Local fog volume only"
+    },
+    {
+      "f": "images/35a9da1c-9fda-45cf-881e-0de526d275de.webp",
+      "w": 2528,
+      "h": 1064,
+      "c": "Local fog volume with volumetric fog enabled."
+    },
+    {
+      "f": "images/3c2ef9b0-7c6f-4631-aec7-5a75cb165521.webp",
+      "w": 947,
+      "h": 479,
+      "c": "Local Fog Volume project settings."
+    },
+    {
+      "f": "images/c37aefeb-3b2b-4d9d-bf00-204d6a485be1.webp",
+      "w": 2522,
+      "h": 1082,
+      "c": "Albedo Color White"
+    }
+  ],
+  "lumen-global-illumination-and-reflections-in-unreal-engine": [
+    {
+      "f": "images/2a0386d0-db8d-4054-a440-16be1c4084b3.webp",
+      "w": 1254,
+      "h": 485,
+      "c": ""
+    },
+    {
+      "f": "images/1d4a1583-d0dd-4fb9-82d5-1e944515264e.webp",
+      "w": 1600,
+      "h": 845,
+      "c": ""
+    },
+    {
+      "f": "images/f9a0cdc7-a0ea-40c6-9455-3df13e938fa1.webp",
+      "w": 1600,
+      "h": 917,
+      "c": ""
+    },
+    {
+      "f": "images/670e29ea-a9ac-4380-9de8-2d4684f634c8.webp",
+      "w": 1600,
+      "h": 841,
+      "c": ""
+    },
+    {
+      "f": "images/9f872066-55bb-4523-a3f0-4b89839897bf.webp",
+      "w": 1600,
+      "h": 900,
+      "c": ""
+    },
+    {
+      "f": "images/d03d3251-33bc-4469-a90f-b2f851feeaec.webp",
+      "w": 2538,
+      "h": 1306,
+      "c": ""
+    }
+  ],
+  "landscape-outdoor-terrain-in-unreal-engine": [],
+  "editing-landscapes-in-unreal-engine": [],
+  "foliage-mode-in-unreal-engine": [
+    {
+      "f": "images/d972d48e-cfff-499e-825a-49062d12597c.jpg",
+      "w": 5120,
+      "h": 2880,
+      "c": "Foliage can quickly add detail to any outdoor environment."
+    },
+    {
+      "f": "images/6a6302af-dfad-48ff-bb58-768a15bf8506.webp",
+      "w": 1202,
+      "h": 559,
+      "c": "Click image for full size."
+    },
+    {
+      "f": "images/4dc4b5c6-2888-4819-91f6-ad68d2063f3f.webp",
+      "w": 1080,
+      "h": 227,
+      "c": "Click image for full size."
+    },
+    {
+      "f": "images/f04b39bf-b77b-40c9-ad99-4370e2ffb6da.webp",
+      "w": 1920,
+      "h": 1080,
+      "c": "Click image for full size."
+    },
+    {
+      "f": "images/5c96a7ab-fa6b-4f74-bd4f-cf61238e827f.webp",
+      "w": 956,
+      "h": 473,
+      "c": "Click image for full size."
+    },
+    {
+      "f": "images/8d1efbce-e14b-4d5f-8a13-b0b903d5803e.webp",
+      "w": 956,
+      "h": 473,
+      "c": "Click image for full size."
+    }
+  ],
+  "physics-in-unreal-engine": [
+    {
+      "f": "images/477b3aeb-33db-4f06-bd9a-6c941ef17039.webp",
+      "w": 800,
+      "h": 332,
+      "c": "Chaos Physics"
+    },
+    {
+      "f": "images/00d86f9d-f470-4ede-9699-6ef039904e2b.webp",
+      "w": 800,
+      "h": 437,
+      "c": "Chaos Destruction"
+    },
+    {
+      "f": "images/6ba137fa-e582-4c8d-a80c-d0207283e3f9.webp",
+      "w": 800,
+      "h": 340,
+      "c": "Networked Physics"
+    },
+    {
+      "f": "images/8fe5af91-ee8d-471f-9828-50bf2de89f2f.webp",
+      "w": 900,
+      "h": 506,
+      "c": "Chaos Visual Debugger"
+    },
+    {
+      "f": "images/f1f0aaf1-d45c-4abd-a225-c7019d173ae2.webp",
+      "w": 800,
+      "h": 511,
+      "c": "Physics Constraints"
+    },
+    {
+      "f": "images/d5ae45a1-cff5-4b21-9e27-84dca7605ce3.webp",
+      "w": 800,
+      "h": 450,
+      "c": "Ragdoll Physics"
+    }
+  ],
+  "designer-06-puzzles-moving-platforms-in-unreal-engine": [
+    {
+      "f": "images/79a3434c-8a07-4c16-b267-02a4dabd9781.webp",
+      "w": 1600,
+      "h": 952,
+      "c": "Image-of-a-material-with-color-picker-open"
+    },
+    {
+      "f": "images/e24144f3-ebab-43f5-b758-c2a5d812e3ac.webp",
+      "w": 1184,
+      "h": 429,
+      "c": "Image-of-materials-folder-content-assets"
+    },
+    {
+      "f": "images/f5f71829-b886-44c5-9889-70631b5fd22e.webp",
+      "w": 1577,
+      "h": 883,
+      "c": "New-blueprint-actor-named-bp-platform"
+    },
+    {
+      "f": "images/3e9e8e6b-2d45-4223-aed0-60ac08cad873.webp",
+      "w": 1600,
+      "h": 752,
+      "c": "Details-panel-with-base-color-orange-being-set"
+    },
+    {
+      "f": "images/5e079b04-f957-45e2-9070-d493d219ad9f.webp",
+      "w": 1088,
+      "h": 840,
+      "c": "Setting-the-platform-scale-values"
+    },
+    {
+      "f": "images/c844669e-3f8c-47c9-8631-5ded4e327174.webp",
+      "w": 1307,
+      "h": 691,
+      "c": "Blueprint-of-construction-script-node"
+    }
+  ],
+  "artist-09-adding-sounds-to-fire-traps-artist-track-unreal-engine": [
+    {
+      "f": "images/82ae485a-ec2f-4edf-80c7-1214b668d965.webp",
+      "w": 915,
+      "h": 312,
+      "c": "Content Browser view of Audio > Fire folder with a new Sound Cue"
+    },
+    {
+      "f": "images/0dd5f462-40c6-4691-88c8-50691bfe51ae.webp",
+      "w": 2048,
+      "h": 1151,
+      "c": ""
+    },
+    {
+      "f": "images/38ca0e60-f768-478b-b827-46c14057279e.webp",
+      "w": 921,
+      "h": 650,
+      "c": "Searching for a Wave Player node"
+    },
+    {
+      "f": "images/46866256-72d7-4714-aa74-b18db6d1ffbc.webp",
+      "w": 763,
+      "h": 402,
+      "c": ""
+    },
+    {
+      "f": "images/4eb1d257-8c1b-43b2-8344-07c99a15a3f3.webp",
+      "w": 2048,
+      "h": 678,
+      "c": ""
+    },
+    {
+      "f": "images/3d8ef8b8-7e87-4e76-bf5f-d9f50c5feaab.webp",
+      "w": 1174,
+      "h": 457,
+      "c": ""
+    }
+  ],
+  "metasounds-quick-start": [],
+  "overview-of-niagara-effects-for-unreal-engine": [
+    {
+      "f": "images/06cc8496-4b5d-44ff-972c-e61b5a200438.webp",
+      "w": 1720,
+      "h": 551,
+      "c": "Click image for full size."
+    },
+    {
+      "f": "images/913a7b62-0082-4acf-88a7-7508686e0a86.webp",
+      "w": 1403,
+      "h": 787,
+      "c": "Click image for full size."
+    },
+    {
+      "f": "images/f53e28d1-8d87-48da-9e3e-75f77e8e429b.webp",
+      "w": 1050,
+      "h": 723,
+      "c": "Select any of the categories to see the systems and emitters available"
+    },
+    {
+      "f": "images/7822d3aa-465c-4f3d-a787-84449906c22f.png",
+      "w": 1050,
+      "h": 788,
+      "c": "Niagara emitter filter active"
+    },
+    {
+      "f": "images/d888dca9-52d2-48a0-9119-89509e2f6294.webp",
+      "w": 1050,
+      "h": 788,
+      "c": "Niagara emitter filter inactive"
+    },
+    {
+      "f": "images/1e8d17a3-46ac-43e7-9e84-1e4fbc49d3ed.webp",
+      "w": 1363,
+      "h": 829,
+      "c": "In this example an emitter is selected and you can see the asset’s details"
+    }
+  ],
+  "quick-start-for-niagara-effects-in-unreal-engine": [
+    {
+      "f": "images/826b5938-ed12-4443-9e4a-9201f9fc2cd1.webp",
+      "w": 1495,
+      "h": 938,
+      "c": "Create a New Project"
+    },
+    {
+      "f": "images/c880567a-334b-4077-8cea-8eeec22567d8.webp",
+      "w": 1114,
+      "h": 653,
+      "c": "Click image for full size."
+    },
+    {
+      "f": "images/15176259-13d5-4e2b-9112-ba133d0d7c64.webp",
+      "w": 1435,
+      "h": 680,
+      "c": "Click image for full size."
+    },
+    {
+      "f": "images/53950d39-6cd0-40ac-8c7b-5b6e6492e9b6.webp",
+      "w": 1793,
+      "h": 1388,
+      "c": "Click image for full size."
+    },
+    {
+      "f": "images/92a5eed1-c1be-493f-bb8c-44fa93ab9474.webp",
+      "w": 890,
+      "h": 512,
+      "c": "Click image for full size."
+    },
+    {
+      "f": "images/306d65d9-e31c-400b-bc81-ae157b38b9a4.webp",
+      "w": 1262,
+      "h": 845,
+      "c": "Click image for full size."
+    }
+  ],
+  "skeletal-mesh-assets-in-unreal-engine": [
+    {
+      "f": "images/b3d98715-44ec-4bf5-a800-4edcb5f85c7d.webp",
+      "w": 2174,
+      "h": 1117,
+      "c": "ImageAltText"
+    },
+    {
+      "f": "images/a66c1356-1294-49fc-823e-096ae4ac2ecf.webp",
+      "w": 2165,
+      "h": 1117,
+      "c": "ImageAltText"
+    },
+    {
+      "f": "images/57f79945-7ae8-4acb-bba2-e5516f3d598c.webp",
+      "w": 822,
+      "h": 375,
+      "c": "ImageAltText"
+    },
+    {
+      "f": "images/771ef4bb-c98d-41d0-bd30-13baac4fe7c4.webp",
+      "w": 1288,
+      "h": 196,
+      "c": "ImageAltText"
+    },
+    {
+      "f": "images/7133c2ef-1df3-4631-87eb-e0bab42f58d5.webp",
+      "w": 800,
+      "h": 350,
+      "c": "ImageAltText"
+    },
+    {
+      "f": "images/a2f30018-b66c-4f83-a1e6-76756488db8a.webp",
+      "w": 700,
+      "h": 420,
+      "c": "ImageAltText"
+    }
+  ],
+  "how-to-create-control-rigs-in-unreal-engine": [
+    {
+      "f": "images/316c068c-51e6-4d0d-aea8-4b0bbfef697a.webp",
+      "w": 1070,
+      "h": 455,
+      "c": "control rig editor overview"
+    },
+    {
+      "f": "images/9177c05e-924e-4e6b-a4c3-34915ab916b0.webp",
+      "w": 1462,
+      "h": 418,
+      "c": "Control-rig-asset-content-browser"
+    },
+    {
+      "f": "images/1513445a-ab66-4c8e-8d13-9a5e378424a7.webp",
+      "w": 1268,
+      "h": 506,
+      "c": "open control rig"
+    },
+    {
+      "f": "images/f0461ae1-f775-4929-b109-a371555141f4.webp",
+      "w": 783,
+      "h": 396,
+      "c": "get control graph"
+    },
+    {
+      "f": "images/e934eae8-6163-4945-a59d-89226ed100e0.webp",
+      "w": 783,
+      "h": 396,
+      "c": "set bone graph"
+    },
+    {
+      "f": "images/7c0520e9-07c5-4b45-8eb8-eb411718d520.webp",
+      "w": 1330,
+      "h": 334,
+      "c": "Animate-control-in-sequencer"
+    }
+  ],
+  "designer-04-player-hud-in-unreal-engine": [
+    {
+      "f": "images/f1e37e5f-e22d-4a30-bd00-afd03a1bd113.webp",
+      "w": 911,
+      "h": 444,
+      "c": ""
+    },
+    {
+      "f": "images/6c67e87c-f5d6-4c59-a316-cc43696df924.webp",
+      "w": 836,
+      "h": 326,
+      "c": ""
+    },
+    {
+      "f": "images/2c613ea7-ae6d-4b39-a1c0-a68eb7b12a5c.webp",
+      "w": 831,
+      "h": 394,
+      "c": ""
+    },
+    {
+      "f": "images/468dc93a-b335-4ff5-a4f1-49d43904dab2.webp",
+      "w": 1161,
+      "h": 708,
+      "c": ""
+    },
+    {
+      "f": "images/0ac60072-20b8-4719-8b2a-a5b0540b79ad.webp",
+      "w": 929,
+      "h": 560,
+      "c": ""
+    },
+    {
+      "f": "images/d51dc432-b217-41e6-b6f9-e4892653d64f.webp",
+      "w": 1000,
+      "h": 538,
+      "c": ""
+    }
+  ],
+  "umg-viewmodel-for-unreal-engine": [
+    {
+      "f": "images/626d320b-962d-4d5d-b36f-63bec9034800.webp",
+      "w": 1999,
+      "h": 331,
+      "c": "Flow chart describing the Viewmodel workflow"
+    },
+    {
+      "f": "images/77785f7a-3c30-40d0-9037-fbca305cea68.webp",
+      "w": 927,
+      "h": 400,
+      "c": "Enabling the Viewmodel plugin in the plugins menu"
+    },
+    {
+      "f": "images/3ac674f8-fc20-4d9c-9187-f1939887d4fc.webp",
+      "w": 963,
+      "h": 490,
+      "c": "Example of a Getter that converts Current Health and Max Health to a percentile"
+    },
+    {
+      "f": "images/7eef0fe4-c5b3-4fbe-b095-f64b67c0317a.webp",
+      "w": 1424,
+      "h": 638,
+      "c": "A function setting current health with limitations."
+    },
+    {
+      "f": "images/f3849b43-da69-48b2-9253-eac09ce615ea.webp",
+      "w": 1148,
+      "h": 496,
+      "c": "A function that outputs Current Health and Max Health as a string"
+    },
+    {
+      "f": "images/6b36887e-ab9c-4833-9d65-9f2592d286ca.webp",
+      "w": 1344,
+      "h": 520,
+      "c": "Example of the Manual creation mode"
+    }
+  ],
+  "cinematics-and-movie-making-in-unreal-engine": [
+    {
+      "f": "images/34d56187-f42f-4c60-8941-be0fe1441d70.webp",
+      "w": 1227,
+      "h": 642,
+      "c": "image alt text"
+    }
+  ],
+  "sequencer-cinematic-editor-unreal-engine": [
+    {
+      "f": "images/4fae29f8-a06e-46a8-8825-38fd79949801.webp",
+      "w": 1414,
+      "h": 455,
+      "c": "sequencer editor overview with highlights"
+    },
+    {
+      "f": "images/9183e3c2-43eb-4fa3-a663-f6cbbc7e36c5.webp",
+      "w": 1019,
+      "h": 36,
+      "c": "sequencer toolbar overview with highlights"
+    },
+    {
+      "f": "images/30e697d1-4fa4-4701-b6db-84a323350bf7.webp",
+      "w": 799,
+      "h": 450,
+      "c": "sequencer outliner overview with highlights"
+    },
+    {
+      "f": "images/8db0e44f-a6d1-43cc-b2d1-3ffc50f04d94.webp",
+      "w": 988,
+      "h": 388,
+      "c": "sequencer overview with highlights"
+    },
+    {
+      "f": "images/1bdc4fa0-d883-4718-9c42-66ea1f278855.webp",
+      "w": 797,
+      "h": 361,
+      "c": "sequencer vertical pan scroll bar"
+    },
+    {
+      "f": "images/e6ece45e-f77e-4097-9e4f-7e2a96cdaaa7.gif",
+      "w": 791,
+      "h": 359,
+      "c": "horizontal scrolling"
+    }
+  ],
+  "packaging-your-project": [
+    {
+      "f": "images/39be121d-9228-456f-becf-6177e45c0362.webp",
+      "w": 1559,
+      "h": 567,
+      "c": "The Development Pipeline"
+    },
+    {
+      "f": "images/847e4530-1586-46a8-a346-44efcfb5e5c7.webp",
+      "w": 1383,
+      "h": 168,
+      "c": "The Packaging Process"
+    },
+    {
+      "f": "images/e61ec49b-e154-4918-8580-9aee88a9a7a2.webp",
+      "w": 847,
+      "h": 562,
+      "c": "Project Settings Packaging"
+    },
+    {
+      "f": "images/a95bbd38-8b36-4268-ab95-c7b9a612930b.webp",
+      "w": 1794,
+      "h": 1293,
+      "c": "Unreal Project Browser"
+    },
+    {
+      "f": "images/d60a7de0-68b3-4006-be24-5addf2c6bd49.webp",
+      "w": 768,
+      "h": 548,
+      "c": "Unreal Editor Project Settings"
+    },
+    {
+      "f": "images/0f8b7c3e-96ad-4f72-ae81-d832f31679f4.webp",
+      "w": 744,
+      "h": 473,
+      "c": "Project Settings Maps And Modes"
+    }
+  ],
+  "module-6-package-your-project": [],
+  "coder-01-set-up-and-compile-a-cplusplus-project-in-unreal-engine": [
+    {
+      "f": "images/efe4c4de-8f4b-47d5-863d-532c3e68dd4f.webp",
+      "w": 1072,
+      "h": 753,
+      "c": ""
+    },
+    {
+      "f": "images/d388129a-7e49-4d68-beb6-b73fb9991e49.webp",
+      "w": 1364,
+      "h": 535,
+      "c": ""
+    },
+    {
+      "f": "images/3f9a3d9f-27bd-435c-8c87-b8c92bddc709.webp",
+      "w": 946,
+      "h": 580,
+      "c": ""
+    },
+    {
+      "f": "images/af46962f-b380-40ca-a37b-beec79c15c63.webp",
+      "w": 946,
+      "h": 541,
+      "c": ""
+    },
+    {
+      "f": "images/9170f125-3468-4b46-9646-a9b54ce5d10b.webp",
+      "w": 1161,
+      "h": 655,
+      "c": ""
+    },
+    {
+      "f": "images/7bf17c19-4881-4bfc-b40e-933fec23d387.webp",
+      "w": 946,
+      "h": 520,
+      "c": ""
+    }
+  ],
+  "artist-04-expanded-material-instances": [
+    {
+      "f": "images/40d44538-133d-4c97-a727-7fc2a96eb562.webp",
+      "w": 1200,
+      "h": 670,
+      "c": "A character's arm becomes emissive after a powerup."
+    },
+    {
+      "f": "images/adef914d-01eb-417f-86fb-a772dd81a6b9.webp",
+      "w": 1565,
+      "h": 499,
+      "c": ""
+    },
+    {
+      "f": "images/928599e7-dec1-4f40-becc-e97edc4c6193.webp",
+      "w": 1623,
+      "h": 680,
+      "c": ""
+    },
+    {
+      "f": "images/f741eb46-c668-4299-8e0f-6815e6c8cd28.webp",
+      "w": 1554,
+      "h": 712,
+      "c": "Placeholder floor mesh of Room 3."
+    },
+    {
+      "f": "images/00f0045c-6da3-4796-a167-6b0c4cd19dc7.webp",
+      "w": 2800,
+      "h": 789,
+      "c": "(1) Appropriately scaled material. (2) Uniformly scaled-up material. (3) Non-uniformly scaled-up material."
+    },
+    {
+      "f": "images/475ba245-e05c-4477-8453-d8030bc78490.webp",
+      "w": 1200,
+      "h": 534,
+      "c": "Scaling a non-world-aligned texture across meshes with different UVs."
+    }
+  ],
+  "utility-material-expressions-in-unreal-engine": [
+    {
+      "f": "images/3c62b55c-e100-4dfa-9075-5fbcb91bc12a.webp",
+      "w": 1155,
+      "h": 465,
+      "c": "Blackbody Expression"
+    },
+    {
+      "f": "images/03d562c1-dce8-4de2-9209-b8442af5ca7b.webp",
+      "w": 1210,
+      "h": 491,
+      "c": "Bump Offset Expression"
+    },
+    {
+      "f": "images/284d91ec-51e5-4f2b-b03d-7f00ad8a928b.webp",
+      "w": 1072,
+      "h": 418,
+      "c": "Constant Bias Scale Expression"
+    },
+    {
+      "f": "images/7b79513e-1775-4af9-ab48-932767662fba.webp",
+      "w": 1159,
+      "h": 664,
+      "c": "Without Depth Fade"
+    },
+    {
+      "f": "images/f8d41ac2-2dcc-44f8-b447-b7ead27e1756.webp",
+      "w": 1159,
+      "h": 664,
+      "c": "With Depth Fade"
+    },
+    {
+      "f": "images/da8a336f-6e52-421b-b437-1e9ca93c2db5.webp",
+      "w": 1618,
+      "h": 977,
+      "c": "Blended Colors"
+    }
+  ],
+  "world-partition-in-unreal-engine": [
+    {
+      "f": "images/0ead0a47-0a29-4fa8-a408-1bbe08d95778.jpg",
+      "w": 1920,
+      "h": 1080,
+      "c": "Click image for full size."
+    },
+    {
+      "f": "images/e4ea786c-a54c-4a75-a155-4a4352fc863c.webp",
+      "w": 1193,
+      "h": 635,
+      "c": "Click image for full size."
+    },
+    {
+      "f": "images/cdca091e-cb56-44c1-9f7f-176d92b04d3f.webp",
+      "w": 1918,
+      "h": 1004,
+      "c": "Click image for full size."
+    },
+    {
+      "f": "images/de228752-2a1b-40d8-99ca-e0f7c6a8eabd.webp",
+      "w": 1920,
+      "h": 1080,
+      "c": "Click image for full size."
+    },
+    {
+      "f": "images/a13afee5-68fc-45f1-b8fb-51d162b70b6a.webp",
+      "w": 956,
+      "h": 473,
+      "c": ""
+    },
+    {
+      "f": "images/b9b7e914-7fc7-49b5-a0fa-038038cbc4bf.webp",
+      "w": 956,
+      "h": 473,
+      "c": ""
+    }
+  ],
+  "nanite-virtualized-geometry-in-unreal-engine": [
+    {
+      "f": "images/fa3c3c0a-8291-43a1-a956-04db7d4646b2.webp",
+      "w": 3840,
+      "h": 3174,
+      "c": "Example Scenes with Nanite"
+    },
+    {
+      "f": "images/3558d56b-9cfa-4f02-b3d0-caf66e1d5a95.webp",
+      "w": 1006,
+      "h": 605,
+      "c": "Enable Nanite on Batches of Asset in the Content Browser"
+    },
+    {
+      "f": "images/38714e44-b101-403b-be1e-d0346fb22c5f.webp",
+      "w": 803,
+      "h": 556,
+      "c": "Enable Nanite in the Static Mesh Editor"
+    },
+    {
+      "f": "images/f3d062a4-d84e-428c-98b6-117985f547ac.webp",
+      "w": 1400,
+      "h": 732,
+      "c": ""
+    },
+    {
+      "f": "images/4f985549-5ab6-447b-813b-0d63f13b6b3f.webp",
+      "w": 800,
+      "h": 431,
+      "c": ""
+    },
+    {
+      "f": "images/f77a7bee-373d-445b-be0a-7366afbfb1f0.webp",
+      "w": 1311,
+      "h": 335,
+      "c": ""
+    }
+  ],
+  "nanite-technical-details": [
+    {
+      "f": "images/6a2b8060-2583-4f8a-8c83-b001a435b3b3.webp",
+      "w": 1400,
+      "h": 972,
+      "c": "Nanite Mesh Editor Settings"
+    },
+    {
+      "f": "images/df9b78ec-a0ed-4cc4-b919-1b9d07f77225.webp",
+      "w": 1400,
+      "h": 1056,
+      "c": "Vertex Position Precision Options"
+    },
+    {
+      "f": "images/d4876de2-beb3-4664-a8a2-3398d47c14e5.webp",
+      "w": 1600,
+      "h": 1055,
+      "c": "High Poly Nanite Mesh"
+    },
+    {
+      "f": "images/bb97055f-6045-4bc0-9df1-85b71c1aeced.webp",
+      "w": 1600,
+      "h": 1055,
+      "c": "Nanite-generated Fallback mesh with Default Settings"
+    },
+    {
+      "f": "images/8541e722-7b76-4be2-b56f-c33223832c9a.webp",
+      "w": 1600,
+      "h": 1055,
+      "c": "Nanite-generated Fallback Mesh with Default Settings"
+    },
+    {
+      "f": "images/efc30caa-11ba-475d-a3c5-f2e2f5d01a31.webp",
+      "w": 1600,
+      "h": 1055,
+      "c": ""
+    }
+  ],
+  "procedural-content-generation-overview": [
+    {
+      "f": "images/5b3dbc40-ed30-4856-b924-1719a5eae70c.webp",
+      "w": 2489,
+      "h": 1400,
+      "c": "Advanced PCG Forest"
+    },
+    {
+      "f": "images/6b69b27c-15e1-4661-bc99-d9a6284f5f53.webp",
+      "w": 1920,
+      "h": 1050,
+      "c": "Click image for full size."
+    },
+    {
+      "f": "images/fc71b471-f05f-4618-800d-07b63a6cb9b1.webp",
+      "w": 1924,
+      "h": 1061,
+      "c": "PCG Graph Diagram"
+    },
+    {
+      "f": "images/2a727c25-8b91-43d3-9fd5-dbea5c879a10.webp",
+      "w": 1256,
+      "h": 520,
+      "c": "PCG Math node"
+    },
+    {
+      "f": "images/b8aed8e0-6d7d-40e7-b119-8617dcc1287d.webp",
+      "w": 734,
+      "h": 722,
+      "c": "Click image for full size."
+    },
+    {
+      "f": "images/824a7e6f-6475-465e-b2b1-17be27b24dc0.webp",
+      "w": 735,
+      "h": 339,
+      "c": "Click image for full size."
+    }
+  ],
+  "pcg-editor-mode-in-unreal-engine": [
+    {
+      "f": "images/86a3a84f-0e9d-48a4-9c0d-9b05fd61eff6.webp",
+      "w": 716,
+      "h": 258,
+      "c": "PCG raycast rules"
+    },
+    {
+      "f": "images/30dbb36d-3090-42f0-92c5-633971c50f79.webp",
+      "w": 808,
+      "h": 250,
+      "c": "Setting up a tool graph for PCG"
+    },
+    {
+      "f": "images/0cae81b5-0fdf-4fcb-a367-c8e34f020d23.webp",
+      "w": 1115,
+      "h": 133,
+      "c": "PCG Tool Data Overrides"
+    },
+    {
+      "f": "images/e3c734ab-0388-454f-961e-4aa4ea2dacaa.webp",
+      "w": 1600,
+      "h": 957,
+      "c": "PCG editor mode tool settings"
+    }
+  ],
+  "multiplayer-programming-quick-start-for-unreal-engine": [],
+  "optimizing-and-debugging-projects-for-realtime-rendering-in-unreal-engine": [],
+  "landscape-quick-start-guide-in-unreal-engine": [
+    {
+      "f": "images/1be23ccb-39e4-4eb8-bdfa-30f811bd3677.webp",
+      "w": 914,
+      "h": 450,
+      "c": "Landscape Mode"
+    },
+    {
+      "f": "images/2f8d1725-6e34-4787-a03a-29f9ad6a31aa.webp",
+      "w": 1495,
+      "h": 953,
+      "c": "Click image for full size."
+    },
+    {
+      "f": "images/9a1e38d3-54d5-430f-9f94-3edaa29a68d4.webp",
+      "w": 1495,
+      "h": 953,
+      "c": "Click image for full size."
+    },
+    {
+      "f": "images/67c86646-115a-4a37-b7d2-0ed553e440c2.webp",
+      "w": 1913,
+      "h": 1021,
+      "c": "Click image for full size."
+    },
+    {
+      "f": "images/0ea60d7d-2750-4282-ae87-a49bdfd6cecc.webp",
+      "w": 1913,
+      "h": 1021,
+      "c": "Click image for full size."
+    },
+    {
+      "f": "images/b95a44f0-f630-4954-85a7-d179ed003a22.webp",
+      "w": 914,
+      "h": 450,
+      "c": "Click image for full size."
+    }
+  ],
+  "landscape-materials-in-unreal-engine": [
+    {
+      "f": "images/b632b57f-f61b-4cda-a171-e47f8e98a995.webp",
+      "w": 1020,
+      "h": 653,
+      "c": "Click image for full size."
+    },
+    {
+      "f": "images/a237623c-ffdf-4378-ba52-66d9474893fa.webp",
+      "w": 1047,
+      "h": 510,
+      "c": "Click image for full size."
+    },
+    {
+      "f": "images/d0d94b25-1733-4738-a0b8-3bbf5be80f7d.webp",
+      "w": 1152,
+      "h": 372,
+      "c": "Click image for full size."
+    },
+    {
+      "f": "images/1cfa415f-6781-4e97-9155-476772833f95.webp",
+      "w": 994,
+      "h": 378,
+      "c": "Click image for full size."
+    },
+    {
+      "f": "images/28232a67-7324-4cde-aa72-e97e7da8c412.webp",
+      "w": 956,
+      "h": 392,
+      "c": "Landscape-layer-weight-menu-options"
+    },
+    {
+      "f": "images/4a8439c5-e210-4a4d-8a35-bf24ca94d228.webp",
+      "w": 1400,
+      "h": 762,
+      "c": "Landscape-layer-weight-in-Blueprints"
+    }
+  ],
+  "metasound-templates-quick-start-in-unreal-engine": [
+    {
+      "f": "images/f14405ef-e383-4ea3-b485-b4d999232cb1.webp",
+      "w": 720,
+      "h": 197,
+      "c": "The MetaSound Editor toolbar Template dropdown opened over a MetaSound Source asset, with Randomizer selected. The Details panel exposes the"
+    },
+    {
+      "f": "images/d20e6ff8-0dfb-49d2-86af-1ac649ebda17.webp",
+      "w": 751,
+      "h": 70,
+      "c": ""
+    }
+  ],
+  "creating-procedural-music-with-metasounds": [],
+  "unreal-insights-in-unreal-engine": [
+    {
+      "f": "images/2e91ed25-b93e-4a0d-9d2d-2909ad6d6270.jpg",
+      "w": 1501,
+      "h": 415,
+      "c": "insights-diagram"
+    },
+    {
+      "f": "images/2602df9a-4b69-4edf-a9d9-b393a8aa8b52.webp",
+      "w": 995,
+      "h": 575,
+      "c": "insights-widget"
+    },
+    {
+      "f": "images/937ea69e-6848-4631-a00c-e631f9121f75.webp",
+      "w": 1646,
+      "h": 646,
+      "c": ""
+    },
+    {
+      "f": "images/7b9ee987-7334-48e7-abe1-c35ce03b230d.webp",
+      "w": 1648,
+      "h": 1159,
+      "c": ""
+    },
+    {
+      "f": "images/de2d667f-9ef4-4256-bcf1-c59864d7d4e6.webp",
+      "w": 1648,
+      "h": 528,
+      "c": ""
+    },
+    {
+      "f": "images/27fde8fc-d898-44d2-ae79-92ac0f70c497.webp",
+      "w": 1648,
+      "h": 776,
+      "c": ""
+    }
+  ],
+  "scalability-reference-for-unreal-engine": [
+    {
+      "f": "images/a0e95651-99b1-4572-bfa6-935ee3456a88.webp",
+      "w": 1600,
+      "h": 1295,
+      "c": "Viewport Performance and Scalability menu and Scalability Groups window"
+    },
+    {
+      "f": "images/034b25e1-6361-43e1-9f7b-a55d73ff0b11.webp",
+      "w": 939,
+      "h": 353,
+      "c": "Left: 50% no AA, Middle: 50% with AA, Right: 100% (no resolution scale) with AA"
+    },
+    {
+      "f": "images/06c8d50b-2840-4d89-913e-017f75e082fb.webp",
+      "w": 1431,
+      "h": 314,
+      "c": "left: r.ViewDistanceScale 0.4, middle: r.ViewDistanceScale 0.7, right: r.ViewDistanceScale 1.0 (default)"
+    },
+    {
+      "f": "images/56a02d1d-d927-4c43-9904-7f2679200d18.webp",
+      "w": 920,
+      "h": 216,
+      "c": "From the left: r.PostProcessAAQuality 0 to 6. The first 3 equal the Low, Medium, High, Epic settings in the Scalability Groups > AA (TSR) se"
+    },
+    {
+      "f": "images/7690821d-72a7-4310-8d25-5bbc67450210.webp",
+      "w": 1600,
+      "h": 261,
+      "c": "sg.PostProcessQuality set from 0 on the left to 3 on the right."
+    },
+    {
+      "f": "images/24635009-a661-40f7-b6cb-6fddfb08e989.webp",
+      "w": 1600,
+      "h": 262,
+      "c": "sg.ShadowQuality set from 0 on the left to 3 on the right."
+    }
+  ],
+  "bp-event-graph": [
+    {
+      "f": "images/24088a30-80eb-479a-a8d5-ae3122c86b56.webp",
+      "w": 1999,
+      "h": 553,
+      "c": "Blueprint of Event Graph"
+    }
+  ],
+  "animbp-graph": [
+    {
+      "f": "images/1bf0fb01-bd73-49bb-9b94-3058bb6908b2.webp",
+      "w": 864,
+      "h": 463,
+      "c": "Animation Blueprint graph"
+    }
+  ],
+  "enhanced-input-in-unreal-engine": [
+    {
+      "f": "images/bb3fb38c-3a7e-4d0b-b920-b31b88d11f5a.webp",
+      "c": "",
+      "w": 493,
+      "h": 757
+    },
+    {
+      "f": "images/6c38fff1-2df0-4100-9a7d-bc6f3b06427a.webp",
+      "c": "",
+      "w": 835,
+      "h": 853
+    },
+    {
+      "f": "images/d0923212-114f-40ee-8d97-d564edc2ec80.webp",
+      "c": "",
+      "w": 491,
+      "h": 426
+    }
+  ],
+  "saving-and-loading-your-game-in-unreal-engine": [
+    {
+      "f": "images/1e0019a8-ab04-4151-a4d9-ac69156a2f1a.webp",
+      "c": "",
+      "w": 514,
+      "h": 439
+    },
+    {
+      "f": "images/3b214e97-269d-4840-836b-149380d790f0.webp",
+      "c": "",
+      "w": 1220,
+      "h": 309
+    }
+  ],
+  "ai-perception-in-unreal-engine": [
+    {
+      "f": "images/172dbdff-25dc-4397-9e5c-88875a93b8f4.webp",
+      "c": "",
+      "w": 417,
+      "h": 270
+    },
+    {
+      "f": "images/7969bfb8-6c4b-4cdc-8477-03e432496b29.webp",
+      "c": "",
+      "w": 914,
+      "h": 541
+    }
+  ],
+  "navigation-system-in-unreal-engine": [
+    {
+      "f": "images/298dadfe-a2af-46c9-b260-927350530339.webp",
+      "c": "",
+      "w": 464,
+      "h": 116
+    },
+    {
+      "f": "images/aebefa6d-b6aa-4d39-a624-12cab6fb328d.webp",
+      "c": "",
+      "w": 464,
+      "h": 192
+    }
+  ]
 }
