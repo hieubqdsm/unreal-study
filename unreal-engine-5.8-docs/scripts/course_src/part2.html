@@ -1,0 +1,343 @@
+
+      <div class="level-divider" id="level2"><div class="tag tag-l2">Level 2 · Intermediate — Trung cấp</div><div class="line"></div></div>
+
+      <!-- ==================== CHƯƠNG 8 ==================== -->
+      <section class="chapter" id="ch8">
+        <h2 class="ch-title"><span class="num">Chương 8</span> Lumen — Global Illumination &amp; Reflections</h2>
+        <p class="ch-sub">Ánh sáng nảybounce thời gian thực — "công nghệ huyền thoại" của UE5.</p>
+
+        <h3 class="sec">Lumen giải quyết vấn đề gì?</h3>
+        <p>Trước đây, ánh sáng gián tiếp (<span class="term-en">Global Illumination — GI</span>) phải "bake" trước — mất giờ và tĩnh. <span class="term-en">Lumen</span> tính GI + phản chiếu <strong>thời gian thực</strong>: tắt đèn → bóng tối lan đúng vật lý; đổi màu tường → ánh nảy theo luôn. Lumen mặc định bật trong project UE5.8 khi dùng template.</p>
+        {{I:lumen-global-illumination-and-reflections-in-unreal-engine:0|Scene chiếu sáng hoàn toàn bằng Lumen — không đèn bổ trợ}}
+
+        <h3 class="sec">Bật/tắt và kiểm soát</h3>
+        <ul>
+          <li><span class="term-en">Post Process Volume</span> (Infinite Extent) → <code class="ic">Global Illumination → Method: Lumen</code>, <code class="ic">Reflections → Method: Lumen</code>.</li>
+          <li>Hoặc tắt toàn cục: Project Settings → <code class="ic">Dynamic Global Illumination Method = None</code> (dùng khi target máy yếu).</li>
+          <li>Console (<code class="ic">~</code>): <code class="ic">r.Lumen.ScreenProbeGather 1</code>, xem chi tiết perf bằng <code class="ic">stat gpu</code>.</li>
+        </ul>
+        {{I:lumen-global-illumination-and-reflections-in-unreal-engine:1|Cấu hình Lumen trong Post Process Volume}}
+
+        <h3 class="sec">Các khái niệm cần phân biệt</h3>
+        <table>
+          <tr><th>Khái niệm</th><th>Ý nghĩa</th></tr>
+          <tr><td><span class="term-en">Surface Cache</span></td><td>Lumen "chụp" bề mặt mesh vào cache để tính nảy sáng nhanh</td></tr>
+          <tr><td><span class="term-en">Final Gather Quality</span></td><td>Chất lượng tính GI trong Post Process Volume — tăng lên giảm noise</td></tr>
+          <tr><td><span class="term-en">Ray Lighting Mode</span></td><td>Cách Lumen chiếu sáng: Surface Cache (nhanh) vs Hit Lighting (đẹp, tốn)</td></tr>
+          <tr><td><span class="term-en">Local Fog Volumes</span></td><td>Khối sương cục bộ (5.7+) — sương mù có thể nảy sáng từ Lumen</td></tr>
+        </table>
+        {{I:local-fog-volumes-in-unreal-engine:0|Local Fog Volume tạo vùng sương cục bộ có ánh sáng}}
+        <div class="box warn">
+          <span class="box-title">Lumen cần gì?</span>
+          Lumen hoạt động tốt nhất trên GPU RTX/giờ ko chuyên cũng chạy được qua <span class="term-en">Software Ray Tracing</span> — dùng <span class="term-en">Mesh Distance Fields</span> (Project Settings → Generate Mesh Distance Fields). Mobile: chỉ màn hình cao cấp (Ch16 sẽ bàn scalability).
+        </div>
+
+        <div class="exercise">
+          <div class="ex-head">🏋️ Bài tập 8 <span class="lvl">Mid</span></div>
+          <p>Trong 1 phòng kín: đặt 1 Point Light màu đỏ Movable, tắt Directional/Sky Light. Quan sát ánh đỏ nảy ra trần/sàn. Bật tắt <code class="ic">r.Lumen.Scene.Lighting 0/1</code> trong console để thấy khác biệt khi mất GI.</p>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: {{L:lumen-global-illumination-and-reflections-in-unreal-engine}} · {{L:local-fog-volumes-in-unreal-engine}} · {{L:07-adjust-environment-lighting-features}}</p>
+      </section>
+
+      <!-- ==================== CHƯƠNG 9 ==================== -->
+      <section class="chapter" id="ch9">
+        <h2 class="ch-title"><span class="num">Chương 9</span> Landscape &amp; Foliage</h2>
+        <p class="ch-sub">Tạo núi đồi sông hồ bằng cọ vẽ — và rắc cây khắp thế giới.</p>
+
+        <h3 class="sec">Landscape — địa hình</h3>
+        <p>Chọn mode <span class="term-en">Landscape</span> (Shift+2) → Create New. Landscape là lưới ô khổng lồ chuyên dụng: mỗi <span class="term-en">component</span> có LOD riêng, cho map hàng km. Vẽ bằng các cọ: <span class="term-en">Sculpt</span> (đắp đào), <span class="term-en">Smooth</span>, <span class="term-en">Flatten</span>, <span class="term-en">Ramp</span>, <span class="term-en">Erosion</span> (xói mòn giả lập), <span class="term-en">Hydro Erosion</span>.</p>
+        {{I:landscape-quick-start-guide-in-unreal-engine:0|Landscape mode với các cọ sculpt}}
+        <table>
+          <tr><th>Thông số</th><th>Ý nghĩa</th><th>Gợi ý</th></tr>
+          <tr><td>Section Size / Sections Per Component</td><td>Mật độ lưới</td><td>63×63 quadrants/section cho chi tiết gần</td></tr>
+          <tr><td><span class="term-en">Landscape Material</span></td><td>Material nhiều layer (cỏ, đá, đất)</td><td>Dùng node <code class="ic">LandscapeLayerBlend</code></td></tr>
+          <tr><td><span class="term-en">Data Layers</span></td><td>Bật/tắt vùng landscape runtime</td><td>Nâng cao — Ch19</td></tr>
+        </table>
+        {{I:landscape-quick-start-guide-in-unreal-engine:1|Đắp núi bằng cọ Sculpt — Alt để đào}}
+
+        <h3 class="sec">Paint layers — tô màu bề mặt</h3>
+        <p>Material landscape cần <code class="ic">LandscapeLayerBlend</code> trộn nhiều texture theo trọng số vẽ (grass/dirt/rock/snow). Vẽ trong tab <span class="term-en">Paint</span> của Landscape mode. Muốn tự động theo độ cao/độ dốc: dùng <code class="ic">LandscapeLayerCoords</code> + <code class="ic">LandscapeVisibilityMask</code>.</p>
+        {{I:landscape-materials-in-unreal-engine:0|Landscape Material trộn nhiều layer texture}}
+
+        <h3 class="sec">Foliage — rắc cây</h3>
+        <p>Mode <span class="term-en">Foliage</p> (Shift+3): kéo mesh (nên tick <span class="term-en">Nanite</span> cho tán lá — Ch20) vào danh sách, chỉnh mật độ rồi <strong>click/vẽ</strong> lên landscape. <span class="term-en">Procedural Foliage</span> (v2) tự rắc theo quy tắc (độ dốc, tầng đất).</p>
+        {{I:foliage-mode-in-unreal-engine:0|Foliage mode — rắc cây lên địa hình}}
+        <div class="box tip">
+          <span class="box-title">Cây cỏ xấu vì "đứng hình"? </span>
+          Foliage mặc định tắt wind. Trong material dùng node <code class="ic">SimpleGrassWind</code> hoặc WPO (World Position Offset) để lá lay. Cây số lượng lớn → bật Nanite + <span class="term-en">Runtime Virtual Texture</span> cho shadow nhẹ.
+        </div>
+
+        <div class="exercise">
+          <div class="ex-head">🏋️ Bài tập 9 <span class="lvl">Mid</span></div>
+          <p>Tạo landscape 1009×1009, đắp 1 ngọn núi + 1 thung lũng, tô 3 layer (cỏ/đá tuyết), rắc 2 loại cây từ Starter Content (SM_Pine). Camera bay chụp 1 shot "postcard".</p>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: {{L:landscape-quick-start-guide-in-unreal-engine}} · {{L:landscape-materials-in-unreal-engine}} · {{L:foliage-mode-in-unreal-engine}} · {{L:editing-landscapes-in-unreal-engine}}</p>
+      </section>
+
+      <!-- ==================== CHƯƠNG 10 ==================== -->
+      <section class="chapter" id="ch10">
+        <h2 class="ch-title"><span class="num">Chương 10</span> Physics &amp; Collision</h2>
+        <p class="ch-sub">Cho vật rơi, va chạm, phát đạn — thế giới có "trọng lực thật".</p>
+
+        <h3 class="sec">Chaos Physics</h3>
+        <p>UE5 dùng engine vật lý <span class="term-en">Chaos</span>. Ba mức dùng: (1) <strong>Simulate</strong> — object rơi/nảy thật; (2) <strong>Collision only</strong> — chặn di chuyển không mô phỏng (rẻ); (3) <strong>Query only</strong> — chỉ raycast/overlap. Bật simulate: chọn Static Mesh Actor → Details → <span class="term-en">Simulate Physics</span> (mesh phải có collision).</p>
+        {{I:physics-in-unreal-engine:0|Actor bật Simulate Physics rơi theo trọng lực}}
+
+        <h3 class="sec">Collision Presets</h3>
+        <table>
+          <tr><th>Preset</th><th>Ý nghĩa</th></tr>
+          <tr><td><span class="term-en">BlockAll</span></td><td>Chặn mọi object</td></tr>
+          <tr><td><span class="term-en">OverlapAll</span></td><td>Không chặn — chỉ báo hiệu Overlap events (dùng cho trigger, pickup)</td></tr>
+          <tr><td><span class="term-en">BlockAllExceptPawn</span></td><td>Chặn tất cả trừ nhân vật (đạn, vật cản riêng)</td></tr>
+          <tr><td><span class="term-en">PhysicsActor</span></td><td>Dành cho vật simulate</td></tr>
+        </table>
+        <p>Cấu trúc sâu hơn: <span class="term-en">Object Channels</span> (Pawn, PhysicsBody, Vehicle…) + <span class="term-en">Trace Channels</span> (Visibility, Camera — cho raycast). Tự tạo channel trong Project Settings → Collision. Quy tắc chặn/phản ứng nằm trong bảng <span class="term-en">Response matrix</span> của từng preset.</p>
+        {{I:physics-in-unreal-engine:1|Collision Presets trong Details panel}}
+
+        <h3 class="sec">Blueprint physics thường gặp</h3>
+        <ul>
+          <li><span class="term-en">Add Impulse / Add Force</span>: đẩy vật (đạn bắn, nổ).</li>
+          <li><span class="term-en">Launch Character</span>: đá nhân vật nảy lên (jump pad).</li>
+          <li><span class="term-en">Set Simulate Physics (component)</span>: bật/tắt runtime — rơi cánh tay khi chết.</li>
+          <li><span class="term-en">On Component Hit</span> event: phản ứng khi va chạm thật (âm thanh, hiệu ứng).</li>
+        </ul>
+        {{I:physics-in-unreal-engine:4|Physics Constraints — ràng buộc khớp nối giữa các vật thể}}
+        <div class="box danger">
+          <span class="box-title">Lỗi kinh điển: rơi xuyên sàn</span>
+          Mesh chưa có collision (xem Ch5) hoặc preset <span class="term-en">NoCollision</span>. Kiểm tra nhanh: Viewport → Show → Collision — vùng xanh = có collision.
+        </div>
+
+        <div class="exercise">
+          <div class="ex-head">🏋️ Bài tập 10 <span class="lvl">Mid</span></div>
+          <p>Làm <strong>jump pad</strong>: 1 tấm đĩa, khi Player overlap → <code class="ic">Launch Character</code> (Z velocity 1200). Làm <strong>bowl</strong> bằng 5 cube chặn + 1 quả cầu Simulate Physics; bắn cầu ra khỏi bowl bằng Add Impulse khi bấm E gần cầu.</p>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: {{L:physics-in-unreal-engine}} · {{L:collision-in-unreal-engine}} · {{L:designer-06-puzzles-moving-platforms-in-unreal-engine}}</p>
+      </section>
+
+      <!-- ==================== CHƯƠNG 11 ==================== -->
+      <section class="chapter" id="ch11">
+        <h2 class="ch-title"><span class="num">Chương 11</span> Audio với MetaSounds</h2>
+        <p class="ch-sub">Âm thanh thế hệ mới của UE5 — âm thanh cũng "lập trình bằng node".</p>
+
+        <h3 class="sec">Từ Sound Cue tới MetaSound</h3>
+        <p>UE4 dùng <span class="term-en">Sound Cue</span> (graph đơn giản). UE5 giới thiệu <span class="term-en">MetaSounds</span>: graph đầy đủ sức mạnh DSP — random pitch, crossfade, lọc theo parameter runtime, procedural music. Sound Cue vẫn dùng được cho việc đơn giản.</p>
+        {{I:metasound-templates-quick-start-in-unreal-engine:0|MetaSound graph — các node DSP xử lý âm}}
+
+        <h3 class="sec">Phát âm thanh trong Blueprint</h3>
+        <ul>
+          <li><span class="term-en">Play Sound at Location</span> — tiếng một lần ở vị trí (bước chân, va chạm).</li>
+          <li><span class="term-en">Play Sound Attached</span> — gắn theo Actor (tiếng động cơ, lửa cháy).</li>
+          <li><span class="term-en">Audio Component</span> — component điều khiển được (pause, fade, đổi parameter).</li>
+          <li><span class="term-en">Sound Class + Sound Mix</span> — phân loại (SFX/Music/Voice) để chỉnh volume riêng, mute khi pause.</li>
+        </ul>
+        {{I:artist-09-adding-sounds-to-fire-traps-artist-track-unreal-engine:0|Gắn âm thanh cho fire trap — tutorial âm thanh của Epic}}
+        <div class="box tip">
+          <span class="box-title">Metadata quan trọng</span>
+          MetaSound expose <span class="term-en">Input parameters</span> (float/int/bool) — từ Blueprint gọi <code class="ic">Set Float Parameter</code> trên Audio Component để đổi pitch/g因子 theo gameplay (xe tăng tốc → động cơ cao tần).
+        </div>
+
+        <div class="exercise">
+          <div class="ex-head">🏋️ Bài tập 11 <span class="lvl">Mid</span></div>
+          <p>Cho BP_Coin (Ch4) một âm "ting" khi nhặt: Play Sound at Location tại vị trí coin. Sau đó tạo MetaSound pitch random ±10% mỗi lần phát để không nghe lặp.</p>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: {{L:metasounds-in-unreal-engine}} · {{L:metasound-templates-quick-start-in-unreal-engine}} · {{L:artist-09-adding-sounds-to-fire-traps-artist-track-unreal-engine}}</p>
+      </section>
+
+      <!-- ==================== CHƯƠNG 12 ==================== -->
+      <section class="chapter" id="ch12">
+        <h2 class="ch-title"><span class="num">Chương 12</span> Niagara — Visual Effects</span></h2>
+        <p class="ch-sub">Particles: lửa, khói, pháo hoa, mưa — hệ VFX của mọi game UE.</p>
+
+        <h3 class="sec">Niagara thinking</h3>
+        <p><span class="term-en">Niagara</span> mô phỏng particle bằng stack <span class="term-en">Emitter</span> → mỗi emitter chứa module (spawn rate, gravity, color…) chạy theo <span class="term-en">Stages</span>: Emitter Spawn → Particle Spawn → Particle Update mỗi frame. Người mới bắt đầu từ <span class="term-en">templates</span>: Fountain, Fire, Smoke, Explosion.</p>
+        {{I:overview-of-niagara-effects-for-unreal-engine:0|Module stack trong Emitter: Emitter Spawn/Update, Particle Spawn/Update}}
+        <table>
+          <tr><th>Khái niệm</th><th>Ý nghĩa</th></tr>
+          <tr><td><span class="term-en">System</span></td><td>VFX hoàn chỉnh (nhiều emitter: lửa + khói + tia)</td></tr>
+          <tr><td><span class="term-en">Emitter</span></td><td>Một luồng particle</td></tr>
+          <tr><td><span class="term-en">Module</span></td><td>Hành vi ghép vào: Shape Location, Gravity, Scale Color</td></tr>
+          <tr><td><span class="term-en">Renderer</span></td><td>Cách vẽ: Sprite, Mesh, Ribbon (vệt), Light</td></tr>
+        </table>
+        {{I:overview-of-niagara-effects-for-unreal-engine:2|Chọn system/emitter từ template browser của Niagara}}
+
+        <h3 class="sec">Quick start trong 5 phút</h3>
+        <ol>
+          <li>Content Browser → right-click → FX → <span class="term-en">Niagara System</span> → From selected emitter(s) → chọn <strong>Fountain</strong>.</li>
+          <li>Kéo vào level. Chọn → Details đổi màu/độ cao nước.</li>
+          <li>Mở system: vào <span class="term-en">Particle Update</span>, sửa module <code class="ic">Add Velocity in Cone</code> để đổi hướng phun.</li>
+          <li>Đổi Renderer thành Mesh Renderer, chọn mesh đá nhỏ → thành phun đá.</li>
+        </ol>
+        {{I:overview-of-niagara-effects-for-unreal-engine:5|Emitter được chọn kèm chi tiết asset trong Niagara editor}}
+        <div class="box info">
+          <span class="box-title">GPU hay CPU?</span>
+          Emitter có thuộc tính <span class="term-en">Sim Target</span>: GPU sim xử lý hàng trăm nghìn hạt (khói/lửa lớn), CPU sim linh hoạt logic từng hạt. Hoá đơn: GPU sim tốn VRAM — cân nhắc trên mobile.
+        </div>
+
+        <div class="exercise">
+          <div class="ex-head">🏋️ Bài tập 12 <span class="lvl">Mid</span></div>
+          <p>Tạo VFX "đồng xu vỡ": khi nhặt coin (Ch4), spawn Niagara system burst 20 hạt vàng bắn toé rồi biến mất (dùng template Burst + Lifetime ngắn). Gợi ý node: <code class="ic">Spawn System at Location</code>.</p>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: {{L:overview-of-niagara-effects-for-unreal-engine}} · {{L:quick-start-for-niagara-effects-in-unreal-engine}} · {{L:key-concepts-in-niagara-effects-for-unreal-engine}}</p>
+      </section>
+
+      <!-- ==================== CHƯƠNG 13 ==================== -->
+      <section class="chapter" id="ch13">
+        <h2 class="ch-title"><span class="num">Chương 13</span> Character Animation</h2>
+        <p class="ch-sub">Nhân vật chuyển động mượt: Skeleton, Animation Blueprint, Control Rig.</p>
+
+        <h3 class="sec">Pipeline animation</h3>
+        <p><span class="term-en">Skeletal Mesh</span> (model có bone) + <span class="term-en">Skeleton asset</span> (bộ xương dùng chung) + <span class="term-en">Animation Sequences</span> (các clip: idle, run, jump). Cùng Skeleton thì dùng chung animation — và có thể <span class="term-en">Retarget</span> sang bộ xương khác (IK Rig).</p>
+        {{I:skeletal-mesh-assets-in-unreal-engine:0|Skeletal Mesh với bộ xương hiển thị}}
+        <table>
+          <tr><th>Asset</th><th>Vai trò</th></tr>
+          <tr><td><span class="term-en">Skeleton</span></td><td>Cây bone + hierarchy — chia sẻ giữa mesh &amp; animation</td></tr>
+          <tr><td><span class="term-en">Physics Asset</span></td><td>Body + constraint cho cloth/ragdoll va chạm</td></tr>
+          <tr><td><span class="term-en">Animation Blueprint</span></td><td>Chọn clip nào chạy theo state (đi/nhảy/tấn công)</td></tr>
+          <tr><td><span class="term-en">Control Rig</span></td><td>Rigging/IK procedural ngay trong UE (vfd tay lên tường)</td></tr>
+          <tr><td><span class="term-en">Anim Montage</span></td><td>Clip cắt theo section — dùng cho combo tấn công</td></tr>
+        </table>
+
+        <h3 class="sec">Animation Blueprint — state machine</h3>
+        <p>Trong AnimBP, <span class="term-en">Event Graph</span> tính biến (Speed, IsInAir) từ pawn → đưa vào <span class="term-en">Anim Graph</span>. Anim Graph chứa <span class="term-en">State Machine</span>: mỗi state là 1 pose/clip, chuyển theo điều kiện (Speed &gt; 0 → Run). Dùng <span class="term-en">Blend Space</span> để trộn idle-walk-run theo trục Speed liên tục thay vì hard-switch.</p>
+        {{I:animbp-graph:0|Animation Blueprint graph — luồng chọn animation theo điều kiện}}
+
+        <h3 class="sec">Control Rig &amp; retarget</h3>
+        <p><span class="term-en">Control Rig</span> là rigging node-graph trong engine: làm FK/IK, sửa pose, even procedural animation runtime (tay nắm dây). <span class="term-en">IK Retargeter</span> chuyển animation từ skeleton này sang skeleton khác (Mannequin → nhân vật của bạn) mà không cần làm lại.</p>
+        {{I:how-to-create-control-rigs-in-unreal-engine:0|Control Rig — chỉnh pose trực tiếp trong editor}}
+        <div class="box tip">
+          <span class="box-title">Bộ xương mẫu Epic</span>
+          Dùng <span class="term-en">UE5 Manny/Quinn Mannequin</span> skeleton làm chuẩn: hầu hết animation marketplace/Compose nhớ format này, retarget về sau dễ.
+        </div>
+
+        <div class="exercise">
+          <div class="ex-head">🏋️ Bài tập 13 <span class="lvl">Mid</span></div>
+          <p>Mở AnimBP của Third Person character, xem state machine Idle/Walk/Run điều kiện gì. Thêm state <strong>Dance</strong> (dùng animation từ Starter Content hoặc FBX ngoài): khi bấm phím B → biến bDancing=true → chuyển state dance trong 3 giây rồi về Idle.</p>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: {{L:skeletal-mesh-assets-in-unreal-engine}} · {{L:animation-blueprints-in-unreal-engine}} · {{L:how-to-create-control-rigs-in-unreal-engine}}</p>
+      </section>
+
+      <!-- ==================== CHƯƠNG 14 ==================== -->
+      <section class="chapter" id="ch14">
+        <h2 class="ch-title"><span class="num">Chương 14</span> UMG — UI / HUD</h2>
+        <p class="ch-sub">Máu, mana, điểm số, menu — giao diện bằng Widget Blueprints.</p>
+
+        <h3 class="sec">Widget Blueprint cơ bản</h3>
+        <p><span class="term-en">UMG (Unreal Motion Graphics)</span>: tạo UI bằng <span class="term-en">Widget Blueprint</span> — kéo button/text/progress bar vào <span class="term-en">Canvas Panel</span>, neo bằng <span class="term-en">Anchors</span> để co giãn đúng mọi màn hình. Mỗi widget có <span class="term-en">Desired Size</span>, cha xếp con qua <span class="term-en">Slots</span> (Canvas/Horizontal/Vertical/Grid).</p>
+        {{I:designer-04-player-hud-in-unreal-engine:1|UMG Widget Designer — dựng HUD bằng kéo thả widget}}
+
+        <h3 class="sec">Hiện HUD trong game</h3>
+        <div class="code-block">
+          <div class="code-head"><div class="fname">BP_ThirdPersonCharacter — Event Graph</div><div class="dots"><i></i><i></i><i></i></div></div>
+          <pre class="code"><span class="k">Event BeginPlay</span> →
+    <span class="f">Create Widget</span> (Class = WBP_HUD) → <span class="f">Add to Viewport</span>
+    <span class="f">Get Player Controller</span> → <span class="f">Set Show Mouse Cursor</span> (false)</pre>
+        </div>
+        <p>Đổ dữ liệu: trong WBP_HUD tạo <span class="term-en">Bind</span> cho Progress Bar (Percent = Health/MaxHealth) hoặc nhận giá trị qua <span class="term-en">Event Dispatcher</span>/function gọi từ character mỗi khi máu đổi.</p>
+        {{I:umg-viewmodel-for-unreal-engine:0|Palette widget — kéo button/text/bar vào canvas}}
+
+        <h3 class="sec">UMG Viewmodel (MVVM)</h3>
+        <p>Cách mới của Epic: <span class="term-en">Viewmodel</span> tách dữ liệu (field Health) khỏi widget — widget bind vào viewmodel, gameplay chỉ update model. Dự án lớn dùng cách này tránh rối "widget kéo lung tung character".</p>
+        {{I:umg-viewmodel-for-unreal-engine:0|Viewmodel tách bạch dữ liệu và UI}}
+        <div class="box warn">
+          <span class="box-title">Perf UI</span>
+          Đừng update text mỗi Tick — chỉ khi giá trị đổi. Ảnh lớn trong UI scale trước. Xem thêm mục docs <span class="term-en">Optimizing User Interfaces</span>.
+        </div>
+
+        <div class="exercise">
+          <div class="ex-head">🏋️ Bài tập 14 <span class="lvl">Mid</span></div>
+          <p>Làm WBP_HUD: Text "Coins: X" + Progress Bar máu. Gắn vào character. Nâng cấp BP_Coin: khi nhặt, tăng biến CoinCount trên character và cập nhật HUD (qua bind hoặc event dispatcher). Bấm Escape hiện/hện menu pause đơn giản (Add to Viewport + Set Game Paused).</p>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: {{L:umg-ui-designer-quick-start-guide-in-unreal-engine}} · {{L:designer-04-player-hud-in-unreal-engine}} · {{L:umg-viewmodel-for-unreal-engine}}</p>
+      </section>
+
+      <!-- ==================== CHƯƠNG 15 ==================== -->
+      <section class="chapter" id="ch15">
+        <h2 class="ch-title"><span class="num">Chương 15</span> Sequencer &amp; Cinematics</h2>
+        <p class="ch-sub">Đạo diễn phim trong engine: camera cut, keyframe, cutscene.</p>
+
+        <h3 class="sec">Level Sequence — timeline của bạn</h3>
+        <p><span class="term-en">Sequencer</span> là timeline đa track: Camera Cuts, Transform (di chuyển Actor), Float/Color (animate thuộc tính), Audio, Event… Tạo: Content Browser → Animation → <span class="term-en">Level Sequence</span>. Mở <span class="term-en">Sequencer</span> tab, kéo Actor vào để add track, bấm key (K) tại playhead.</p>
+        {{I:sequencer-cinematic-editor-unreal-engine:0|Sequencer editor — timeline các track}}
+        <table>
+          <tr><th>Track</th><th>Dùng cho</th></tr>
+          <tr><td><span class="term-en">Camera Cuts Track</span></td><td>Cắt camera — spine của mọi cinematic</td></tr>
+          <tr><td><span class="term-en">Transform Track</span></td><td>Di chuyển Actor theo keyframe</td></tr>
+          <tr><td><span class="term-en">Cine Camera Actor</span></td><td>Camera phim — chỉnh focal length, focus, aperture</td></tr>
+          <tr><td><span class="term-en">Track Event</span></td><td>Gọi event Blueprint tại thời điểm phim (nổ, mở cửa)</td></tr>
+          <tr><td><span class="term-en">Subscene Track</span></td><td>Lồng sequence trong sequence</td></tr>
+        </table>
+        {{I:sequencer-cinematic-editor-unreal-engine:1|Camera Cuts track và Cine Camera}}
+
+        <h3 class="sec">Phát cutscene trong game</h3>
+        <p>Level Blueprint: node <code class="ic">Play</code> trên Level Sequence Actor reference →disable input player trong lúc chạy, xong enable lại. Muốn tương tác đầu game (logo studio): thêm sequence ở map đầu + <span class="term-en">Delay</span>.</p>
+        {{I:cinematics-and-movie-making-in-unreal-engine:0|Cảnh cinematic dựng hoàn toàn trong Unreal Engine}}
+        <div class="box info">
+          <span class="box-title">Render phim ra video</span>
+          Sequencer → Render Movie Settings: exe Mage Movie Render Queue (MRQ) để render cao cấp nhiều pass (anti-aliasing cao, motion blur đúng). Xuất PNG sequence/AVI/MP4.
+        </div>
+
+        <div class="exercise">
+          <div class="ex-head">🏋️ Bài tập 15 <span class="lvl">Mid</span></div>
+          <p>Làm intro 8 giây: 1 Level Sequence với 3 Cine Camera (toàn cảnh → trung cảnh → cận coin), transform camera bay nhẹ, kết thúc bằng Track Event gọi Blueprint đặt player vào vị trí spawn. Gọi sequence từ Level Blueprint khi BeginPlay.</p>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: {{L:cinematics-and-movie-making-in-unreal-engine}} · {{L:sequencer-cinematic-editor-unreal-engine}} · {{L:how-to-make-movies-in-unreal-engine}}</p>
+      </section>
+
+      <!-- ==================== CHƯƠNG 16 ==================== -->
+      <section class="chapter" id="ch16">
+        <h2 class="ch-title"><span class="num">Chương 16</span> Packaging — Đóng gói game</h2>
+        <p class="ch-sub">Từ project thành file .exe gửi bạn bè — và checklist trước khi ship.</p>
+
+        <h3 class="sec">Packaging là gì?</h3>
+        <p><span class="term-en">Packaging</span> nén project: cook assets (chuyển sang format nền tảng đích), compile code, tạo executable. Vào <strong>Platforms → Windows → Package Project</strong>. Kết quả: thư mục <code class="ic">Windows/</code> chứa <code class="ic">MyGame.exe</code> + <code class="ic">MyGame/Pakks/*.pak</code>.</p>
+        {{I:packaging-your-project:0|Packaging settings và kết quả đầu ra}}
+
+        <h3 class="sec">Build Configuration</h3>
+        <table>
+          <tr><th>Configuration</th><th>Dùng khi</th></tr>
+          <tr><td><span class="term-en">Debug / DebugGame</span></td><td>Dev debug code chậm nhất, đầy đủ symbol</td></tr>
+          <tr><td><span class="term-en">Development</span></td><td>Ngày thường test — console command chạy được</td></tr>
+          <tr><td><span class="term-en">Test</span></td><td>QA — như Development nhưng cho tester, không cheat</td></tr>
+          <tr><td><span class="term-en">Shipping</span></td><td>Phát hành — nhanh nhất, strip debug/console</td></tr>
+        </table>
+        {{I:packaging-your-project:1|Chọn build configuration trước khi package}}
+
+        <h3 class="sec">Checklist trước khi ship</h3>
+        <div class="checklist">
+          <h4>🚢 Pre-flight checklist</h4>
+          <label><input type="checkbox"><span>Map đầu tiên đặt đúng trong Project Settings → Maps &amp; Modes</span></label>
+          <label><input type="checkbox"><span>Chạy <code class="ic">Fix Up Redirectors</code> trong Content Browser</label>
+          <label><input type="checkbox"><span>Xem log packaging có warning "missing asset" không</span></label>
+          <label><input type="checkbox"><span>Test .exe trên máy KHÔNG cài UE (thiếu DLL là lỗi hay gặp)</span></label>
+          <label><input type="checkbox"><span>Icon + tên game + version trong Project Settings → Description</span></label>
+          <label><input type="checkbox"><span>Scalability settings auto (Ch23) để máy yếu vẫn chơi được</span></label>
+        </div>
+        <div class="box danger">
+          <span class="box-title">"Works on my machine" ≠ chạy được</span>
+          Lỗi số 1: game chạy trong editor nhưng package xong đen màn hình vì map mặc định trỏ sai; lỗi số 2: plugin bật trong editor nhưng không tick <span class="term-en">Runtime</span> nên không cook. Luôn test bản package trước khi khoe.
+        </div>
+
+        <div class="quiz" data-quiz="2">
+          <div class="q-head">📝 Quiz Level 2 — Intermediate</div>
+          <div class="q"><p>1. Lumen dùng cơ chế nào tính GI nhanh?</p>
+            <label class="opt"><input type="radio" name="q4">Bake lightmap trước</label>
+            <label class="opt" data-ok><input type="radio" name="q4">Surface Cache bề mặt mesh</label>
+            <label class="opt"><input type="radio" name="q4">Ray trace từng pixel mỗi frame</label>
+            <div class="explain">Lumen chụp bề mặt các mesh vào Surface Cache rồi tính bounce từ đó — nhanh hơn ray trace thuần nhiều lần.</div>
+          </div>
+          <div class="q"><p>2. Muốn UI co giãn đúng mọi độ phân giải?</p>
+            <label class="opt"><input type="radio" name="q5">Đặt widget theo pixel tuyệt đối</label>
+            <label class="opt" data-ok><input type="radio" name="q5">Dùng Anchors trên Canvas Panel</label>
+            <label class="opt"><input type="radio" name="q5">Làm 3 phiên bản HUD cho 3 màn hình</label>
+            <div class="explain">Anchors + DPI scaling của UMG lo việc co giãn; vị trí pixel tuyệt đối là nguồn bug UI kinh điển.</div>
+          </div>
+          <div class="q"><p>3. Configuration nào dành cho bản phát hành?</p>
+            <label class="opt"><input type="radio" name="q6">Development</label>
+            <label class="opt"><input type="radio" name="q6">Test</label>
+            <label class="opt" data-ok><input type="radio" name="q6">Shipping</label>
+            <div class="explain">Shipping tối ưu và bỏ debug/console — Development/Test dành cho dev và QA.</div>
+          </div>
+          <button class="check" onclick="checkQuiz(this)">Kiểm tra</button>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: {{L:packaging-your-project}} · {{L:packaging-and-shipping-in-unreal-engine}} · {{L:build-configurations-reference-for-unreal-engine}}</p>
+      </section>

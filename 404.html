@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 — Không tìm thấy trang | Unreal Study</title>
+<style>
+  :root { color-scheme: dark; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #0f1117; color: #e6e8ee;
+    min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  }
+  .card {
+    max-width: 560px; padding: 48px 40px; text-align: center;
+    background: #171a23; border: 1px solid #262b38; border-radius: 16px;
+  }
+  h1 { font-size: 56px; color: #7aa2f7; margin-bottom: 8px; }
+  h2 { font-size: 18px; font-weight: 500; color: #a9b1d6; margin-bottom: 24px; }
+  p { color: #8b93b0; line-height: 1.6; margin-bottom: 12px; font-size: 14px; }
+  a.btn {
+    display: inline-block; margin-top: 16px; padding: 10px 24px;
+    background: #7aa2f7; color: #0f1117; font-weight: 600; font-size: 14px;
+    text-decoration: none; border-radius: 8px;
+  }
+  a.btn:hover { background: #9bbcff; }
+  .redirect-note { margin-top: 20px; font-size: 13px; color: #6b7392; display: none; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>404</h1>
+  <h2 id="heading">Không tìm thấy trang</h2>
+  <p id="message">Trang bạn tìm không có trên site này.</p>
+  <a class="btn" href="index.html">← Về trang chủ</a>
+  <p class="redirect-note" id="redirect-note"></p>
+</div>
+<script>
+/* Link tới docs mirror (không publish lên GitHub Pages) → chuyển hướng sang docs chính thức của Epic */
+(function () {
+  var m = location.pathname.match(/unreal-engine-5\.8-docs\/site\/([^/?#]+)/);
+  if (m) {
+    var slug = m[1].replace(/\/+$/, '');
+    var url = 'https://dev.epicgames.com/documentation/en-us/unreal-engine' + (slug ? '/' + slug : '');
+    document.getElementById('heading').textContent = 'Đang chuyển hướng…';
+    document.getElementById('message').textContent =
+      'Trang docs này thuộc bản mirror chạy offline ở local. Đang mở bản gốc trên site Epic Developer Community.';
+    var note = document.getElementById('redirect-note');
+    note.style.display = 'block';
+    note.innerHTML = 'Không tự chuyển? <a href="' + url + '" style="color:#7aa2f7">Bấm vào đây</a>.';
+    location.replace(url);
+  }
+})();
+</script>
+</body>
+</html>

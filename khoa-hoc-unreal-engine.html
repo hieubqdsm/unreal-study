@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unreal Engine 5.8 — Khóa học từ Starter đến Advanced</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --primary: #0f766e;        /* UE teal-dark */
+    --primary-glow: #115e59;
+    --accent: #0d9488;         /* teal accent */
+    --accent-2: #14b8a6;
+    --l1: #059669; --l2: #d97706; --l3: #6d28d9;
+    --ok: #10b981; --warn: #f59e0b; --danger: #ef4444; --info: #3b82f6;
+    --dark: #ffffff; --darker: #f6faf9; --light: #334155; --light-strong: #0f172a; --gray: #64748b;
+    --card: #ffffff; --card-2: #f8fafc; --border: #e2e8f0; --terminal: #0f172a;
+    --code-green: #86efac; --code-yellow: #fde047; --code-blue: #7dd3fc; --code-red: #fca5a5; --code-purple: #c4b5fd; --code-orange: #ffa657;
+  }
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--darker); color: var(--light); line-height: 1.75; overflow-x: hidden; }
+  code, pre, .term { font-family: 'JetBrains Mono', 'Consolas', 'Courier New', monospace; }
+  .container { display: flex; min-height: 100vh; }
+
+  .sidebar { width: 340px; background: var(--card); padding: 26px 0 60px; position: fixed; height: 100vh; overflow-y: auto; border-right: 2px solid var(--primary); z-index: 100; transition: transform 0.3s; box-shadow: 4px 0 30px rgba(15,118,110,0.15); }
+  .sidebar::-webkit-scrollbar { width: 8px; } .sidebar::-webkit-scrollbar-track { background: var(--darker); } .sidebar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+  .logo { text-align: center; padding: 0 20px 22px; border-bottom: 2px solid var(--border); margin-bottom: 16px; }
+  .logo .g-icon { font-size: 40px; margin-bottom: 8px; font-weight: 900; color: #0f172a; background: linear-gradient(135deg,#13d9cd,#0d9488); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 14px rgba(20,184,166,.35)); }
+  .logo h1 { font-size: 19px; color: var(--primary); font-weight: 900; }
+  .logo p { font-size: 10px; color: var(--gray); margin-top: 6px; letter-spacing: 1.5px; }
+  .sidebar-search { padding: 0 20px 14px; border-bottom: 1px solid var(--border); margin-bottom: 12px; }
+  .sidebar-search input { width: 100%; padding: 9px 12px; background: var(--card); border: 1px solid var(--border); border-radius: 6px; color: var(--light); font-size: 13px; }
+  .sidebar-search input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(15,118,110,0.15); }
+  .nav-menu { list-style: none; padding: 0 14px; } .nav-menu li { margin-bottom: 3px; }
+  .nav-section-title { font-size: 10px; text-transform: uppercase; letter-spacing: 1.2px; padding: 14px 12px 7px; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+  .nav-section-title .badge { font-size: 9px; padding: 2px 7px; border-radius: 10px; color: #fff; font-weight: 900; }
+  .nav-l1 { color: var(--l1); } .nav-l1 .badge { background: var(--l1); }
+  .nav-l2 { color: var(--l2); } .nav-l2 .badge { background: var(--l2); }
+  .nav-l3 { color: var(--l3); } .nav-l3 .badge { background: var(--l3); }
+  .nav-menu a { display: flex; align-items: center; padding: 8px 12px; color: var(--gray); text-decoration: none; border-radius: 6px; transition: all 0.2s; font-size: 12.5px; border-left: 3px solid transparent; }
+  .nav-menu a:hover, .nav-menu a.active { background: rgba(15,118,110,0.10); color: var(--primary-glow); border-left-color: var(--primary); transform: translateX(4px); }
+  .nav-menu .chapter-num { display: inline-flex; align-items:center; justify-content:center; width: 26px; height: 26px; background: var(--card); border-radius: 50%; margin-right: 10px; font-size: 11px; font-weight: bold; border: 1px solid var(--primary); color: var(--primary-glow); flex-shrink: 0; }
+
+  .main-content { margin-left: 340px; flex: 1; max-width: calc(100% - 340px); }
+  .topbar { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(10px); background: rgba(255,255,255,.9); border-bottom: 1px solid var(--border); padding: 12px 40px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .topbar .crumb { font-size: 13px; color: var(--gray); } .topbar .crumb b { color: var(--accent); }
+  .topbar .pill { font-size: 11px; color: var(--gray); border:1px solid var(--border); border-radius: 20px; padding: 4px 12px; white-space: nowrap; }
+  .content-inner { padding: 38px 48px 120px; max-width: 1000px; }
+
+  .hero { background: linear-gradient(135deg, #0f172a 0%, #134e4a 100%); border-radius: 16px; padding: 40px; margin-bottom: 34px; position: relative; overflow: hidden; color: #fff; }
+  .hero::after { content:"UE"; position:absolute; right:18px; bottom:-26px; font-size:150px; font-weight:900; opacity:.08; letter-spacing:-8px; }
+  .hero h1 { font-size: 30px; margin-bottom: 12px; line-height: 1.25; }
+  .hero h1 .grad { color: #2ae5b2; }
+  .hero p { color: rgba(255,255,255,.85); max-width: 780px; }
+  .hero .meta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+  .meta-pill { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.2); border-radius: 10px; padding: 10px 16px; font-size: 13px; color: #e2e8f0; }
+  .meta-pill b { color: #2ae5b2; display:block; font-size: 18px; }
+
+  section.chapter { margin-bottom: 56px; scroll-margin-top: 80px; }
+  .level-divider { display: flex; align-items: center; gap: 16px; margin: 60px 0 30px; scroll-margin-top: 80px; }
+  .level-divider .line { flex: 1; height: 2px; background: var(--border); }
+  .level-divider .tag { font-size: 13px; font-weight: 900; letter-spacing: 1.5px; padding: 8px 20px; border-radius: 30px; text-transform: uppercase; }
+  .tag-l1 { background: rgba(5,150,105,.12); color: var(--l1); border:1px solid var(--l1);}
+  .tag-l2 { background: rgba(217,119,6,.12); color: var(--l2); border:1px solid var(--l2);}
+  .tag-l3 { background: rgba(109,40,217,.12); color: var(--l3); border:1px solid var(--l3);}
+
+  h2.ch-title { font-size: 25px; color: var(--light-strong); margin-bottom: 6px; display:flex; align-items:center; gap:12px; }
+  h2.ch-title .num { font-size: 13px; background: var(--card); border:1px solid var(--primary); color: var(--primary-glow); padding: 4px 10px; border-radius: 8px; white-space: nowrap; }
+  .ch-sub { color: var(--gray); font-size: 14px; margin-bottom: 22px; }
+  h3.sec { font-size: 19px; color: var(--accent); margin: 28px 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); }
+  h4.sub { font-size: 16px; color: var(--primary-glow); margin: 20px 0 8px; }
+  p { margin-bottom: 12px; } ul, ol { margin: 0 0 14px 22px; } li { margin-bottom: 6px; }
+  a.inline { color: var(--info); text-decoration: none; border-bottom: 1px dashed var(--info); }
+  strong { color: var(--light-strong); }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13.5px; }
+  th, td { border: 1px solid var(--border); padding: 9px 12px; text-align: left; vertical-align: top; }
+  th { background: var(--card-2); color: var(--accent); }
+  tr:nth-child(even) td { background: rgba(248,250,252,.6); }
+  code.ic { background: var(--card-2); color: var(--code-purple); padding: 2px 6px; border-radius: 4px; font-size: 13px; border: 1px solid var(--border); }
+  .term-en { color: var(--primary-glow); font-weight: 700; }
+
+  figure.fig { margin: 18px 0; }
+  figure.fig img { max-width: 100%; height: auto; border: 1px solid var(--border); border-radius: 8px; background: #0f172a; display: block; }
+  figure.fig.sm { max-width: 460px; }
+  figure.fig.xs { max-width: 340px; }
+  figure.fig figcaption { font-size: 12px; color: var(--gray); margin-top: 6px; line-height: 1.5; }
+
+  .box { border-radius: 10px; padding: 16px 18px 16px 46px; margin: 18px 0; position: relative; border: 1px solid; font-size: 14px; }
+  .box::before { position: absolute; left: 14px; top: 15px; font-size: 18px; }
+  .box .box-title { font-weight: 800; margin-bottom: 4px; display:block; color: var(--light-strong); }
+  .box.info { background: rgba(59,130,246,.07); border-color: rgba(59,130,246,.35); } .box.info::before{content:"💡";}
+  .box.tip { background: rgba(16,185,129,.07); border-color: rgba(16,185,129,.35); } .box.tip::before{content:"✅";}
+  .box.warn { background: rgba(245,158,11,.08); border-color: rgba(245,158,11,.4); } .box.warn::before{content:"⚠️";}
+  .box.danger { background: rgba(239,68,68,.07); border-color: rgba(239,68,68,.35); } .box.danger::before{content:"🚫";}
+  .box.lab { background: rgba(14,116,144,.08); border-color: rgba(14,116,144,.35); } .box.lab::before{content:"🗂";}
+  .box.game { background: rgba(109,40,217,.08); border-color: rgba(109,40,217,.35); } .box.game::before{content:"🎮";}
+
+  .code-block { margin: 16px 0; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); background: var(--terminal); }
+  .code-head { display: flex; align-items: center; justify-content: space-between; padding: 8px 14px; background: var(--card); border-bottom: 1px solid var(--border); }
+  .code-head .fname { font-size: 12px; color: var(--gray); display:flex; align-items:center; gap:8px; }
+  .code-head .dots { display:flex; gap:6px; } .code-head .dots i { width:11px;height:11px;border-radius:50%; display:inline-block; }
+  .code-head .dots i:nth-child(1){background:#ff5f56;} .code-head .dots i:nth-child(2){background:#ffbd2e;} .code-head .dots i:nth-child(3){background:#27c93f;}
+  pre.code { padding: 16px; overflow-x: auto; font-size: 13px; line-height: 1.65; color: #e2e8f0; white-space: pre; tab-size: 4; }
+  pre.code .c { color: #94a3b8; font-style: italic; } pre.code .s { color: var(--code-green); } pre.code .k { color: var(--code-red); }
+  pre.code .n { color: var(--code-blue); } pre.code .f { color: var(--code-purple); } pre.code .d { color: var(--code-yellow); } pre.code .t { color: var(--code-orange); }
+
+  .checklist { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; margin: 18px 0; }
+  .checklist h4 { color: var(--primary-glow); margin-bottom: 10px; font-size: 15px; }
+  .checklist label { display: flex; align-items: flex-start; gap: 10px; padding: 6px 0; cursor: pointer; font-size: 14px; }
+  .checklist input { margin-top: 5px; accent-color: var(--primary); }
+  .checklist input:checked + span { color: var(--gray); text-decoration: line-through; }
+
+  .exercise { background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 10px; padding: 18px 20px; margin: 20px 0; }
+  .exercise .ex-head { font-weight: 800; color: var(--accent); margin-bottom: 6px; display:flex; align-items:center; gap:8px; }
+  .exercise .lvl { font-size: 11px; font-weight:700; color:#fff; background: var(--accent); padding: 2px 10px; border-radius: 12px; }
+  .exercise .lvl.hard { background: var(--l3); }
+  details.answer { margin-top: 12px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  details summary { cursor: pointer; padding: 9px 14px; font-size: 13px; font-weight: 700; user-select: none; list-style: none; }
+  details summary::-webkit-details-marker { display:none; } details summary::before { content: "▸ "; } details[open] summary::before { content: "▾ "; }
+  details.answer summary { background: rgba(13,148,136,.1); color: var(--accent); } details .body { padding: 8px 14px 12px; }
+
+  .docs-ref { background: rgba(15,118,110,.06); border: 1px dashed rgba(15,118,110,.4); border-radius: 8px; padding: 10px 14px; font-size: 13px; margin-top: 18px; }
+
+  .quiz { background: var(--card-2); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; margin: 22px 0; }
+  .quiz .q-head { font-weight: 800; color: var(--primary-glow); margin-bottom: 14px; }
+  .quiz .q { margin-bottom: 18px; } .quiz .q p { font-weight: 600; margin-bottom: 8px; }
+  .quiz .opt { display:block; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 7px; cursor: pointer; font-size: 14px; background: var(--card); }
+  .quiz .opt:hover { border-color: var(--primary); } .quiz .opt input { margin-right: 10px; }
+  .quiz .opt.correct { background: rgba(16,185,129,.14); border-color: var(--ok); } .quiz .opt.wrong { background: rgba(239,68,68,.12); border-color: var(--danger); }
+  .quiz .explain { display:none; margin-top: 8px; font-size: 13px; color: var(--gray); padding: 10px 12px; background: var(--card); border-radius: 8px; border-left: 3px solid var(--info); }
+  .quiz .explain.show { display:block; }
+  .quiz button.check { background: var(--primary); color: #fff; border:none; border-radius:8px; padding: 9px 22px; font-size:14px; font-weight:700; cursor:pointer; font-family: inherit; }
+  .quiz button.check:hover { background: var(--primary-glow); }
+
+  .fc-filters { display:flex; flex-wrap:wrap; gap:8px; margin: 14px 0 6px; }
+  .fc-filter { background: var(--card); border:1px solid var(--border); color: var(--gray); padding: 6px 14px; border-radius: 20px; font-size: 12.5px; cursor:pointer; font-family: inherit; }
+  .fc-filter:hover, .fc-filter.active { border-color: var(--primary); color: var(--primary-glow); }
+  .fc-count { font-size: 12px; color: var(--gray); margin-left: 4px; }
+  .fc-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap: 14px; margin: 16px 0; }
+  .flashcard { background: transparent; perspective: 1000px; height: 180px; cursor: pointer; }
+  .fc-inner { position: relative; width:100%; height:100%; transition: transform .5s; transform-style: preserve-3d; }
+  .flashcard.flipped .fc-inner { transform: rotateY(180deg); }
+  .fc-face { position:absolute; width:100%; height:100%; backface-visibility:hidden; border-radius: 12px; padding: 16px; display:flex; flex-direction:column; justify-content:center; border:1px solid var(--border); }
+  .fc-front { background: var(--card); } .fc-back { background: var(--card); transform: rotateY(180deg); overflow-y:auto; }
+  .fc-tag { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; padding: 2px 8px; border-radius: 8px; align-self:flex-start; margin-bottom: 8px; font-weight:800; }
+  .fc-tag.t1 { background: rgba(5,150,105,.15); color: var(--l1); } .fc-tag.t2 { background: rgba(217,119,6,.15); color: var(--l2); } .fc-tag.t3 { background: rgba(109,40,217,.15); color: var(--l3); }
+  .fc-q { font-weight: 700; color: var(--light-strong); font-size: 15px; line-height: 1.5; } .fc-a { font-size: 13px; color: var(--light); line-height: 1.6; } .fc-a code { background: rgba(15,118,110,.1); color: var(--primary-glow); padding: 1px 5px; border-radius: 4px; font-size: 12px; }
+
+  footer.foot { border-top: 1px solid var(--border); padding: 30px 48px; color: var(--gray); font-size: 13px; }
+
+  .menu-toggle { display: none; }
+  @media (max-width: 980px) {
+    .sidebar { transform: translateX(-100%); } .sidebar.open { transform: translateX(0); }
+    .main-content { margin-left: 0; max-width: 100%; }
+    .menu-toggle { display: flex; position: fixed; top: 14px; left: 14px; z-index: 200; background: var(--primary); color: #fff; border:none; width: 44px; height: 44px; border-radius: 10px; font-size: 20px; cursor: pointer; align-items:center; justify-content:center; }
+    .content-inner, .topbar { padding-left: 18px; padding-right: 18px; } .topbar { padding-left: 66px; }
+  }
+</style>
+</head>
+<body>
+<button class="menu-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">☰</button>
+<div class="container">
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="g-icon">UE</div>
+      <h1>Unreal Engine 5.8</h1>
+      <p>KHÓA HỌC TỪ STARTER ĐẾN ADVANCED</p>
+    </div>
+    <div class="sidebar-search">
+      <input type="text" id="navSearch" placeholder="Tìm chương… (Ctrl+K)" oninput="filterNav(this.value)">
+    </div>
+    <ul class="nav-menu" id="navMenu">
+      <li class="nav-section-title nav-l1"><span class="badge">LEVEL 1</span> STARTER — CƠ BẢN</li>
+      <li><a href="#ch1"><span class="chapter-num">1</span> Tổng quan &amp; Cài đặt</a></li>
+      <li><a href="#ch2"><span class="chapter-num">2</span> Unreal Editor Interface</a></li>
+      <li><a href="#ch3"><span class="chapter-num">3</span> Actor &amp; Level Design cơ bản</a></li>
+      <li><a href="#ch4"><span class="chapter-num">4</span> Blueprint căn bản</a></li>
+      <li><a href="#ch5"><span class="chapter-num">5</span> Content Pipeline — Import assets</a></li>
+      <li><a href="#ch6"><span class="chapter-num">6</span> Material căn bản</a></li>
+      <li><a href="#ch7"><span class="chapter-num">7</span> Lighting cơ bản + Mini Project</a></li>
+      <li class="nav-section-title nav-l2"><span class="badge">LEVEL 2</span> INTERMEDIATE — TRUNG CẤP</li>
+      <li><a href="#ch8"><span class="chapter-num">8</span> Lumen — Global Illumination</a></li>
+      <li><a href="#ch9"><span class="chapter-num">9</span> Landscape &amp; Foliage</a></li>
+      <li><a href="#ch10"><span class="chapter-num">10</span> Physics &amp; Collision</a></li>
+      <li><a href="#ch11"><span class="chapter-num">11</span> Audio với MetaSounds</a></li>
+      <li><a href="#ch12"><span class="chapter-num">12</span> Niagara — Visual Effects</a></li>
+      <li><a href="#ch13"><span class="chapter-num">13</span> Character Animation</a></li>
+      <li><a href="#ch14"><span class="chapter-num">14</span> UMG — UI / HUD</a></li>
+      <li><a href="#ch15"><span class="chapter-num">15</span> Sequencer &amp; Cinematics</a></li>
+      <li><a href="#ch16"><span class="chapter-num">16</span> Packaging — Đóng gói game</a></li>
+      <li class="nav-section-title nav-l3"><span class="badge">LEVEL 3</span> ADVANCED — NÂNG CAO</li>
+      <li><a href="#ch17"><span class="chapter-num">17</span> Lập trình C++ trong UE</a></li>
+      <li><a href="#ch18"><span class="chapter-num">18</span> Material nâng cao</a></li>
+      <li><a href="#ch19"><span class="chapter-num">19</span> World Partition &amp; Open World</a></li>
+      <li><a href="#ch20"><span class="chapter-num">20</span> Nanite — Virtualized Geometry</a></li>
+      <li><a href="#ch21"><span class="chapter-num">21</span> PCG — Procedural Generation</a></li>
+      <li><a href="#ch22"><span class="chapter-num">22</span> Networking &amp; Multiplayer</a></li>
+      <li><a href="#ch23"><span class="chapter-num">23</span> Tối ưu hiệu năng</a></li>
+      <li><a href="#ch24"><span class="chapter-num">24</span> Lộ trình tiếp theo</a></li>
+      <li class="nav-section-title"><span class="badge" style="background:var(--gray)">★</span> ÔN TẬP</li>
+      <li><a href="#flashcards"><span class="chapter-num">FC</span> Flashcards thuật ngữ</a></li>
+      <li><a href="#lo-trinh"><span class="chapter-num">🗺</span> Bản đồ lộ trình</a></li>
+    </ul>
+  </aside>
+
+  <div class="main-content">
+    <div class="topbar">
+      <div class="crumb">📖 <b>Unreal Engine 5.8 Course</b> <span id="crumbCh">— Starter</span></div>
+      <div class="pill">24 chương · 3 cấp độ · 5.8 Docs mirror</div>
+    </div>
+
+    <div class="content-inner">
+
+      <div class="hero">
+        <h1>Unreal Engine 5.8 — <span class="grad">Từ Starter đến Advanced</span></h1>
+        <p>Khóa học tổng hợp từ chính bộ <strong>Unreal Engine 5.8 Documentation</strong> chính chủ của Epic Games (mirror local kèm ảnh gốc). Nội dung tiếng Việt, thuật ngữ giữ nguyên tiếng Anh — đúng cách dev game chuyên nghiệp đọc docs. Mỗi chương có ảnh minh họa thật từ tài liệu, bài tập thực hành và link tham chiếu tới trang docs đầy đủ.</p>
+        <div class="meta-row">
+          <div class="meta-pill"><b>24</b>chương</div>
+          <div class="meta-pill"><b>3</b>cấp độ</div>
+          <div class="meta-pill"><b>3.644</b>trang docs mirror</div>
+          <div class="meta-pill"><b>0đ</b>miễn phí</div>
+        </div>
+      </div>
+
+      <div class="box info">
+        <span class="box-title">Cách dùng khóa học này</span>
+        Các link <span class="term-en">Xem docs đầy đủ</span> cuối mỗi chương trỏ tới bản mirror offline của UE 5.8 Docs trong repo (thư mục <code class="ic">unreal-engine-5.8-docs/site/</code>) — mở bằng <code class="ic">python serve.py</code> hoặc xem trực tiếp file HTML. Ảnh trong khóa là ảnh gốc từ tài liệu Epic.
+      </div>
+
+      <div class="level-divider" id="level1"><div class="tag tag-l1">Level 1 · Starter — Cơ bản</div><div class="line"></div></div>
+
+      <!-- ==================== CHƯƠNG 1 ==================== -->
+      <section class="chapter" id="ch1">
+        <h2 class="ch-title"><span class="num">Chương 1</span> Unreal Engine 5.8 — Tổng quan &amp; Cài đặt</h2>
+        <p class="ch-sub">Unreal Engine là gì, vì sao chọn nó, và thiết lập môi trường làm việc đầu tiên.</p>
+
+        <h3 class="sec">Unreal Engine là gì?</h3>
+        <p><strong>Unreal Engine (UE)</strong> là game engine mã nguồn mở (source-available) của Epic Games, được dùng từ game AAA (<em>Fortnite</em>, <em>Matrix Awakens</em>) tới phim ảo hóa, kiến trúc, ô tô. Phiên bản 5.8 tiếp tục hoàn thiện bộ ba công nghệ biểu tượng của UE5: <span class="term-en">Nanite</span> (geometry ảo hóa), <span class="term-en">Lumen</span> (global illumination thời gian thực) và <span class="term-en">World Partition</span> (world khổng lồ).</p>
+        <figure class="fig"><img src="images/8ebe4e86-a5d8-4771-a8af-214278d453f5.webp" alt="Epic Games Launcher — nơi cài đặt Unreal Engine" loading="lazy"><figcaption>Epic Games Launcher — nơi cài đặt Unreal Engine</figcaption></figure>
+        <table>
+          <tr><th>Khái niệm</th><th>Giải thích</th></tr>
+          <tr><td><span class="term-en">Epic Games Launcher</span></td><td>Ứng dụng quản lý: cài engine versions, project, Fab marketplace</td></tr>
+          <tr><td><span class="term-en">Project</span></td><td>Một game/ứng dụng UE — chứa levels, assets, code, settings</td></tr>
+          <tr><td><span class="term-en">Template</span></td><td>Dự án mẫu: First Person, Third Person, Top Down… có sẵn gameplay</td></tr>
+          <tr><td><span class="term-en">Blueprint vs C++</span></td><td>Hai cách lập trình: visual scripting (kéo thả) và code thật — dùng song song được</td></tr>
+        </table>
+
+        <h3 class="sec">Cấu hình máy &amp; cài đặt</h3>
+        <ul>
+          <li><strong>Windows:</strong> Windows 10/11 64-bit, RAM 32 GB khuyến nghị (16 GB tối thiểu), GPU DirectX 12 với 8 GB VRAM (RTX càng tốt cho Lumen/Nanite), SSD còn trống ≥ 100 GB.</li>
+          <li><strong>macOS:</strong> macOS 13.5+, chip Apple Silicon hoặc Intel, Metal 2.</li>
+          <li><strong>Linux:</strong> Ubuntu 22.04+, Vulkan 1.2+ — thích hợp build từ source.</li>
+        </ul>
+        <p>Cài qua <span class="term-en">Epic Games Launcher → Unreal Engine → Library → +</span>, chọn <strong>5.8.x</strong>. Sau đó cài các <span class="term-en">Components</span> theo nhu cầu: <code class="ic">Core Components</code> (bắt buộc), <code class="ic">Android Support</code>, <code class="ic">Linux Support</code>, <code class="ic">iOS Support</code>…</p>
+        <figure class="fig"><img src="images/efb33e57-28b9-4e63-a8ba-fdc23c06a100.webp" alt="Đăng nhập Epic account trong Launcher" loading="lazy"><figcaption>Đăng nhập Epic account trong Launcher</figcaption></figure>
+        <div class="box tip">
+          <span class="box-title">Mẹo chọn đường dẫn</span>
+          Đặt engine và project trên <strong>SSD</strong>, đường dẫn <strong>không dấu, không khoảng trắng, không dấu tiếng Việt</strong> (ví dụ <code class="ic">D:/UE/Projects/MyGame</code>) — tránh lỗi import asset và build.
+        </div>
+
+        <h3 class="sec">Project đầu tiên</h3>
+        <p>Khởi động engine → <span class="term-en">Game</span> category → template <strong>Third Person</strong>. Chọn:</p>
+        <ul>
+          <li><strong>Blueprint</strong> hoặc <strong>C++</strong> (C++ cần Visual Studio 2022 + workload "Game development with C++")</li>
+          <li><strong>Target platform:</strong> Maximum Quality (PC) / Scalable 3D-2D (mobile)</li>
+          <li><strong>Starter Content:</strong> tick để có sẵn assets luyện tập</li>
+          <li><strong>Raytracing:</strong> để trừ khi GPU mạnh</li>
+        </ul>
+        <figure class="fig"><img src="images/4d1bbe13-2215-4cd9-8f48-b22a5581262b.webp" alt="Tạo project Third Person đầu tiên" loading="lazy"><figcaption>Tạo project Third Person đầu tiên</figcaption></figure>
+        <p>Nhấn <span class="term-en">Create</span> — UE sẽ mở editor với một level có character điều khiển được: bấm <strong>Play</strong> (hoặc Alt+P) và chạy quanh map bằng WASD + chuột.</p>
+
+        <div class="exercise">
+          <div class="ex-head">🏋️ Bài tập 1 <span class="lvl">Starter</span></div>
+          <p>Cài UE 5.8, tạo project <strong>Third Person Blueprint</strong> có Starter Content, đặt tên <code class="ic">UECourse_FirstGame</code>. Bấm Play, chạy nhặt 1 đồng coin trong map, chụp màn hình kết quả.</p>
+          <details class="answer"><summary>Gợi ý</summary>
+          <div class="body">Coin nằm ở khu vực gần cầu thang trong Third Person map. Muốn thay skin nhân vật: double-click <code class="ic">Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter</code> trong Content Browser.</div>
+          </details>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: <a class="inline" href="unreal-engine-5.8-docs/site/install-unreal-engine/">Install Unreal Engine</a> · <a class="inline" href="unreal-engine-5.8-docs/site/module-1-install-ue-and-create-your-first-project/">Module 1: Install UE and Create Your First Project</a> · <a class="inline" href="unreal-engine-5.8-docs/site/first-hour-in-unreal-engine/">Your First Hour in Unreal Engine</a></p>
+      </section>
+
+      <!-- ==================== CHƯƠNG 2 ==================== -->
+      <section class="chapter" id="ch2">
+        <h2 class="ch-title"><span class="num">Chương 2</span> Unreal Editor Interface</h2>
+        <p class="ch-sub">Làm chủ các panel của editor — nơi bạn sẽ sống suốt mấy năm tới.</p>
+
+        <h3 class="sec">Layout tổng quan</h3>
+        <figure class="fig"><img src="images/669481b3-c96f-4e63-9c89-2f8025e8210f.webp" alt="Unreal Editor — bố cục các panel chính" loading="lazy"><figcaption>Unreal Editor — bố cục các panel chính</figcaption></figure>
+        <table>
+          <tr><th>Panel</th><th>Vai trò</th><th>Phím tắt hữu ích</th></tr>
+          <tr><td><span class="term-en">Viewport</span></td><td>Cửa sổ 3D chính — nhìn và chỉnh level</td><td>F focus, Alt+Kéo orbit, chuột giữa pan</td></tr>
+          <tr><td><span class="term-en">Content Browser</span></td><td>Quản lý mọi assets (mesh, texture, Blueprint…)</td><td>Ctrl+B mở asset trong Explorer</td></tr>
+          <tr><td><span class="term-en">World Outliner</span></td><td>Danh sách Actor trong level theo cây</td><td>Ctrl+Shift+F tìm trong outliner</td></tr>
+          <tr><td><span class="term-en">Details</span></td><td>Properties của Actor đang chọn</td><td>—</td></tr>
+          <tr><td><span class="term-en">Modes</span></td><th switch giữa các tool: Select, Landscape, Foliage, Mesh Paint…</td><td>Shift+1/2/3</td></tr>
+        </table>
+
+        <h3 class="sec">Điều hướng Viewport như pro</h3>
+        <ul>
+          <li><strong>WASD + chuột phải giữ:</strong> fly-through — cách di chuyển nhanh nhất.</li>
+          <li><strong>Alt + chuột trái kéo:</strong> orbit quanh điểm đang focus; <strong>Alt + chuột phải kéo:</strong> zoom.</li>
+          <li><strong>F:</strong> focus vào Actor đang chọn; <strong>Ctrl+Alt+Kéo chuột:</strong> box-select.</li>
+          <li><strong>G:</strong> bật <span class="term-en">Game View</span> — ẩn mọi icon/gizmo, xem game "thật".</li>
+          <li><strong>Tải Viewport:</strong> gõ <code class="ic">HighResShot 3840x2160</code> vào Console (~) để chụp 4K.</li>
+        </ul>
+        <h3 class="sec">Content Browser &amp; tìm asset</h3>
+        <p>Content Browser tương tự Explorer nhưng mọi thứ đều là <span class="term-en">uasset</span>. Dùng <strong>ô Search</strong> với filter: <code class="ic">type:Blueprint</code>, <code class="ic">type:Texture</code>, <code class="ic">name:*coin*</code>. Chuột phải → <span class="term-en">Asset Actions → Reference Viewer</span> xem asset này được ai dùng — cực giá trị khi dọn project.</p>
+        <figure class="fig"><img src="images/55cc5842-0874-4d8d-84fc-0f3fc2988797.webp" alt="Content Browser với các asset của project" loading="lazy"><figcaption>Content Browser với các asset của project</figcaption></figure>
+
+        <div class="box warn">
+          <span class="box-title">Quy tắc sống còn</span>
+          <strong>Không bao giờ</strong> xoá/di chuyển asset bằng Windows Explorer — luôn dùng Content Browser để references không đứt. Nếu lỡ tay, dùng <span class="term-en">Fix Up Redirectors</span> trong Content Browser.
+        </div>
+
+        <h3 class="sec">Các chế độ làm việc (Modes)</h3>
+        <figure class="fig"><img src="images/eafa8ca5-da06-4c39-8914-6e81cc0573f1.webp" alt="Editor với các panel ở chế độ làm việc chuyên biệt" loading="lazy"><figcaption>Editor với các panel ở chế độ làm việc chuyên biệt</figcaption></figure>
+        <p>Panel bên trái trên Viewport chứa các <span class="term-en">Editor Modes</span>: <code class="ic">Select</code> (mặc định), <code class="ic">Landscape</code> (tạo địa hình — Chương 9), <code class="ic">Foliage</code> (vẽ cây cỏ — Chương 9), <code class="ic">Mesh Paint</code>, <code class="ic">Brush Editing</code>. Mỗi mode có toolbar riêng đổi theo ngữ cảnh.</p>
+        <h4 class="sub">Hai thanh toolbar dễ nhầm</h4>
+        <p><span class="term-en">Main Toolbar</span> nằm ngang trên cùng (chứa Save, Play, Launch…), còn <span class="term-en">Viewport Toolbar</span> nằm trong góc trái trên viewport (chọn gizmo, snapping, view mode):</p>
+        <figure class="fig"><img src="images/96d4b7e3-0822-4752-b8e4-1eedf68053a1.webp" alt="Main Toolbar — thanh công cụ chính phía trên cùng" loading="lazy"><figcaption>Main Toolbar — thanh công cụ chính phía trên cùng</figcaption></figure>
+        <figure class="fig"><img src="images/55cc5842-0874-4d8d-84fc-0f3fc2988797.webp" alt="Viewport Toolbar — góc trái viewport: gizmo, snapping, view mode" loading="lazy"><figcaption>Viewport Toolbar — góc trái viewport: gizmo, snapping, view mode</figcaption></figure>
+
+        <div class="exercise">
+          <div class="ex-head">🏋️ Bài tập 2 <span class="lvl">Starter</span></div>
+          <p>Trong project cũ: (1) bay camera một vòng map bằng WASD+chuột phải, (2) dùng World Outliner tìm <code class="ic">BP_ThirdPersonCharacter</code>, nhấn F focus, (3) mở Content Browser tìm tất cả texture có chữ "floor", (4) bấm G xem Game View rồi tắt.</p>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: <a class="inline" href="unreal-engine-5.8-docs/site/unreal-editor-interface/">Unreal Editor Interface</a> · <a class="inline" href="unreal-engine-5.8-docs/site/tools-and-editors-in-unreal-engine/">Tools and Editors</a></p>
+      </section>
+
+      <!-- ==================== CHƯƠNG 3 ==================== -->
+      <section class="chapter" id="ch3">
+        <h2 class="ch-title"><span class="num">Chương 3</span> Actor, Component &amp; Level Design cơ bản</h2>
+        <p class="ch-sub">Khối xây dựng cơ bản của mọi thứ trong Unreal — và dựng level đầu tay.</p>
+
+        <h3 class="sec">Mọi thứ đều là Actor</h3>
+        <p><span class="term-en">Actor</span> là bất kỳ object nào đặt được vào level: camera, ánh sáng, character, cube. Actor không tự chứa vị trí — vị trí nằm ở <span class="term-en">Root Component</span>. Actor sinh ra bằng <span class="term-en">Spawn</span> và chết bằng <span class="term-en">Destroy</span> (Chương 4 sẽ gọi hai hàm này từ Blueprint).</p>
+        <figure class="fig"><img src="images/243cda68-835c-4965-a85d-6232f62e601c.webp" alt="Viewport toolbar — nơi chọn gizmo Select/Translate/Rotate/Scale" loading="lazy"><figcaption>Viewport toolbar — nơi chọn gizmo Select/Translate/Rotate/Scale</figcaption></figure>
+        <table>
+          <tr><th>Khái niệm</th><th>Ý nghĩa</th></tr>
+          <tr><td><span class="term-en">Transform</span></td><td>Location (xyz cm), Rotation (pitch/yaw/roll độ), Scale</td></tr>
+          <tr><td><span class="term-en">Component</span></td><td>Phần tử ghép vào Actor: Static Mesh, Light, Camera, Audio… Actor là "cái khung", Component là "bộ phận"</td></tr>
+          <tr><td><span class="term-en">Static Mesh Actor</span></td><td>Actor chứa 1 Static Mesh — tường, sàn, prop tĩnh</td></tr>
+          <tr><td><span class="term-en">Mobility</span></td><td>Static (không di chuyển, cheap) / Movable (dynamic, đắt hơn) — quyết định cả lighting</td></tr>
+        </table>
+
+        <h3 class="sec">Đặt object: Place Actors panel</h3>
+        <p>Kéo thá từ <span class="term-en">Place Actors</span> (Window → Place Actors) vào viewport: cube, sphere, light, camera… Hoặc kéo mesh từ Content Browser thẳng vào level. <strong>End</strong> = snap xuống mặt dưới, <strong>End+Shift</strong> = snap lên mặt trên — tuyệt vời đặt prop lên sàn.</p>
+        <figure class="fig"><img src="images/cd47b4df-de0d-431b-8d02-ec72825caf5b.webp" alt="Place Actors — kéo thả object vào level" loading="lazy"><figcaption>Place Actors — kéo thả object vào level</figcaption></figure>
+
+        <h3 class="sec">Snap &amp; grid — độ chính xác của level designer</h3>
+        <ul>
+          <li>Thanh toolbar góc phải trên viewport: bật <span class="term-en">Grid Snapping</span> (10 cm mặc định), <span class="term-en">Rotation Snapping</span> (10°), <span class="term-en">Scale Snapping</span>.</li>
+          <li>Giữ <strong>Ctrl</strong> kéo trục = duplicate theo trục đó.</li>
+          <li><strong>Alt + kéo</strong> = duplicate ngay tại chỗ.</li>
+        </ul>
+        <figure class="fig"><img src="images/420da6a7-4b01-4367-9847-ef1ba38967d4.webp" alt="Alt + kéo gizmo Translate = duplicate Actor ngay tại chỗ" loading="lazy"><figcaption>Alt + kéo gizmo Translate = duplicate Actor ngay tại chỗ</figcaption></figure>
+
+        <h3 class="sec">Layers của một level chơi được</h3>
+        <p>Một level "đúng chuẩn" gồm: <strong>geometry</strong> (sàn tường - Blocking), <strong>lighting</strong> (Directional + Sky + vài point light), <strong>gameplay</strong> (Player Start, checkpoints, trigger volumes), <strong>art pass</strong> (mesh đẹp thay khối block). Làm theo thứ tự đó — không làm art trước gameplay!</p>
+        <figure class="fig"><img src="images/28b0d6bd-3b33-4617-9c5b-b36a3c7d5394.webp" alt="Wireframe blocking pass của một level" loading="lazy"><figcaption>Wireframe blocking pass của một level</figcaption></figure>
+        <div class="box info">
+          <span class="box-title">Player Start ở đâu?</span>
+          Tìm trong Place Actors → All Classes → <code class="ic">Player Start</code>. Nhớ để trên mặt đất (có mũi tên xanh chỉ hướng spawn). Nếu game chạy mà "rơi xuyên sàn" — Player Start bị lơ lửng.
+        </div>
+
+        <div class="exercise">
+          <div class="ex-head">🏋️ Bài tập 3 <span class="lvl">Starter</span></div>
+          <p>Tạo level mới (File → New Level → Basic). Dựng một căn phòng 10×10 m bằng cube (scale đúng 100=1 m), thêm <span class="term-en">Player Start</span>, 1 <span class="term-en">Directional Light</span>, 1 <span class="term-en">Sky Light</span> và 2 <span class="term-en">Point Light</span>. Bấm Play chạy thử trong phòng.</p>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: <a class="inline" href="unreal-engine-5.8-docs/site/actors-in-unreal-engine/">Actors</a> · <a class="inline" href="unreal-engine-5.8-docs/site/transforming-actors-in-unreal-engine/">Transforming Actors</a> · <a class="inline" href="unreal-engine-5.8-docs/site/level-designer-quick-start-in-unreal-engine/">Level Designer Quick Start</a> · <a class="inline" href="unreal-engine-5.8-docs/site/spawning-and-destroying-unreal-engine-actors/">Spawning and Destroying an Actor</a></p>
+      </section>
+
+      <!-- ==================== CHƯƠNG 4 ==================== -->
+      <section class="chapter" id="ch4">
+        <h2 class="ch-title"><span class="num">Chương 4</span> Blueprint — Visual Scripting căn bản</h2>
+        <p class="ch-sub">Lập trình bằng kéo thả node — ngôn ngữ "ruột" của Unreal.</p>
+
+        <h3 class="sec">Blueprint là gì?</h3>
+        <p><span class="term-en">Blueprint Visual Scripting</span> là hệ thống lập trình bằng node của UE: mỗi node là một hàm/sự kiện, dây nối = luồng thực thi (dây trắng) hoặc dữ liệu (dây màu). Blueprint chạy trên máy ảo riêng, đủ nhanh cho 90% gameplay logic, và <strong>dùng chung tương thích với C++</strong>.</p>
+        <figure class="fig"><img src="images/2edc7c1c-893f-41db-b7b4-ab9dac464627.webp" alt="Dựng mesh coin pickup bằng in-editor Modeling Tools" loading="lazy"><figcaption>Dựng mesh coin pickup bằng in-editor Modeling Tools</figcaption></figure>
+
+        <h3 class="sec">Các loại Blueprint</h3>
+        <table>
+          <tr><th>Loại</th><th>Dùng khi nào</th></tr>
+          <tr><td><span class="term-en">Level Blueprint</span></td><td>Logic riêng của một level: mở cửa khi bấm công tắc, trigger cutscene</td></tr>
+          <tr><td><span class="term-en">Blueprint Class</span></td><td>Class tái sử dụng: item, character, weapon — tạo nhiều instance</td></tr>
+          <tr><td><span class="term-en">Actor Component</span></td><td>Chức năng ghép vào Actor bất kỳ (health, inventory)</td></tr>
+          <tr><td><span class="term-en">Widget Blueprint</span></td><td>UI (Chương 14)</td></tr>
+          <tr><td><span class="term-en">Animation Blueprint</span></td><td>Điều khiển animation character (Chương 13)</td></tr>
+        </table>
+
+        <h3 class="sec">Event, Node, Pin — bộ ba cơ bản</h3>
+        <ul>
+          <li><span class="term-en">Event Node</span> (màu đỏ): điểm bắt đầu — <code class="ic">Event BeginPlay</code> (chạy 1 lần), <code class="ic">Event Tick</code> (mỗi frame), <code class="ic">Event ActorBeginOverlap</code> (va chạm)…</li>
+          <li><span class="term-en">Exec pin</span> (dây trắng): luồng thực thi theo thứ tự. <span class="term-en">Data pin</span> (dây màu): truyền giá trị.</li>
+          <li>Right-click mở menu đầy đủ; kéo từ pin ra gõ tên hàm để auto-create node.</li>
+          <li><strong>Ctrl+R</strong> refactor tên biến an toàn — mọi chỗ dùng tự đổi theo.</li>
+        </ul>
+
+        <h3 class="sec">Ví dụ đầu tiên: đồng xu tự xoay + nhặt được</h3>
+        <p>Mở Blueprint mới (Content Browser → right-click → Blueprint Class → Actor), thêm <span class="term-en">Static Mesh Component</span> (mesh sphere dẹt), rồi vẽ:</p>
+        <div class="code-block">
+          <div class="code-head"><div class="fname">BP_Coin — Event Graph</div><div class="dots"><i></i><i></i><i></i></div></div>
+          <pre class="code"><span class="k">Event BeginPlay</span> → Set Actor Enable Collision (true)
+<span class="k">Event Tick</span> → AddActorLocalRotation (Z = 2.0 mỗi frame)
+<span class="k">Event ActorBeginOverlap</span> (Other Actor) →
+    <span class="f">Cast To BP_ThirdPersonCharacter</span> (thành công) →
+        <span class="f">DestroyActor</span> (self)   <span class="c">// biến mất khi player chạm</span></pre>
+        </div>
+        <p><span class="term-en">Cast</span> là cách hỏi "Actor chạm vào tôi có phải là Player không?" — chỉ khi đúng mới chạy nhánh tiếp. Kéo mesh vào level làm vài bản — mỗi bản là một instance riêng.</p>
+
+        <h3 class="sec">Variables &amp; phát triển logic</h3>
+        <p>Panel <span class="term-en">My Blueprint</span> → Variables → + : tạo <code class="ic">Score</code> (Integer), <code class="ic">bIsOpen</code> (Boolean), <code class="ic">TargetPoint</code> (Vector)… Tick <span class="term-en">Instance Editable</span> để chỉnh giá trị từng instance trong Details panel ngay trong level. Get/Set bằng kéo thả tên biến vào graph.</p>
+        <figure class="fig"><img src="images/24088a30-80eb-479a-a8d5-ae3122c86b56.webp" alt="Event Graph thật từ tutorial Epic — node, exec wire (trắng) và data wire (màu)" loading="lazy"><figcaption>Event Graph thật từ tutorial Epic — node, exec wire (trắng) và data wire (màu)</figcaption></figure>
+        <div class="box tip">
+          <span class="box-title">Thói quen tốt ngay từ đầu</span>
+          Đặt tên node/graph rõ nghĩa, dùng <span class="term-en">Comment box</span> (Chú thích vùng) nhóm logic, ưu tiên <span class="term-en">Functions</span> thay vì copy chuỗi node. Mỗi Blueprint chỉ nên lo một việc.
+        </div>
+
+        <div class="exercise">
+          <div class="ex-head">🏋️ Bài tập 4 <span class="lvl">Starter</span> → <span class="lvl hard">+</span></div>
+          <p>Nâng cấp BP_Coin: thêm biến <code class="ic">CoinValue</code> (Integer, Instance Editable, default 10). Khi overlap, trước khi Destroy hãy in ra màn hình console bằng node <code class="ic">Print String</code> ghép "Picked coin worth " + CoinValue. Rồi làm thêm 1 coin "đặc" CoinValue = 50.</p>
+          <details class="answer"><summary>Gợi ý</summary><div class="body">Print String chỉ nhận String → cần node <code class="ic">ToText(Integer)</code> hoặc dùng chuỗi format. Muốn cộng điểm thật: lưu biến Score trong BP_ThirdPersonCharacter và gọi qua Cast.</div></details>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: <a class="inline" href="unreal-engine-5.8-docs/site/blueprints-visual-scripting-in-unreal-engine/">Blueprints Visual Scripting</a> · <a class="inline" href="unreal-engine-5.8-docs/site/designer-06-puzzles-moving-platforms-in-unreal-engine/">Puzzles: Moving Platforms</a> · <a class="inline" href="unreal-engine-5.8-docs/site/module-3-create-a-coin-pickup-with-modeling-tools-and-blueprints/">Module 3: Create a Coin Pickup with Blueprints</a></p>
+      </section>
+
+      <!-- ==================== CHƯƠNG 5 ==================== -->
+      <section class="chapter" id="ch5">
+        <h2 class="ch-title"><span class="num">Chương 5</span> Content Pipeline — Import assets</h2>
+        <p class="ch-sub">Đưa mesh, texture, animation từ DCC tools (Blender, Maya) vào project đúng chuẩn.</p>
+
+        <h3 class="sec">Asset types cần biết</h3>
+        <table>
+          <tr><th>Type</th><th>Nội dung</th><th>Nguồn thường gặp</th></tr>
+          <tr><td><span class="term-en">Static Mesh</span></td><td>Geometry tĩnh: tường, prop, weapon</td><td>FBX/glTF từ Blender/Maya</td></tr>
+          <tr><td><span class="term-en">Skeletal Mesh</span></td><td>Geometry có bone để animate</td><td>FBX rigged</td></tr>
+          <tr><td><span class="term-en">Texture 2D</span></td><td>Ảnh: diffuse, normal, roughness…</td><td>PNG/TGA/EXR</td></tr>
+          <tr><td><span class="term-en">Material</span></td><td>Công thức màu sắc bề mặt (Chương 6)</td><td>Tạo trong UE</td></tr>
+          <tr><td><span class="term-en">Sound Wave / MetaSound</span></td><td>Âm thanh (Chương 11)</td><td>WAV/OGG</td></tr>
+        </table>
+
+        <h3 class="sec">Hệ thống Interchange</h3>
+        <p>Từ UE 5.x, import đi qua framework <span class="term-en">Interchange</span>: kéo file FBX/glTF/abc vào Content Browser → hiện <span class="term-en">Interchange Pipeline Stack</span> để chọn trước lúc import: tạo material tự động, generate collision, import ánh xạ bone… Mọi lựa chọn đều lưu được thành preset tái sử dụng.</p>
+        <figure class="fig"><img src="images/aa6c5cc4-1b84-4131-b17d-7df50fb1c70d.webp" alt="Import dialog của Interchange framework" loading="lazy"><figcaption>Import dialog của Interchange framework</figcaption></figure>
+        <figure class="fig"><img src="images/ca24ef8d-65cd-4cb0-96f2-e4188f1938c2.webp" alt="Pipeline Stack — tinh chỉnh kết quả import" loading="lazy"><figcaption>Pipeline Stack — tinh chỉnh kết quả import</figcaption></figure>
+
+        <h3 class="sec">Chuẩn FBX từ Blender/Maya</h3>
+        <ul>
+          <li><strong>Đơn vị:</strong> 1 Unreal unit = 1 cm. Xuất FBX ở scale thực (Blender: Unit Scale 0.01 hoặc Apply Scale khi export).</li>
+          <li><strong>Hướng:</strong> UE là Z-up, import FBX tự xoay — kiểm tra Static Mesh → Details → <span class="term-en">Import Rotation</span>.</li>
+          <li><strong>Pivot:</strong> đặt origin đúng chỗ (chân prop) trước khi export.</li>
+          <li><strong>Collision:</strong> đơn giản nhất là trong Static Mesh Editor → Collision → Add Box Simplified Collision, hoặc tick <span class="term-en">Auto Generate Collision</span> khi import.</li>
+        </ul>
+        <figure class="fig"><img src="images/3b54c8da-4c3e-40bd-87be-8b08f4f66557.webp" alt="Interchange Preview — xem trước danh sách asset sẽ được tạo" loading="lazy"><figcaption>Interchange Preview — xem trước danh sách asset sẽ được tạo</figcaption></figure>
+        <div class="box warn">
+          <span class="box-title">Naming convention từ ngày đầu</span>
+          Đặt tên asset dạng <code class="ic">SM_Chair</code> (Static Mesh), <code class="ic">SK_Character</code> (Skeletal), <code class="ic">T_Wood_D</code> (Texture Diffuse), <code class="ic">M_Wood</code> (Material), <code class="ic">MI_Wood_Oak</code> (Material Instance). Khối lượng asset lên hàng nghìn thì sẽ cảm ơn chính mình.
+        </div>
+
+        <div class="exercise">
+          <div class="ex-head">🏋️ Bài tập 5 <span class="lvl">Starter</span></div>
+          <p>Tải 1 model miễn phí (glTF/FBX) từ Fab hoặc Sketchfab, import vào project bằng Interchange, bật auto collision, kéo vào level và bấm Play đi xuyên thử — nếu xuyên được thì collision chưa có.</p>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: <a class="inline" href="unreal-engine-5.8-docs/site/importing-assets-using-interchange-in-unreal-engine/">Importing Assets Using Interchange</a> · <a class="inline" href="unreal-engine-5.8-docs/site/artist-01-project-setup-and-content-import/">Set Up Your Project and Import Content</a> · <a class="inline" href="unreal-engine-5.8-docs/site/importing-static-meshes-in-unreal-engine/">Importing Static Meshes</a></p>
+      </section>
+
+      <!-- ==================== CHƯƠNG 6 ==================== -->
+      <section class="chapter" id="ch6">
+        <h2 class="ch-title"><span class="num">Chương 6</span> Material căn bản</h2>
+        <p class="ch-sub">"Công thức nấu" bề mặt: màu, kim loại, nhám — viết bằng node trong Material Editor.</p>
+
+        <h3 class="sec">Material là công thức, không phải ảnh</h3>
+        <p><span class="term-en">Material</span> trong UE là shader graph: input ảnh + toán tử → tô lên mesh. Ba input quan trọng nhất của <span class="term-en">Unlit/Lit</span> surface:</p>
+        <table>
+          <tr><th>Pin</th><th>Ý nghĩa</th><th>Giá trị mẫu</th></tr>
+          <tr><td><span class="term-en">Base Color</span></td><td>Màu bản thể (albedo)</td><td>Vector3, 0–1</td></tr>
+          <tr><td><span class="term-en">Metallic</span></td><td>0 = sơn/đá/gỗ, 1 = kim loại thật</td><td>Scalar 0 hoặc 1</td></tr>
+          <tr><td><span class="term-en">Roughness</span></td><td>0 = bóng gương, 1 = nhám mờ</td><td>Scalar 0–1</td></tr>
+          <tr><td><span class="term-en">Normal</span></td><td>Giả chi tiết bề mặt không thêm polygon</td><td>Normal map (tím xanh)</td></tr>
+        </table>
+        <figure class="fig"><img src="images/e33d7032-6d2b-4683-abe2-36460358de72.webp" alt="Material Editor — node graph nối vào input chính" loading="lazy"><figcaption>Material Editor — node graph nối vào input chính</figcaption></figure>
+
+        <h3 class="sec">Material Editor nhanh</h3>
+        <p>Double-click bất kỳ material → mở editor. Right-click thêm node: <code class="ic">Constant</code> (giá trị), <code class="ic">Constant3Vector</code> (màu), <code class="ic">TextureSample</code> (ảnh), <code class="ic">Multiply/Lerp</code> (phối hợp). Kéo pin output vào pin input của Material. Bấm <strong>Apply</strong> để compile — kết quả xem ngay ở panel Preview.</p>
+        <figure class="fig"><img src="images/0d9d87cd-5901-4d5c-9bf1-708327bf1312.webp" alt="Các node cơ bản: Texture Sample, Multiply, Constant" loading="lazy"><figcaption>Các node cơ bản: Texture Sample, Multiply, Constant</figcaption></figure>
+
+        <h3 class="sec">Material Instance — lý do project của bạn nhanh</h3>
+        <p>Đừng tạo 20 material cho 20 màu gỗ. Tạo <strong>1 Material cha</strong> có tham số (right-click node Constant → Convert to Parameter), rồi right-click material → <span class="term-en">Create Material Instance</span>. Instance đổi tham số <strong>không cần recompile shader</strong> — pink 10 giây thành 0 giây.</p>
+        <figure class="fig"><img src="images/ad7c74e8-b609-4f76-952b-e1fe0f899768.webp" alt="Material Instance chỉ đổi parameter — không đụng shader" loading="lazy"><figcaption>Material Instance chỉ đổi parameter — không đụng shader</figcaption></figure>
+
+        <div class="box tip">
+          <span class="box-title">Ba câu hỏi trước khi làm material</span>
+          (1) Đây là kim loại không? → Metallic. (2) Bóng hay nhám? → Roughness. (3) Có chi tiết bề mặt? → Normal map. 90% material đời thường chỉ cần 3 câu đó.
+        </div>
+
+        <div class="exercise">
+          <div class="ex-head">🏋️ Bài tập 6 <span class="lvl">Starter</span></div>
+          <p>Tạo material <code class="ic">M_Learning</code>: Base Color từ TextureSample (dùng texture trong Starter Content), Roughness là parameter. Tạo 2 instance: một bóng (0.1), một nhám (0.9), áp lên 2 quả cầu đặt cạnh nhau dưới đèn — so sánh.</p>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: <a class="inline" href="unreal-engine-5.8-docs/site/artist-03-create-materials-and-material-instances/">Create Materials and Material Instances</a> · <a class="inline" href="unreal-engine-5.8-docs/site/physically-based-materials-in-unreal-engine/">Physically Based Materials</a></p>
+      </section>
+
+      <!-- ==================== CHƯƠNG 7 ==================== -->
+      <section class="chapter" id="ch7">
+        <h2 class="ch-title"><span class="num">Chương 7</span> Lighting cơ bản + Mini Project</h2>
+        <p class="ch-sub">Ba vị thần ánh sáng của scene — và ghép tất cả kiến thức Level 1 thành một mini game.</p>
+
+        <h3 class="sec">Bộ ba ánh sáng ngoài trời</h3>
+        <table>
+          <tr><th>Light Actor</th><th>Vai trò</th><th>Notes</th></tr>
+          <tr><td><span class="term-en">Directional Light</span></td><td>Mặt trời — shadow song song</td><td>1 cái/level, chỉnh Atmosphere Sun Light</td></tr>
+          <tr><td><span class="term-en">Sky Light</span></td><td>Ánh sáng trời phản chiếu môi trường</td><td>SLS Capture Scene để ăn theo bầu trời</td></tr>
+          <tr><td><span class="term-en">Height Fog</span></td><td>Sương theo độ cao, tạo chiều sâu</td><td>Fog màu nên khớp màu trời</td></tr>
+          <tr><td><span class="term-en">Point / Spot Light</span></td><td>Đèn trong nhà, highlight prop</td><td>Đặt Mobility Movable nếu cần tắt/bật runtime</td></tr>
+        </table>
+        <figure class="fig"><img src="images/3df49405-dc1b-4d48-a4da-a7050c855afb.webp" alt="Hard shadow vs soft shadow — chất lượng bóng theo nguồn sáng" loading="lazy"><figcaption>Hard shadow vs soft shadow — chất lượng bóng theo nguồn sáng</figcaption></figure>
+
+        <h3 class="sec">Intensity, màu, và Exposure</h3>
+        <p>UE dùng đơn vị ánh sáng vật lý (<span class="term-en">lux, candela</span>) — đèn mặt trời mặc định ~10 lux × đơn vị lớn. Camera có <span class="term-en">Auto Exposure</span>: scene tối/ sáng tự cân. Muốn "như phim": Viewport → Show → Auto Exposure hoặc đặt <span class="term-en">Post Process Volume</span> khóa Exposure Min=Max.</p>
+        <figure class="fig"><img src="images/9b3623de-1e01-4836-bccd-306f3196dcda.webp" alt="Điều chỉnh ánh sáng và kiểm tra trong viewport" loading="lazy"><figcaption>Điều chỉnh ánh sáng và kiểm tra trong viewport</figcaption></figure>
+
+        <h3 class="sec">Mini Project 1 — "Coin Rush"</h3>
+        <div class="checklist">
+          <h4>🎯 Checklist dự án (ghép Chương 1–7)</h4>
+          <label><input type="checkbox"><span>Tạo project Third Person mới <code class="ic">CoinRush</code></span></label>
+          <label><input type="checkbox"><span>Dựng 1 khu sân ~20×20 m có vách ngăn (Ch3)</span></label>
+          <label><input type="checkbox"><span>Import 1 mesh prop ngoài + collision (Ch5)</span></label>
+          <label><input type="checkbox"><span>BP_Coin tự xoay, +điểm khi nhặt, CoinValue editable (Ch4)</span></label>
+          <label><input type="checkbox"><span>Material coin vàng kim loại bóng M_Gold + 2 instance màu khác (Ch6)</span></label>
+          <label><input type="checkbox"><span>Chiếu sáng: 1 Directional + Sky Light + Fog + 2 đèn điểm màu (Ch7)</span></label>
+          <label><input type="checkbox"><span>Play thử: nhặt đủ 10 coin không bị rơi khỏi map</span></label>
+        </div>
+
+        <div class="quiz" data-quiz="1">
+          <div class="q-head">📝 Quiz Level 1 — Starter</div>
+          <div class="q"><p>1. Actor đặt vị trí ở đâu?</p>
+            <label class="opt"><input type="radio" name="q1">Trong biến Location của chính nó</label>
+            <label class="opt" data-ok><input type="radio" name="q1">Ở Root Component của Actor</label>
+            <label class="opt"><input type="radio" name="q1">Trong World Outliner</label>
+            <div class="explain">Actor không tự lưu Transform — dữ liệu nằm ở Root Component (thường là Scene Component đầu tiên).</div>
+          </div>
+          <div class="q"><p>2. Muốn 10 màu gỗ mà không recompile shader 10 lần?</p>
+            <label class="opt"><input type="radio" name="q2">Copy material 10 file</label>
+            <label class="opt"><input type="radio" name="q2">Dùng 1 material + 10 Material Instance</label>
+            <label class="opt" data-ok><input type="radio" name="q2">Dùng Material Instance đổi parameter</label>
+            <div class="explain">Material Instance thay đổi parameter (đã convert trong material cha) mà không cần compile lại shader.</div>
+          </div>
+          <div class="q"><p>3. Node nào là điểm bắt đầu chạy mỗi frame?</p>
+            <label class="opt" data-ok><input type="radio" name="q3">Event Tick</label>
+            <label class="opt"><input type="radio" name="q3">Event BeginPlay</label>
+            <label class="opt"><input type="radio" name="q3">Construction Script</label>
+            <div class="explain">Event Tick chạy mỗi frame; BeginPlay chỉ 1 lần lúc spawn; Construction Script chạy trong editor khi thay đổi.</div>
+          </div>
+          <button class="check" onclick="checkQuiz(this)">Kiểm tra</button>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: <a class="inline" href="unreal-engine-5.8-docs/site/artist-02-light-a-scene/">Light a Scene</a> · <a class="inline" href="unreal-engine-5.8-docs/site/lighting-the-environment-in-unreal-engine/">Lighting the Environment</a> · <a class="inline" href="unreal-engine-5.8-docs/site/features-and-properties-of-lights-in-unreal-engine/">Direct Lighting</a></p>
+      </section>
+
+      <div class="level-divider" id="level2"><div class="tag tag-l2">Level 2 · Intermediate — Trung cấp</div><div class="line"></div></div>
+
+      <!-- ==================== CHƯƠNG 8 ==================== -->
+      <section class="chapter" id="ch8">
+        <h2 class="ch-title"><span class="num">Chương 8</span> Lumen — Global Illumination &amp; Reflections</h2>
+        <p class="ch-sub">Ánh sáng nảy (bounce) thời gian thực — "công nghệ huyền thoại" của UE5.</p>
+
+        <h3 class="sec">Lumen giải quyết vấn đề gì?</h3>
+        <p>Trước đây, ánh sáng gián tiếp (<span class="term-en">Global Illumination — GI</span>) phải "bake" trước — mất giờ và tĩnh. <span class="term-en">Lumen</span> tính GI + phản chiếu <strong>thời gian thực</strong>: tắt đèn → bóng tối lan đúng vật lý; đổi màu tường → ánh nảy theo luôn. Lumen mặc định bật trong project UE5.8 khi dùng template.</p>
+        <figure class="fig"><img src="images/2a0386d0-db8d-4054-a440-16be1c4084b3.webp" alt="Scene chiếu sáng hoàn toàn bằng Lumen — không đèn bổ trợ" loading="lazy"><figcaption>Scene chiếu sáng hoàn toàn bằng Lumen — không đèn bổ trợ</figcaption></figure>
+
+        <h3 class="sec">Bật/tắt và kiểm soát</h3>
+        <ul>
+          <li><span class="term-en">Post Process Volume</span> (Infinite Extent) → <code class="ic">Global Illumination → Method: Lumen</code>, <code class="ic">Reflections → Method: Lumen</code>.</li>
+          <li>Hoặc tắt toàn cục: Project Settings → <code class="ic">Dynamic Global Illumination Method = None</code> (dùng khi target máy yếu).</li>
+          <li>Console (<code class="ic">~</code>): <code class="ic">r.Lumen.ScreenProbeGather 1</code>, xem chi tiết perf bằng <code class="ic">stat gpu</code>.</li>
+        </ul>
+        <figure class="fig"><img src="images/1d4a1583-d0dd-4fb9-82d5-1e944515264e.webp" alt="Cấu hình Lumen trong Post Process Volume" loading="lazy"><figcaption>Cấu hình Lumen trong Post Process Volume</figcaption></figure>
+
+        <h3 class="sec">Các khái niệm cần phân biệt</h3>
+        <table>
+          <tr><th>Khái niệm</th><th>Ý nghĩa</th></tr>
+          <tr><td><span class="term-en">Surface Cache</span></td><td>Lumen "chụp" bề mặt mesh vào cache để tính nảy sáng nhanh</td></tr>
+          <tr><td><span class="term-en">Final Gather Quality</span></td><td>Chất lượng tính GI trong Post Process Volume — tăng lên giảm noise</td></tr>
+          <tr><td><span class="term-en">Ray Lighting Mode</span></td><td>Cách Lumen chiếu sáng: Surface Cache (nhanh) vs Hit Lighting (đẹp, tốn)</td></tr>
+          <tr><td><span class="term-en">Local Fog Volumes</span></td><td>Khối sương cục bộ (5.7+) — sương mù có thể nảy sáng từ Lumen</td></tr>
+        </table>
+        <figure class="fig"><img src="images/24e7786b-b513-41c4-beb3-603c42f68206.webp" alt="Local Fog Volume tạo vùng sương cục bộ có ánh sáng" loading="lazy"><figcaption>Local Fog Volume tạo vùng sương cục bộ có ánh sáng</figcaption></figure>
+        <div class="box warn">
+          <span class="box-title">Lumen cần gì?</span>
+          Lumen hoạt động tốt nhất trên GPU RTX hoặc GPU không chuyên cũng chạy được qua <span class="term-en">Software Ray Tracing</span> — dùng <span class="term-en">Mesh Distance Fields</span> (Project Settings → Generate Mesh Distance Fields). Mobile: chỉ màn hình cao cấp (Ch16 sẽ bàn scalability).
+        </div>
+
+        <div class="exercise">
+          <div class="ex-head">🏋️ Bài tập 8 <span class="lvl">Mid</span></div>
+          <p>Trong 1 phòng kín: đặt 1 Point Light màu đỏ Movable, tắt Directional/Sky Light. Quan sát ánh đỏ nảy ra trần/sàn. Bật tắt <code class="ic">r.Lumen.Scene.Lighting 0/1</code> trong console để thấy khác biệt khi mất GI.</p>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: <a class="inline" href="unreal-engine-5.8-docs/site/lumen-global-illumination-and-reflections-in-unreal-engine/">Lumen Global Illumination and Reflections</a> · <a class="inline" href="unreal-engine-5.8-docs/site/local-fog-volumes-in-unreal-engine/">Local Fog Volumes</a> · <a class="inline" href="unreal-engine-5.8-docs/site/07-adjust-environment-lighting-features/">Adjust Environment Lighting Features</a></p>
+      </section>
+
+      <!-- ==================== CHƯƠNG 9 ==================== -->
+      <section class="chapter" id="ch9">
+        <h2 class="ch-title"><span class="num">Chương 9</span> Landscape &amp; Foliage</h2>
+        <p class="ch-sub">Tạo núi đồi sông hồ bằng cọ vẽ — và rắc cây khắp thế giới.</p>
+
+        <h3 class="sec">Landscape — địa hình</h3>
+        <p>Chọn mode <span class="term-en">Landscape</span> (Shift+2) → Create New. Landscape là lưới ô khổng lồ chuyên dụng: mỗi <span class="term-en">component</span> có LOD riêng, cho map hàng km. Vẽ bằng các cọ: <span class="term-en">Sculpt</span> (đắp đào), <span class="term-en">Smooth</span>, <span class="term-en">Flatten</span>, <span class="term-en">Ramp</span>, <span class="term-en">Erosion</span> (xói mòn giả lập), <span class="term-en">Hydro Erosion</span>.</p>
+        <figure class="fig"><img src="images/1be23ccb-39e4-4eb8-bdfa-30f811bd3677.webp" alt="Landscape mode với các cọ sculpt" loading="lazy"><figcaption>Landscape mode với các cọ sculpt</figcaption></figure>
+        <table>
+          <tr><th>Thông số</th><th>Ý nghĩa</th><th>Gợi ý</th></tr>
+          <tr><td>Section Size / Sections Per Component</td><td>Mật độ lưới</td><td>63×63 quadrants/section cho chi tiết gần</td></tr>
+          <tr><td><span class="term-en">Landscape Material</span></td><td>Material nhiều layer (cỏ, đá, đất)</td><td>Dùng node <code class="ic">LandscapeLayerBlend</code></td></tr>
+          <tr><td><span class="term-en">Data Layers</span></td><td>Bật/tắt vùng landscape runtime</td><td>Nâng cao — Ch19</td></tr>
+        </table>
+        <figure class="fig"><img src="images/2f8d1725-6e34-4787-a03a-29f9ad6a31aa.webp" alt="Đắp núi bằng cọ Sculpt — Alt để đào" loading="lazy"><figcaption>Đắp núi bằng cọ Sculpt — Alt để đào</figcaption></figure>
+
+        <h3 class="sec">Paint layers — tô màu bề mặt</h3>
+        <p>Material landscape cần <code class="ic">LandscapeLayerBlend</code> trộn nhiều texture theo trọng số vẽ (grass/dirt/rock/snow). Vẽ trong tab <span class="term-en">Paint</span> của Landscape mode. Muốn tự động theo độ cao/độ dốc: dùng <code class="ic">LandscapeLayerCoords</code> + <code class="ic">LandscapeVisibilityMask</code>.</p>
+        <figure class="fig"><img src="images/b632b57f-f61b-4cda-a171-e47f8e98a995.webp" alt="Landscape Material trộn nhiều layer texture" loading="lazy"><figcaption>Landscape Material trộn nhiều layer texture</figcaption></figure>
+
+        <h3 class="sec">Foliage — rắc cây</h3>
+        <p>Mode <span class="term-en">Foliage</span> (Shift+3): kéo mesh (nên tick <span class="term-en">Nanite</span> cho tán lá — Ch20) vào danh sách, chỉnh mật độ rồi <strong>click/vẽ</strong> lên landscape. <span class="term-en">Procedural Foliage</span> (v2) tự rắc theo quy tắc (độ dốc, tầng đất).</p>
+        <figure class="fig"><img src="images/d972d48e-cfff-499e-825a-49062d12597c.jpg" alt="Foliage mode — rắc cây lên địa hình" loading="lazy"><figcaption>Foliage mode — rắc cây lên địa hình</figcaption></figure>
+        <div class="box tip">
+          <span class="box-title">Cây cỏ xấu vì "đứng hình"? </span>
+          Foliage mặc định tắt wind. Trong material dùng node <code class="ic">SimpleGrassWind</code> hoặc WPO (World Position Offset) để lá lay. Cây số lượng lớn → bật Nanite + <span class="term-en">Runtime Virtual Texture</span> cho shadow nhẹ.
+        </div>
+
+        <div class="exercise">
+          <div class="ex-head">🏋️ Bài tập 9 <span class="lvl">Mid</span></div>
+          <p>Tạo landscape 1009×1009, đắp 1 ngọn núi + 1 thung lũng, tô 3 layer (cỏ/đá tuyết), rắc 2 loại cây từ Starter Content (SM_Pine). Camera bay chụp 1 shot "postcard".</p>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: <a class="inline" href="unreal-engine-5.8-docs/site/landscape-quick-start-guide-in-unreal-engine/">Landscape Quick Start Guide</a> · <a class="inline" href="unreal-engine-5.8-docs/site/landscape-materials-in-unreal-engine/">Landscape Materials</a> · <a class="inline" href="unreal-engine-5.8-docs/site/foliage-mode-in-unreal-engine/">Foliage Mode</a> · <a class="inline" href="unreal-engine-5.8-docs/site/editing-landscapes-in-unreal-engine/">Editing Landscapes</a></p>
+      </section>
+
+      <!-- ==================== CHƯƠNG 10 ==================== -->
+      <section class="chapter" id="ch10">
+        <h2 class="ch-title"><span class="num">Chương 10</span> Physics &amp; Collision</h2>
+        <p class="ch-sub">Cho vật rơi, va chạm, phát đạn — thế giới có "trọng lực thật".</p>
+
+        <h3 class="sec">Chaos Physics</h3>
+        <p>UE5 dùng engine vật lý <span class="term-en">Chaos</span>. Ba mức dùng: (1) <strong>Simulate</strong> — object rơi/nảy thật; (2) <strong>Collision only</strong> — chặn di chuyển không mô phỏng (rẻ); (3) <strong>Query only</strong> — chỉ raycast/overlap. Bật simulate: chọn Static Mesh Actor → Details → <span class="term-en">Simulate Physics</span> (mesh phải có collision).</p>
+        <figure class="fig"><img src="images/477b3aeb-33db-4f06-bd9a-6c941ef17039.webp" alt="Actor bật Simulate Physics rơi theo trọng lực" loading="lazy"><figcaption>Actor bật Simulate Physics rơi theo trọng lực</figcaption></figure>
+
+        <h3 class="sec">Collision Presets</h3>
+        <table>
+          <tr><th>Preset</th><th>Ý nghĩa</th></tr>
+          <tr><td><span class="term-en">BlockAll</span></td><td>Chặn mọi object</td></tr>
+          <tr><td><span class="term-en">OverlapAll</span></td><td>Không chặn — chỉ báo hiệu Overlap events (dùng cho trigger, pickup)</td></tr>
+          <tr><td><span class="term-en">BlockAllExceptPawn</span></td><td>Chặn tất cả trừ nhân vật (đạn, vật cản riêng)</td></tr>
+          <tr><td><span class="term-en">PhysicsActor</span></td><td>Dành cho vật simulate</td></tr>
+        </table>
+        <p>Cấu trúc sâu hơn: <span class="term-en">Object Channels</span> (Pawn, PhysicsBody, Vehicle…) + <span class="term-en">Trace Channels</span> (Visibility, Camera — cho raycast). Tự tạo channel trong Project Settings → Collision. Quy tắc chặn/phản ứng nằm trong bảng <span class="term-en">Response matrix</span> của từng preset.</p>
+        <figure class="fig"><img src="images/00d86f9d-f470-4ede-9699-6ef039904e2b.webp" alt="Collision Presets trong Details panel" loading="lazy"><figcaption>Collision Presets trong Details panel</figcaption></figure>
+
+        <h3 class="sec">Blueprint physics thường gặp</h3>
+        <ul>
+          <li><span class="term-en">Add Impulse / Add Force</span>: đẩy vật (đạn bắn, nổ).</li>
+          <li><span class="term-en">Launch Character</span>: đá nhân vật nảy lên (jump pad).</li>
+          <li><span class="term-en">Set Simulate Physics (component)</span>: bật/tắt runtime — rơi cánh tay khi chết.</li>
+          <li><span class="term-en">On Component Hit</span> event: phản ứng khi va chạm thật (âm thanh, hiệu ứng).</li>
+        </ul>
+        <figure class="fig"><img src="images/f1f0aaf1-d45c-4abd-a225-c7019d173ae2.webp" alt="Physics Constraints — ràng buộc khớp nối giữa các vật thể" loading="lazy"><figcaption>Physics Constraints — ràng buộc khớp nối giữa các vật thể</figcaption></figure>
+        <div class="box danger">
+          <span class="box-title">Lỗi kinh điển: rơi xuyên sàn</span>
+          Mesh chưa có collision (xem Ch5) hoặc preset <span class="term-en">NoCollision</span>. Kiểm tra nhanh: Viewport → Show → Collision — vùng xanh = có collision.
+        </div>
+
+        <div class="exercise">
+          <div class="ex-head">🏋️ Bài tập 10 <span class="lvl">Mid</span></div>
+          <p>Làm <strong>jump pad</strong>: 1 tấm đĩa, khi Player overlap → <code class="ic">Launch Character</code> (Z velocity 1200). Làm <strong>bowl</strong> bằng 5 cube chặn + 1 quả cầu Simulate Physics; bắn cầu ra khỏi bowl bằng Add Impulse khi bấm E gần cầu.</p>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: <a class="inline" href="unreal-engine-5.8-docs/site/physics-in-unreal-engine/">Physics</a> · <a class="inline" href="unreal-engine-5.8-docs/site/collision-in-unreal-engine/">Collision</a> · <a class="inline" href="unreal-engine-5.8-docs/site/designer-06-puzzles-moving-platforms-in-unreal-engine/">Puzzles: Moving Platforms</a></p>
+      </section>
+
+      <!-- ==================== CHƯƠNG 11 ==================== -->
+      <section class="chapter" id="ch11">
+        <h2 class="ch-title"><span class="num">Chương 11</span> Audio với MetaSounds</h2>
+        <p class="ch-sub">Âm thanh thế hệ mới của UE5 — âm thanh cũng "lập trình bằng node".</p>
+
+        <h3 class="sec">Từ Sound Cue tới MetaSound</h3>
+        <p>UE4 dùng <span class="term-en">Sound Cue</span> (graph đơn giản). UE5 giới thiệu <span class="term-en">MetaSounds</span>: graph đầy đủ sức mạnh DSP — random pitch, crossfade, lọc theo parameter runtime, procedural music. Sound Cue vẫn dùng được cho việc đơn giản.</p>
+        <figure class="fig"><img src="images/f14405ef-e383-4ea3-b485-b4d999232cb1.webp" alt="MetaSound graph — các node DSP xử lý âm" loading="lazy"><figcaption>MetaSound graph — các node DSP xử lý âm</figcaption></figure>
+
+        <h3 class="sec">Phát âm thanh trong Blueprint</h3>
+        <ul>
+          <li><span class="term-en">Play Sound at Location</span> — tiếng một lần ở vị trí (bước chân, va chạm).</li>
+          <li><span class="term-en">Play Sound Attached</span> — gắn theo Actor (tiếng động cơ, lửa cháy).</li>
+          <li><span class="term-en">Audio Component</span> — component điều khiển được (pause, fade, đổi parameter).</li>
+          <li><span class="term-en">Sound Class + Sound Mix</span> — phân loại (SFX/Music/Voice) để chỉnh volume riêng, mute khi pause.</li>
+        </ul>
+        <figure class="fig"><img src="images/82ae485a-ec2f-4edf-80c7-1214b668d965.webp" alt="Gắn âm thanh cho fire trap — tutorial âm thanh của Epic" loading="lazy"><figcaption>Gắn âm thanh cho fire trap — tutorial âm thanh của Epic</figcaption></figure>
+        <div class="box tip">
+          <span class="box-title">Metadata quan trọng</span>
+          MetaSound expose <span class="term-en">Input parameters</span> (float/int/bool) — từ Blueprint gọi <code class="ic">Set Float Parameter</code> trên Audio Component để đổi pitch/giá trị theo gameplay (xe tăng tốc → động cơ cao tần).
+        </div>
+
+        <div class="exercise">
+          <div class="ex-head">🏋️ Bài tập 11 <span class="lvl">Mid</span></div>
+          <p>Cho BP_Coin (Ch4) một âm "ting" khi nhặt: Play Sound at Location tại vị trí coin. Sau đó tạo MetaSound pitch random ±10% mỗi lần phát để không nghe lặp.</p>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: <a class="inline" href="unreal-engine-5.8-docs/site/metasounds-in-unreal-engine/">MetaSounds</a> · <a class="inline" href="unreal-engine-5.8-docs/site/metasound-templates-quick-start-in-unreal-engine/">MetaSound Templates Quick Start</a> · <a class="inline" href="unreal-engine-5.8-docs/site/artist-09-adding-sounds-to-fire-traps-artist-track-unreal-engine/">Add Sounds to Fire Traps</a></p>
+      </section>
+
+      <!-- ==================== CHƯƠNG 12 ==================== -->
+      <section class="chapter" id="ch12">
+        <h2 class="ch-title"><span class="num">Chương 12</span> Niagara — Visual Effects</h2>
+        <p class="ch-sub">Particles: lửa, khói, pháo hoa, mưa — hệ VFX của mọi game UE.</p>
+
+        <h3 class="sec">Niagara thinking</h3>
+        <p><span class="term-en">Niagara</span> mô phỏng particle bằng stack <span class="term-en">Emitter</span> → mỗi emitter chứa module (spawn rate, gravity, color…) chạy theo <span class="term-en">Stages</span>: Emitter Spawn → Particle Spawn → Particle Update mỗi frame. Người mới bắt đầu từ <span class="term-en">templates</span>: Fountain, Fire, Smoke, Explosion.</p>
+        <figure class="fig"><img src="images/06cc8496-4b5d-44ff-972c-e61b5a200438.webp" alt="Module stack trong Emitter: Emitter Spawn/Update, Particle Spawn/Update" loading="lazy"><figcaption>Module stack trong Emitter: Emitter Spawn/Update, Particle Spawn/Update</figcaption></figure>
+        <table>
+          <tr><th>Khái niệm</th><th>Ý nghĩa</th></tr>
+          <tr><td><span class="term-en">System</span></td><td>VFX hoàn chỉnh (nhiều emitter: lửa + khói + tia)</td></tr>
+          <tr><td><span class="term-en">Emitter</span></td><td>Một luồng particle</td></tr>
+          <tr><td><span class="term-en">Module</span></td><td>Hành vi ghép vào: Shape Location, Gravity, Scale Color</td></tr>
+          <tr><td><span class="term-en">Renderer</span></td><td>Cách vẽ: Sprite, Mesh, Ribbon (vệt), Light</td></tr>
+        </table>
+        <figure class="fig"><img src="images/f53e28d1-8d87-48da-9e3e-75f77e8e429b.webp" alt="Chọn system/emitter từ template browser của Niagara" loading="lazy"><figcaption>Chọn system/emitter từ template browser của Niagara</figcaption></figure>
+
+        <h3 class="sec">Quick start trong 5 phút</h3>
+        <ol>
+          <li>Content Browser → right-click → FX → <span class="term-en">Niagara System</span> → From selected emitter(s) → chọn <strong>Fountain</strong>.</li>
+          <li>Kéo vào level. Chọn → Details đổi màu/độ cao nước.</li>
+          <li>Mở system: vào <span class="term-en">Particle Update</span>, sửa module <code class="ic">Add Velocity in Cone</code> để đổi hướng phun.</li>
+          <li>Đổi Renderer thành Mesh Renderer, chọn mesh đá nhỏ → thành phun đá.</li>
+        </ol>
+        <figure class="fig"><img src="images/1e8d17a3-46ac-43e7-9e84-1e4fbc49d3ed.webp" alt="Emitter được chọn kèm chi tiết asset trong Niagara editor" loading="lazy"><figcaption>Emitter được chọn kèm chi tiết asset trong Niagara editor</figcaption></figure>
+        <div class="box info">
+          <span class="box-title">GPU hay CPU?</span>
+          Emitter có thuộc tính <span class="term-en">Sim Target</span>: GPU sim xử lý hàng trăm nghìn hạt (khói/lửa lớn), CPU sim linh hoạt logic từng hạt. Hoá đơn: GPU sim tốn VRAM — cân nhắc trên mobile.
+        </div>
+
+        <div class="exercise">
+          <div class="ex-head">🏋️ Bài tập 12 <span class="lvl">Mid</span></div>
+          <p>Tạo VFX "đồng xu vỡ": khi nhặt coin (Ch4), spawn Niagara system burst 20 hạt vàng bắn toé rồi biến mất (dùng template Burst + Lifetime ngắn). Gợi ý node: <code class="ic">Spawn System at Location</code>.</p>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: <a class="inline" href="unreal-engine-5.8-docs/site/overview-of-niagara-effects-for-unreal-engine/">Niagara Overview</a> · <a class="inline" href="unreal-engine-5.8-docs/site/quick-start-for-niagara-effects-in-unreal-engine/">Niagara Quick Start</a> · <a class="inline" href="unreal-engine-5.8-docs/site/key-concepts-in-niagara-effects-for-unreal-engine/">Niagara Key Concepts</a></p>
+      </section>
+
+      <!-- ==================== CHƯƠNG 13 ==================== -->
+      <section class="chapter" id="ch13">
+        <h2 class="ch-title"><span class="num">Chương 13</span> Character Animation</h2>
+        <p class="ch-sub">Nhân vật chuyển động mượt: Skeleton, Animation Blueprint, Control Rig.</p>
+
+        <h3 class="sec">Pipeline animation</h3>
+        <p><span class="term-en">Skeletal Mesh</span> (model có bone) + <span class="term-en">Skeleton asset</span> (bộ xương dùng chung) + <span class="term-en">Animation Sequences</span> (các clip: idle, run, jump). Cùng Skeleton thì dùng chung animation — và có thể <span class="term-en">Retarget</span> sang bộ xương khác (IK Rig).</p>
+        <figure class="fig"><img src="images/b3d98715-44ec-4bf5-a800-4edcb5f85c7d.webp" alt="Skeletal Mesh với bộ xương hiển thị" loading="lazy"><figcaption>Skeletal Mesh với bộ xương hiển thị</figcaption></figure>
+        <table>
+          <tr><th>Asset</th><th>Vai trò</th></tr>
+          <tr><td><span class="term-en">Skeleton</span></td><td>Cây bone + hierarchy — chia sẻ giữa mesh &amp; animation</td></tr>
+          <tr><td><span class="term-en">Physics Asset</span></td><td>Body + constraint cho cloth/ragdoll va chạm</td></tr>
+          <tr><td><span class="term-en">Animation Blueprint</span></td><td>Chọn clip nào chạy theo state (đi/nhảy/tấn công)</td></tr>
+          <tr><td><span class="term-en">Control Rig</span></td><td>Rigging/IK procedural ngay trong UE (ví dụ tay đặt lên tường)</td></tr>
+          <tr><td><span class="term-en">Anim Montage</span></td><td>Clip cắt theo section — dùng cho combo tấn công</td></tr>
+        </table>
+
+        <h3 class="sec">Animation Blueprint — state machine</h3>
+        <p>Trong AnimBP, <span class="term-en">Event Graph</span> tính biến (Speed, IsInAir) từ pawn → đưa vào <span class="term-en">Anim Graph</span>. Anim Graph chứa <span class="term-en">State Machine</span>: mỗi state là 1 pose/clip, chuyển theo điều kiện (Speed &gt; 0 → Run). Dùng <span class="term-en">Blend Space</span> để trộn idle-walk-run theo trục Speed liên tục thay vì hard-switch.</p>
+        <figure class="fig"><img src="images/1bf0fb01-bd73-49bb-9b94-3058bb6908b2.webp" alt="Animation Blueprint graph — luồng chọn animation theo điều kiện" loading="lazy"><figcaption>Animation Blueprint graph — luồng chọn animation theo điều kiện</figcaption></figure>
+
+        <h3 class="sec">Control Rig &amp; retarget</h3>
+        <p><span class="term-en">Control Rig</span> là rigging node-graph trong engine: làm FK/IK, sửa pose, thậm chí procedural animation runtime (tay nắm dây). <span class="term-en">IK Retargeter</span> chuyển animation từ skeleton này sang skeleton khác (Mannequin → nhân vật của bạn) mà không cần làm lại.</p>
+        <figure class="fig"><img src="images/316c068c-51e6-4d0d-aea8-4b0bbfef697a.webp" alt="Control Rig — chỉnh pose trực tiếp trong editor" loading="lazy"><figcaption>Control Rig — chỉnh pose trực tiếp trong editor</figcaption></figure>
+        <div class="box tip">
+          <span class="box-title">Bộ xương mẫu Epic</span>
+          Dùng <span class="term-en">UE5 Manny/Quinn Mannequin</span> skeleton làm chuẩn: hầu hết animation marketplace theo format này, retarget về sau dễ.
+        </div>
+
+        <div class="exercise">
+          <div class="ex-head">🏋️ Bài tập 13 <span class="lvl">Mid</span></div>
+          <p>Mở AnimBP của Third Person character, xem state machine Idle/Walk/Run điều kiện gì. Thêm state <strong>Dance</strong> (dùng animation từ Starter Content hoặc FBX ngoài): khi bấm phím B → biến bDancing=true → chuyển state dance trong 3 giây rồi về Idle.</p>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: <a class="inline" href="unreal-engine-5.8-docs/site/skeletal-mesh-assets-in-unreal-engine/">Skeletal Meshes</a> · <a class="inline" href="unreal-engine-5.8-docs/site/animation-blueprints-in-unreal-engine/">Animation Blueprints</a> · <a class="inline" href="unreal-engine-5.8-docs/site/how-to-create-control-rigs-in-unreal-engine/">Control Rig Quick Start</a></p>
+      </section>
+
+      <!-- ==================== CHƯƠNG 14 ==================== -->
+      <section class="chapter" id="ch14">
+        <h2 class="ch-title"><span class="num">Chương 14</span> UMG — UI / HUD</h2>
+        <p class="ch-sub">Máu, mana, điểm số, menu — giao diện bằng Widget Blueprints.</p>
+
+        <h3 class="sec">Widget Blueprint cơ bản</h3>
+        <p><span class="term-en">UMG (Unreal Motion Graphics)</span>: tạo UI bằng <span class="term-en">Widget Blueprint</span> — kéo button/text/progress bar vào <span class="term-en">Canvas Panel</span>, neo bằng <span class="term-en">Anchors</span> để co giãn đúng mọi màn hình. Mỗi widget có <span class="term-en">Desired Size</span>, cha xếp con qua <span class="term-en">Slots</span> (Canvas/Horizontal/Vertical/Grid).</p>
+        <figure class="fig"><img src="images/6c67e87c-f5d6-4c59-a316-cc43696df924.webp" alt="UMG Widget Designer — dựng HUD bằng kéo thả widget" loading="lazy"><figcaption>UMG Widget Designer — dựng HUD bằng kéo thả widget</figcaption></figure>
+
+        <h3 class="sec">Hiện HUD trong game</h3>
+        <div class="code-block">
+          <div class="code-head"><div class="fname">BP_ThirdPersonCharacter — Event Graph</div><div class="dots"><i></i><i></i><i></i></div></div>
+          <pre class="code"><span class="k">Event BeginPlay</span> →
+    <span class="f">Create Widget</span> (Class = WBP_HUD) → <span class="f">Add to Viewport</span>
+    <span class="f">Get Player Controller</span> → <span class="f">Set Show Mouse Cursor</span> (false)</pre>
+        </div>
+        <p>Đổ dữ liệu: trong WBP_HUD tạo <span class="term-en">Bind</span> cho Progress Bar (Percent = Health/MaxHealth) hoặc nhận giá trị qua <span class="term-en">Event Dispatcher</span>/function gọi từ character mỗi khi máu đổi.</p>
+        <figure class="fig"><img src="images/626d320b-962d-4d5d-b36f-63bec9034800.webp" alt="Palette widget — kéo button/text/bar vào canvas" loading="lazy"><figcaption>Palette widget — kéo button/text/bar vào canvas</figcaption></figure>
+
+        <h3 class="sec">UMG Viewmodel (MVVM)</h3>
+        <p>Cách mới của Epic: <span class="term-en">Viewmodel</span> tách dữ liệu (field Health) khỏi widget — widget bind vào viewmodel, gameplay chỉ update model. Dự án lớn dùng cách này tránh rối "widget kéo lung tung character".</p>
+        <figure class="fig"><img src="images/626d320b-962d-4d5d-b36f-63bec9034800.webp" alt="Viewmodel tách bạch dữ liệu và UI" loading="lazy"><figcaption>Viewmodel tách bạch dữ liệu và UI</figcaption></figure>
+        <div class="box warn">
+          <span class="box-title">Perf UI</span>
+          Đừng update text mỗi Tick — chỉ khi giá trị đổi. Ảnh lớn trong UI scale trước. Xem thêm mục docs <span class="term-en">Optimizing User Interfaces</span>.
+        </div>
+
+        <div class="exercise">
+          <div class="ex-head">🏋️ Bài tập 14 <span class="lvl">Mid</span></div>
+          <p>Làm WBP_HUD: Text "Coins: X" + Progress Bar máu. Gắn vào character. Nâng cấp BP_Coin: khi nhặt, tăng biến CoinCount trên character và cập nhật HUD (qua bind hoặc event dispatcher). Bấm Escape hiện/ẩn menu pause đơn giản (Add to Viewport + Set Game Paused).</p>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: <a class="inline" href="unreal-engine-5.8-docs/site/umg-ui-designer-quick-start-guide-in-unreal-engine/">UMG UI Designer Quick Start Guide</a> · <a class="inline" href="unreal-engine-5.8-docs/site/designer-04-player-hud-in-unreal-engine/">Player HUD</a> · <a class="inline" href="unreal-engine-5.8-docs/site/umg-viewmodel-for-unreal-engine/">UMG Viewmodel</a></p>
+      </section>
+
+      <!-- ==================== CHƯƠNG 15 ==================== -->
+      <section class="chapter" id="ch15">
+        <h2 class="ch-title"><span class="num">Chương 15</span> Sequencer &amp; Cinematics</h2>
+        <p class="ch-sub">Đạo diễn phim trong engine: camera cut, keyframe, cutscene.</p>
+
+        <h3 class="sec">Level Sequence — timeline của bạn</h3>
+        <p><span class="term-en">Sequencer</span> là timeline đa track: Camera Cuts, Transform (di chuyển Actor), Float/Color (animate thuộc tính), Audio, Event… Tạo: Content Browser → Animation → <span class="term-en">Level Sequence</span>. Mở <span class="term-en">Sequencer</span> tab, kéo Actor vào để add track, bấm key (K) tại playhead.</p>
+        <figure class="fig"><img src="images/4fae29f8-a06e-46a8-8825-38fd79949801.webp" alt="Sequencer editor — timeline các track" loading="lazy"><figcaption>Sequencer editor — timeline các track</figcaption></figure>
+        <table>
+          <tr><th>Track</th><th>Dùng cho</th></tr>
+          <tr><td><span class="term-en">Camera Cuts Track</span></td><td>Cắt camera — spine của mọi cinematic</td></tr>
+          <tr><td><span class="term-en">Transform Track</span></td><td>Di chuyển Actor theo keyframe</td></tr>
+          <tr><td><span class="term-en">Cine Camera Actor</span></td><td>Camera phim — chỉnh focal length, focus, aperture</td></tr>
+          <tr><td><span class="term-en">Track Event</span></td><td>Gọi event Blueprint tại thời điểm phim (nổ, mở cửa)</td></tr>
+          <tr><td><span class="term-en">Subscene Track</span></td><td>Lồng sequence trong sequence</td></tr>
+        </table>
+        <figure class="fig"><img src="images/9183e3c2-43eb-4fa3-a663-f6cbbc7e36c5.webp" alt="Camera Cuts track và Cine Camera" loading="lazy"><figcaption>Camera Cuts track và Cine Camera</figcaption></figure>
+
+        <h3 class="sec">Phát cutscene trong game</h3>
+        <p>Level Blueprint: node <code class="ic">Play</code> trên Level Sequence Actor reference →disable input player trong lúc chạy, xong enable lại. Muốn tương tác đầu game (logo studio): thêm sequence ở map đầu + <span class="term-en">Delay</span>.</p>
+        <figure class="fig"><img src="images/34d56187-f42f-4c60-8941-be0fe1441d70.webp" alt="Cảnh cinematic dựng hoàn toàn trong Unreal Engine" loading="lazy"><figcaption>Cảnh cinematic dựng hoàn toàn trong Unreal Engine</figcaption></figure>
+        <div class="box info">
+          <span class="box-title">Render phim ra video</span>
+          Sequencer → Render Movie Settings: Movie Render Queue (MRQ) (MRQ) để render cao cấp nhiều pass (anti-aliasing cao, motion blur đúng). Xuất PNG sequence/AVI/MP4.
+        </div>
+
+        <div class="exercise">
+          <div class="ex-head">🏋️ Bài tập 15 <span class="lvl">Mid</span></div>
+          <p>Làm intro 8 giây: 1 Level Sequence với 3 Cine Camera (toàn cảnh → trung cảnh → cận coin), transform camera bay nhẹ, kết thúc bằng Track Event gọi Blueprint đặt player vào vị trí spawn. Gọi sequence từ Level Blueprint khi BeginPlay.</p>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: <a class="inline" href="unreal-engine-5.8-docs/site/cinematics-and-movie-making-in-unreal-engine/">Cinematics and Sequencer</a> · <a class="inline" href="unreal-engine-5.8-docs/site/sequencer-cinematic-editor-unreal-engine/">Sequencer Editor</a> · <a class="inline" href="unreal-engine-5.8-docs/site/how-to-make-movies-in-unreal-engine/">Sequencer Basics</a></p>
+      </section>
+
+      <!-- ==================== CHƯƠNG 16 ==================== -->
+      <section class="chapter" id="ch16">
+        <h2 class="ch-title"><span class="num">Chương 16</span> Packaging — Đóng gói game</h2>
+        <p class="ch-sub">Từ project thành file .exe gửi bạn bè — và checklist trước khi ship.</p>
+
+        <h3 class="sec">Packaging là gì?</h3>
+        <p><span class="term-en">Packaging</span> nén project: cook assets (chuyển sang format nền tảng đích), compile code, tạo executable. Vào <strong>Platforms → Windows → Package Project</strong>. Kết quả: thư mục <code class="ic">Windows/</code> chứa <code class="ic">MyGame.exe</code> + <code class="ic">MyGame/Paks/*.pak</code>.</p>
+        <figure class="fig"><img src="images/39be121d-9228-456f-becf-6177e45c0362.webp" alt="Packaging settings và kết quả đầu ra" loading="lazy"><figcaption>Packaging settings và kết quả đầu ra</figcaption></figure>
+
+        <h3 class="sec">Build Configuration</h3>
+        <table>
+          <tr><th>Configuration</th><th>Dùng khi</th></tr>
+          <tr><td><span class="term-en">Debug / DebugGame</span></td><td>Dev debug code chậm nhất, đầy đủ symbol</td></tr>
+          <tr><td><span class="term-en">Development</span></td><td>Ngày thường test — console command chạy được</td></tr>
+          <tr><td><span class="term-en">Test</span></td><td>QA — như Development nhưng cho tester, không cheat</td></tr>
+          <tr><td><span class="term-en">Shipping</span></td><td>Phát hành — nhanh nhất, strip debug/console</td></tr>
+        </table>
+        <figure class="fig"><img src="images/847e4530-1586-46a8-a346-44efcfb5e5c7.webp" alt="Chọn build configuration trước khi package" loading="lazy"><figcaption>Chọn build configuration trước khi package</figcaption></figure>
+
+        <h3 class="sec">Checklist trước khi ship</h3>
+        <div class="checklist">
+          <h4>🚢 Pre-flight checklist</h4>
+          <label><input type="checkbox"><span>Map đầu tiên đặt đúng trong Project Settings → Maps &amp; Modes</span></label>
+          <label><input type="checkbox"><span>Chạy <code class="ic">Fix Up Redirectors</code> trong Content Browser</label>
+          <label><input type="checkbox"><span>Xem log packaging có warning "missing asset" không</span></label>
+          <label><input type="checkbox"><span>Test .exe trên máy KHÔNG cài UE (thiếu DLL là lỗi hay gặp)</span></label>
+          <label><input type="checkbox"><span>Icon + tên game + version trong Project Settings → Description</span></label>
+          <label><input type="checkbox"><span>Scalability settings auto (Ch23) để máy yếu vẫn chơi được</span></label>
+        </div>
+        <div class="box danger">
+          <span class="box-title">"Works on my machine" ≠ chạy được</span>
+          Lỗi số 1: game chạy trong editor nhưng package xong đen màn hình vì map mặc định trỏ sai; lỗi số 2: plugin bật trong editor nhưng không tick <span class="term-en">Runtime</span> nên không cook. Luôn test bản package trước khi khoe.
+        </div>
+
+        <div class="quiz" data-quiz="2">
+          <div class="q-head">📝 Quiz Level 2 — Intermediate</div>
+          <div class="q"><p>1. Lumen dùng cơ chế nào tính GI nhanh?</p>
+            <label class="opt"><input type="radio" name="q4">Bake lightmap trước</label>
+            <label class="opt" data-ok><input type="radio" name="q4">Surface Cache bề mặt mesh</label>
+            <label class="opt"><input type="radio" name="q4">Ray trace từng pixel mỗi frame</label>
+            <div class="explain">Lumen chụp bề mặt các mesh vào Surface Cache rồi tính bounce từ đó — nhanh hơn ray trace thuần nhiều lần.</div>
+          </div>
+          <div class="q"><p>2. Muốn UI co giãn đúng mọi độ phân giải?</p>
+            <label class="opt"><input type="radio" name="q5">Đặt widget theo pixel tuyệt đối</label>
+            <label class="opt" data-ok><input type="radio" name="q5">Dùng Anchors trên Canvas Panel</label>
+            <label class="opt"><input type="radio" name="q5">Làm 3 phiên bản HUD cho 3 màn hình</label>
+            <div class="explain">Anchors + DPI scaling của UMG lo việc co giãn; vị trí pixel tuyệt đối là nguồn bug UI kinh điển.</div>
+          </div>
+          <div class="q"><p>3. Configuration nào dành cho bản phát hành?</p>
+            <label class="opt"><input type="radio" name="q6">Development</label>
+            <label class="opt"><input type="radio" name="q6">Test</label>
+            <label class="opt" data-ok><input type="radio" name="q6">Shipping</label>
+            <div class="explain">Shipping tối ưu và bỏ debug/console — Development/Test dành cho dev và QA.</div>
+          </div>
+          <button class="check" onclick="checkQuiz(this)">Kiểm tra</button>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: <a class="inline" href="unreal-engine-5.8-docs/site/packaging-your-project/">Packaging Unreal Engine Projects</a> · <a class="inline" href="unreal-engine-5.8-docs/site/packaging-and-shipping-in-unreal-engine/">Packaging and Shipping</a> · <a class="inline" href="unreal-engine-5.8-docs/site/build-configurations-reference-for-unreal-engine/">Build Configurations Reference</a></p>
+      </section>
+
+      <div class="level-divider" id="level3"><div class="tag tag-l3">Level 3 · Advanced — Nâng cao</div><div class="line"></div></div>
+
+      <!-- ==================== CHƯƠNG 17 ==================== -->
+      <section class="chapter" id="ch17">
+        <h2 class="ch-title"><span class="num">Chương 17</span> Lập trình C++ trong UE</h2>
+        <p class="ch-sub">Nâng gameplay lên tốc độ C++ — và phối hợp Blueprint/C++ đúng chuẩn Epic.</p>
+
+        <h3 class="sec">Chuẩn bị công cụ</h3>
+        <p>Cần <strong>Visual Studio 2022</strong> (Windows) + workload <em>Game development with C++</em>, hoặc <strong>Xcode</strong> (macOS), hoặc clang/gcc (Linux). Tạo project chọn template <strong>C++</strong>, hoặc thêm class C++ vào project Blueprint có sẵn (Tools → New C++ Class). Lần đầu compile sẽ chậm — UE generate project files.</p>
+        <figure class="fig"><img src="images/efe4c4de-8f4b-47d5-863d-532c3e68dd4f.webp" alt="Project mẫu của tutorial, mở trong Unreal Editor" loading="lazy"><figcaption>Project mẫu của tutorial, mở trong Unreal Editor</figcaption></figure>
+
+        <h3 class="sec">Gameplay Framework — bộ khung lớp</h3>
+        <table>
+          <tr><th>Lớp</th><th>Vai trò</th></tr>
+          <tr><td><span class="term-en">UObject</span></td><td>Tổ tiên mọi object — garbage collection, reflection</td></tr>
+          <tr><td><span class="term-en">AActor</span></td><td>Đặt được vào level, có lifecycle (BeginPlay/Tick/EndPlay)</td></tr>
+          <tr><td><span class="term-en">UActorComponent</span></td><td>Phục vụ Actor: movement, health, audio…</td></tr>
+          <tr><td><span class="term-en">APawn</span> / <span class="term-en">ACharacter</span></td><td>Điều khiển được / có CAPSULE + movement + mesh</td></tr>
+          <tr><td><span class="term-en">APlayerController</span></td><td>Sinh mệnh của player: input, camera, HUD</td></tr>
+          <tr><td><span class="term-en">AGameModeBase</span></td><td>Luật match: pawn class nào, player controller nào</td></tr>
+        </table>
+        <figure class="fig"><img src="images/d388129a-7e49-4d68-beb6-b73fb9991e49.webp" alt="Dialog chọn đường dẫn cho file C++ mới" loading="lazy"><figcaption>Dialog chọn đường dẫn cho file C++ mới</figcaption></figure>
+
+        <h3 class="sec">Actor C++ đầu tiên</h3>
+        <div class="code-block">
+          <div class="code-head"><div class="fname">Pickup.h</div><div class="dots"><i></i><i></i><i></i></div></div>
+          <pre class="code"><span class="k">UCLASS</span>()  <span class="c">// macro reflection — bắt buộc cho mọi U-class</span>
+<span class="k">class</span> <span class="f">MYGAME_API</span> <span class="t">APickup</span> : <span class="k">public</span> <span class="t">AActor</span>
+{
+    <span class="k">GENERATED_BODY</span>()
+<span class="k">public</span>:
+    APickup();
+
+    <span class="k">UPROPERTY</span>(EditAnywhere, BlueprintReadWrite, Category=<span class="s">"Pickup"</span>)
+    <span class="t">int32</span> CoinValue = <span class="d">10</span>;      <span class="c">// hiện trong editor + Blueprint đọc/ghi được</span>
+
+    <span class="k">UFUNCTION</span>(BlueprintCallable)
+    <span class="k">void</span> <span class="f">Collect</span>();               <span class="c">// gọi được từ Blueprint</span>
+
+    <span class="k">virtual</span> <span class="k">void</span> <span class="f">BeginPlay</span>() <span class="k">override</span>;
+    <span class="k">virtual</span> <span class="k">void</span> <span class="f">Tick</span>(<span class="t">float</span> DeltaSeconds) <span class="k">override</span>;
+};</pre>
+        </div>
+        <p>Ba macro linh hồn của UE: <span class="term-en">UCLASS/USTRUCT</span> (đăng ký class), <span class="term-en">UPROPERTY</span> (expose biến ra editor/Blueprint/GC/save), <span class="term-en">UFUNCTION</span> (gọi từ Blueprint, RPC network). Không có macro → C++ thường, engine "không thấy".</p>
+        <figure class="fig"><img src="images/3f9a3d9f-27bd-435c-8c87-b8c92bddc709.webp" alt="Các bước tạo Game Mode C++ class trong editor" loading="lazy"><figcaption>Các bước tạo Game Mode C++ class trong editor</figcaption></figure>
+
+        <h3 class="sec">C++ &amp; Blueprint — ai làm gì?</h3>
+        <ul>
+          <li><strong>Quy tắc Epic:</strong> hệ thống lõi, tính toán nặng → C++; designer tinh chỉnh, assemble gameplay, rapid prototype → Blueprint.</li>
+          <li>C++ expose qua <code class="ic">BlueprintReadWrite / BlueprintCallable / BlueprintNativeEvent</code> — Blueprint override hành vi mà không cần recompile.</li>
+          <li>Class C++ kế thừa thành Blueprint class (right-click class trong editor) — biến thành "prefab có logic".</li>
+        </ul>
+        <div class="box tip">
+          <span class="box-title">Live Coding</span>
+          Bật <span class="term-en">Live Coding</span> (Ctrl+Alt+F11) để sửa logic C++ không cần restart editor. Struct/class mới hay đổi UPROPERTY vẫn nên rebuild đầy đủ. Log build xem ở Output Log của editor.
+        </div>
+
+        <div class="exercise">
+          <div class="ex-head">🏋️ Bài tập 17 <span class="lvl hard">Advanced</span></div>
+          <p>Viết APickup C++ hoàn chỉnh: UStaticMeshComponent (SetStaticMesh trong constructor bằng ConstructorHelpers), UBoxComponent overlap, hàm Collect() gọi DestroyActor và broadcast delegate. Kế thừa thành BP_CoinCpp, đặt vào level so tốc độ với BP_Coin thuần ở Ch4.</p>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: <a class="inline" href="unreal-engine-5.8-docs/site/coder-01-set-up-and-compile-a-cplusplus-project-in-unreal-engine/">Set Up and Compile Your Project</a> · <a class="inline" href="unreal-engine-5.8-docs/site/programming-with-cplusplus-in-unreal-engine/">Programming with C++</a> · <a class="inline" href="unreal-engine-5.8-docs/site/cpp-and-blueprints-example/">C++ and Blueprints</a> · <a class="inline" href="unreal-engine-5.8-docs/site/game-mode-and-game-state-in-unreal-engine/">Game Mode and Game State</a></p>
+      </section>
+
+      <!-- ==================== CHƯƠNG 18 ==================== -->
+      <section class="chapter" id="ch18">
+        <h2 class="ch-title"><span class="num">Chương 18</span> Material nâng cao</h2>
+        <p class="ch-sub">Material Functions, Dynamic Material Instances, World Position Offset — material "biết suy nghĩ".</p>
+
+        <h3 class="sec">Material Layers &amp; Functions</h3>
+        <p><span class="term-en">Material Function</span> là node tái sử dụng (ví dụ hàm "chi tiết ẩm ướt" dùng chung mọi material). <span class="term-en">Material Layers + Blends</span> (5.x) cho vật liệu ghép tầng như Photoshop: layer đá + blend rêu + layer ẩm.</p>
+        <figure class="fig"><img src="images/40d44538-133d-4c97-a727-7fc2a96eb562.webp" alt="Material động — tay nhân vật phát sáng emissive sau powerup" loading="lazy"><figcaption>Material động — tay nhân vật phát sáng emissive sau powerup</figcaption></figure>
+
+        <h3 class="sec">Dynamic Material Instance — đổi màu lúc runtime</h3>
+        <div class="code-block">
+          <div class="code-head"><div class="fname">Blueprint — đổi màu kiếm khi "lửa"</div><div class="dots"><i></i><i></i><i></i></div></div>
+          <pre class="code"><span class="k">Event OnEquip</span> →
+    <span class="f">Create Dynamic Material Instance</span> (Mesh, Parent = M_Weapon) →
+        <span class="f">Set Vector Parameter Value</span> (ParamName = <span class="s">"Tint"</span>, Value = màu cam)</pre>
+        </div>
+        <p><span class="term-en">MID (Material Instance Dynamic)</span> tạo runtime — mỗi bản copy có parameter riêng (đỏ cho player 1, xanh player 2). Đây là kỹ thuật mọi game dùng cho tint/trắng-đen trạng thái/flash sát thương.</p>
+        <figure class="fig"><img src="images/3c62b55c-e100-4dfa-9075-5fbcb91bc12a.webp" alt="Các Utility Material Expressions tiết kiệm thời gian" loading="lazy"><figcaption>Các Utility Material Expressions tiết kiệm thời gian</figcaption></figure>
+
+        <h3 class="sec">WPO — World Position Offset</h3>
+        <p><span class="term-en">World Position Offset</span> dịch vertex trong shader: cỏ lay gió, cờ phấp phới, vật "thở". Kết hợp <code class="ic">Time</code> + <code class="ic">TextureCoordinate</code> + sin → hiệu ứng chất lượng với chi phí gần 0.</p>
+        <figure class="fig"><img src="images/03d562c1-dce8-4de2-9209-b8442af5ca7b.webp" alt="Utility expressions dùng cho WPO và hiệu ứng" loading="lazy"><figcaption>Utility expressions dùng cho WPO và hiệu ứng</figcaption></figure>
+        <div class="box info">
+          <span class="box-title">Material domain khác: Landscape/Spline/Decal?</span>
+          Material domain còn có: <span class="term-en">UI</span>, <span class="term-en">Decal</span> (chi tiết dán tường), <span class="term-en">Post Process</span> (toàn màn hình — Ch23), <span class="term-en">Landscape</span> (Ch9), <span class="term-en">Volume</span> (fog/đám mây). Chuyển domain đổi bộ pin output hoàn toàn.
+        </div>
+
+        <div class="exercise">
+          <div class="ex-head">🏋️ Bài tập 18 <span class="lvl hard">Advanced</span></div>
+          <p>Làm material kiếm phát sáng theo độ "sạc": parameter EmissiveIntensity (0–10). Làm MID đổi intensity theo biến Energy của character (0 khi hết năng lượng). Thêm WPO rung nhẹ khi intensity &gt; 5.</p>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: <a class="inline" href="unreal-engine-5.8-docs/site/artist-04-expanded-material-instances/">Expanded Material Instances</a> · <a class="inline" href="unreal-engine-5.8-docs/site/utility-material-expressions-in-unreal-engine/">Utility Material Expressions</a> · <a class="inline" href="unreal-engine-5.8-docs/site/instanced-materials-in-unreal-engine/">Material Instances</a></p>
+      </section>
+
+      <!-- ==================== CHƯƠNG 19 ==================== -->
+      <section class="chapter" id="ch19">
+        <h2 class="ch-title"><span class="num">Chương 19</span> World Partition &amp; Open World</h2>
+        <p class="ch-sub">Map 16 km² không chết hiệu năng — streaming thế hệ mới của UE5.</p>
+
+        <h3 class="sec">World Partition là gì?</h3>
+        <p>Thay "nhiều sub-level chèn tay", <span class="term-en">World Partition</span> chia map thành lưới ô (<span class="term-en">grid cells</span>) tự load/unload theo khoảng cách camera. Mỗi ô là một file riêng trên đĩa (<span class="term-en">One File Per Actor — OFPA</span>) — team nhiều người làm chung map không giẫm chân nhau.</p>
+        <figure class="fig"><img src="images/0ead0a47-0a29-4fa8-a408-1bbe08d95778.jpg" alt="World Partition — bản đồ chia ô streaming" loading="lazy"><figcaption>World Partition — bản đồ chia ô streaming</figcaption></figure>
+        <table>
+          <tr><th>Khái niệm</th><th>Ý nghĩa</th></tr>
+          <tr><td><span class="term-en">Grid</span></td><td>Lưới cell + khoảng cách load (Loading Range) theo runtime grid</td></tr>
+          <tr><td><span class="term-en">Data Layer</span></td><td>Bật/tắt nhóm actor theo ngữ cảnh (mùa, cốt truyện, day/night)</td></tr>
+          <tr><td><span class="term-en">HLOD</span></td><td>Hierarchical LOD — vùng xa gom thành mesh 1 cục nhẹ nhàng</td></tr>
+          <tr><td><span class="term-en">External Actors</span></td><td>Actor lưu file riêng ngoài map — merge/Git thân thiện</td></tr>
+        </table>
+        <figure class="fig"><img src="images/cdca091e-cb56-44c1-9f7f-176d92b04d3f.webp" alt="World Partition panel — lưới cells và phạm vi streaming" loading="lazy"><figcaption>World Partition panel — lưới cells và phạm vi streaming</figcaption></figure>
+
+        <h3 class="sec">Bật và cấu hình</h3>
+        <p>Project mới: template có sẵn (Open World). Project cũ: File → Convert Project… hoặc tạo map mới tick <span class="term-en">Enable World Partition</span>. Vào <span class="term-en">World Settings → World Partition</span> chỉnh cell size + Loading Range. Mở panel <span class="term-en">World Partition</span> (Window → World Partition) xem lưới, kéo riêng ô nào để force-load khi chỉnh.</p>
+        <div class="box tip">
+          <span class="box-title">Data Layer pattern</span>
+          Vùng chợ: layer "ThươngNhânBanNgày" + layer "Đêm có quái". Kịch bản đổi layer bằng node <code class="ic">Set Data Layer State</code> (chỉ server trong multiplayer). Cẩn thận: actor thuộc nhiều layer chỉ hiện khi tất cả layer bật.
+        </div>
+
+        <div class="exercise">
+          <div class="ex-head">🏋️ Bài tập 19 <span class="lvl hard">Advanced</span></div>
+          <p>Tạo map Open World mới 4×4 km, đặt 3 khu (làng/rừng/đỉnh núi) cách nhau &gt;1 km. Cấu hình 2 runtime grid: chính 256 m range 2 km; phụ (HLOD) range 10 km. Bay camera kiểm chứng vùng xa chỉ hiện HLOD (xem bằng <code class="ic">stat streaming</code>).</p>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: <a class="inline" href="unreal-engine-5.8-docs/site/world-partition-in-unreal-engine/">World Partition</a> · <a class="inline" href="unreal-engine-5.8-docs/site/world-partition---data-layers-in-unreal-engine/">World Partition - Data Layers</a> · <a class="inline" href="unreal-engine-5.8-docs/site/world-partition---hierarchical-level-of-detail-in-unreal-engine/">World Partition - Hierarchical Level of Detail</a></p>
+      </section>
+
+      <!-- ==================== CHƯƠNG 20 ==================== -->
+      <section class="chapter" id="ch20">
+        <h2 class="ch-title"><span class="num">Chương 20</span> Nanite — Virtualized Geometry</h2>
+        <p class="ch-sub">Nhập model hàng trăm triệu tam giác — engine tự lo mức chi tiết.</p>
+
+        <h3 class="sec">Nanite làm được gì?</h3>
+        <p><span class="term-en">Nanite</span> là geometry ảo hóa: mesh gốc chia nhỏ cluster, GPU chỉ vẽ những cluster đủ nhỏ trên màn hình — ZoomOut hàng tỷ tam giác vẫn mượt. Nghệ 3D scan, ZBrush sculpt khủng nhập thẳng không cần decimate. Đổi lại: tốn disk/VRAM hơn, không hỗ trợ vài feature (skinning phiên bản cũ, vertex deformation phức tạp).</p>
+        <figure class="fig"><img src="images/fa3c3c0a-8291-43a1-a956-04db7d4646b2.webp" alt="So sánh tường Laptop: LOD truyền thống vs Nanite" loading="lazy"><figcaption>So sánh tường Laptop: LOD truyền thống vs Nanite</figcaption></figure>
+        <table>
+          <tr><th>Nên bật Nanite</th><th>Không nên</th></tr>
+          <tr><td>Đá/tường/địa hình tách chi tiết cao</td><td>Mesh nhân vật dùng morph target cũ</td></tr>
+          <tr><td>Foliage tán cây (tán lá thật)</td><td>Mesh quá nhỏ/simple (cube, khuôn)</td></tr>
+          <tr><td>Prop scan 3D, kitbash</td><td>Translucent phức tạp cần custom material path</td></tr>
+        </table>
+
+        <h3 class="sec">Bật thế nào</h3>
+        <ul>
+          <li>Import: tick <span class="term-en">Build Nanite Mesh</span>; hoặc mở Static Mesh → Details → Nanite Settings → <span class="term-en">Allow Nanite</span> rồi Apply.</li>
+          <li>Viewport hiển thị Nanite: Show → Nanite. Kiểm tra overload: console <code class="ic">r.Nanite 0/1</code> so sánh.</li>
+          <li><span class="term-en">Nanite Foliage</span> (5.6+): tán cây gió vẫn Nanite — kết hợp Ch9.</li>
+          <li><span class="term-en">Nanite Assemblies</span>: ghép nhiều mesh thành assembly dùng chung instance — giảm draw call kitbash.</li>
+        </ul>
+        <figure class="fig"><img src="images/3558d56b-9cfa-4f02-b3d0-caf66e1d5a95.webp" alt="Nanite settings trong Static Mesh editor" loading="lazy"><figcaption>Nanite settings trong Static Mesh editor</figcaption></figure>
+        <figure class="fig"><img src="images/6a2b8060-2583-4f8a-8c83-b001a435b3b3.webp" alt="Nanite cluster — cách geometry được phân cấp" loading="lazy"><figcaption>Nanite cluster — cách geometry được phân cấp</figcaption></figure>
+        <div class="box warn">
+          <span class="box-title">Nanite không thay thế LOD hoàn toàn</span>
+          Với mesh nhìn từ rất xa trên mobile/VR hoặc cần silhouette chính xác cho shadow phủ diện rộng, LOD truyền thống đôi khi vẫn thắng. Đo bằng <code class="ic">stat gpu</code> chứ đừng tin cảm giác.
+        </div>
+
+        <div class="exercise">
+          <div class="ex-head">🏋️ Bài tập 20 <span class="lvl hard">Advanced</span></div>
+          <p>Lấy 1 mesh ZBrush/sketchfab triệu polygon: import 2 bản (Nanite on/off). Đặt cạnh nhau, chạy <code class="ic">stat unit</code> + <code class="ic">stat gpu</code> so frame time khi camera bay gần-xa. Ghi kết luận riêng của bạn.</p>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: <a class="inline" href="unreal-engine-5.8-docs/site/nanite-virtualized-geometry-in-unreal-engine/">Nanite Virtualized Geometry Overview</a> · <a class="inline" href="unreal-engine-5.8-docs/site/nanite-technical-details/">Nanite Technical Details</a> · <a class="inline" href="unreal-engine-5.8-docs/site/working-with-naniteenabled-content/">Working with Nanite-Enabled Content</a></p>
+      </section>
+
+      <!-- ==================== CHƯƠNG 21 ==================== -->
+      <section class="chapter" id="ch21">
+        <h2 class="ch-title"><span class="num">Chương 21</span> PCG — Procedural Content Generation</h2>
+        <p class="ch-sub">Vẽ rừng, rải đá, dựng thành phố bằng graph — không đặt tay từng cái.</p>
+
+        <h3 class="sec">PCG Framework</h3>
+        <p><span class="term-en">PCG</span> là node graph procedural: input points → filter/sampler/transform → spawn mesh/actor. Ngôn ngữ dựng cảnh của level designer thời đại mới, tích hợp sẵn 5.4+. Toàn bộ hoạt động trong editor lẫn runtime, cache từng node.</p>
+        <figure class="fig"><img src="images/5b3dbc40-ed30-4856-b924-1719a5eae70c.webp" alt="PCG graph — từ points tới rừng mesh" loading="lazy"><figcaption>PCG graph — từ points tới rừng mesh</figcaption></figure>
+        <table>
+          <tr><th>Node tiêu biểu</th><th>Chức năng</th></tr>
+          <tr><td><span class="term-en">Surface Sampler</span></td><td>Rải điểm lên bề mặt (landscape/mesh)</td></tr>
+          <tr><td><span class="term-en">Density Filter</span></td><td>Lọc điểm theo mật độ/thứ hạng</td></tr>
+          <tr><td><span class="term-en">Attribute Noise</span></td><td>Thêm nhiễu tự nhiên vào thuộc tính điểm</td></tr>
+          <tr><td><span class="term-en">Static Mesh Spawner</span></td><td>Sinh mesh tại các điểm</td></tr>
+          <tr><td><span class="term-en">Bounds Breaker / Difference</span></td><td>Tách/từ điểm theo vùng</td></tr>
+        </table>
+        <figure class="fig"><img src="images/86a3a84f-0e9d-48a4-9c0d-9b05fd61eff6.webp" alt="PCG graph với raycast rules" loading="lazy"><figcaption>PCG graph với raycast rules</figcaption></figure>
+
+        <h3 class="sec">PCG đầu tiên: rừng thông trên slope</h3>
+        <ol>
+          <li>Đặt <span class="term-en">PCG Volume</span> phủ landscape (hoặc chọn landscape làm input).</li>
+          <li>Graph: <code class="ic">Get Landscape Data → Surface Sampler (mật độ 1/25 m²)</code>.</li>
+          <li><code class="ic">Density Filter</code> giữ slope &lt; 40° (bằng node slope từ landscape) + height trong khoảng cho phép.</li>
+          <li><code class="ic">Attribute Noise</code> phá đều, <code class="ic">Transform Points</code> scale random 0.7–1.3, rotate random Z.</li>
+          <li><code class="ic">Static Mesh Spawner</code> → SM_Pine (Nanite). Xem rừng sinh ngay trong viewport.</li>
+        </ol>
+        <figure class="fig"><img src="images/30dbb36d-3090-42f0-92c5-633971c50f79.webp" alt="Dựng tool graph PCG ngay trong editor" loading="lazy"><figcaption>Dựng tool graph PCG ngay trong editor</figcaption></figure>
+        <div class="box tip">
+          <span class="box-title">PCG + World Partition = Open World thần tốc</span>
+          PCG tự động chia theo partition cell (Ch19), chỉ generate vùng load. Kết hợp Data Layer để mỗi "seed" một phiên bản thế giới. Đây là workflow của Fortnite khi dựng map mới.
+        </div>
+
+        <div class="exercise">
+          <div class="ex-head">🏋️ Bài tập 21 <span class="lvl hard">Advanced</span></div>
+          <p>Nâng rừng trên: thêm 2 loại mesh (thông + đá) với weight khác nhau theo noise, và "clearing" trống quanh 1 điểm Player Start (dùng Difference với sphere 20 m).</p>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: <a class="inline" href="unreal-engine-5.8-docs/site/procedural-content-generation-overview/">Procedural Content Generation Overview</a> · <a class="inline" href="unreal-engine-5.8-docs/site/pcg-editor-mode-in-unreal-engine/">PCG Editor Mode</a> · <a class="inline" href="unreal-engine-5.8-docs/site/using-pcg-with-world-partition-in-unreal-engine/">Using PCG with World Partition</a></p>
+      </section>
+
+      <!-- ==================== CHƯƠNG 22 ==================== -->
+      <section class="chapter" id="ch22">
+        <h2 class="ch-title"><span class="num">Chương 22</span> Networking &amp; Multiplayer</h2>
+        <p class="ch-sub">Hai máy cùng một thế giới — replication, authority, RPC.</p>
+
+        <h3 class="sec">Mô hình Server–Client</h3>
+        <p>UE dùng mô hình <strong>server authoritative</strong>: <span class="term-en">Server</span> nắm sự thật (hp, vị trí, điểm), <span class="term-en">Client</span> gửi ý định (input), nhận kết quả. Kiểu play trong editor: <span class="term-en">Play As Client + Server</span> (2+ cửa sổ) — test multiplayer không cần build.</p>
+        <table>
+          <tr><th>Khái niệm</th><th>Ý nghĩa</th></tr>
+          <tr><td><span class="term-en">Authority</span></td><td>Actor/máy nắm quyền quyết định giá trị</td></tr>
+          <tr><td><span class="term-en">Replication</span></td><td>Đồng bộ biến/Actor từ server xuống client</td></tr>
+          <tr><td><span class="term-en">RepNotify</span></td><td>Biến replicate + gọi hàm OnRep ở client khi đổi</td></tr>
+          <tr><td><span class="term-en">RPC</span></td><td>Gọi hàm từ xa: Server RPC (client→server), Client RPC, NetMulticast</td></tr>
+          <tr><td><span class="term-en">Relevancy</span></td><td>Actor này có cần gửi cho client kia không (net cull distance)</td></tr>
+        </table>
+
+        <h3 class="sec">Replication trong Blueprint</h3>
+        <div class="code-block">
+          <div class="code-head"><div class="fname">BP_HealthComponent</div><div class="dots"><i></i><i></i><i></i></div></div>
+          <pre class="code"><span class="c">// Biến:</span> Health (Float) — Replicated + RepNotify (OnRep_Health)
+<span class="c">// Event:</span> ApplyDamage (chỉ chạy trên Server — check node "Authority")
+    Authority: Health -= Damage → (replicate tự động xuống client)
+    OnRep_Health (mỗi client): update HUD bar
+<span class="c">// Server RPC từ client muốn bắn:</span>
+    Client: CallServerFire (Run on Server) → Authority xác minh → Spawn projectile</pre>
+        </div>
+        <p>Quy tắc vàng: <strong>client không bao giờ tự quyết</strong> — mọi thay đổi quan trọng qua Server RPC, replicate kết quả về. Cheating 101: không tin client.</p>
+        <div class="box info">
+          <span class="box-title">Tools</span>
+          <span class="term-en">Network Emulation</span> (Play settings: latency/packet loss) giả mạng lag ngay trong editor. <span class="term-en">Session Interface</span> + Online Subsystem quản phòng chơi (create/join/find). Có thể host listen-server ngay editor cho LAN.
+        </div>
+
+        <div class="exercise">
+          <div class="ex-head">🏋️ Bài tập 22 <span class="lvl hard">Advanced</span></div>
+          <p>Mở Play As Client 2 cửa sổ. Làm BP_Coin multiplayer-an toàn: chỉ Server xử lý overlap (Switch Has Authority), DestroyActor server-side, điểm replicate. Kiểm tra: 2 player nhặt cùng coin → chỉ 1 ăn được.</p>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: <a class="inline" href="unreal-engine-5.8-docs/site/basics-of-network-multiplayer-in-unreal-engine/">Network Multiplayer Basics</a> · <a class="inline" href="unreal-engine-5.8-docs/site/multiplayer-programming-quick-start-for-unreal-engine/">Multiplayer Programming Quick Start</a> · <a class="inline" href="unreal-engine-5.8-docs/site/networking-and-multiplayer-in-unreal-engine/">Networking and Multiplayer</a></p>
+      </section>
+
+      <!-- ==================== CHƯƠNG 23 ==================== -->
+      <section class="chapter" id="ch23">
+        <h2 class="ch-title"><span class="num">Chương 23</span> Tối ưu hiệu năng</h2>
+        <p class="ch-sub">Đo trước — tối ưu sau. Profiling là kỹ năng tách pro khỏi amateur.</p>
+
+        <h3 class="sec">Ba câu lệnh console phải thuộc</h3>
+        <table>
+          <tr><th>Lệnh</th><th>Cho thấy</th></tr>
+          <tr><td><code class="ic">stat fps</code></td><td>Frames/giây + frame time (ms) — 16.6 ms = 60 FPS</td></tr>
+          <tr><td><code class="ic">stat gpu</code></td><td>GPU pass nào ăn thời gian (base pass, shadow, Lumen…)</td></tr>
+          <tr><td><code class="ic">stat unit</code></td><td>Game thread vs Draw vs GPU vs RHIT — tìm thread cổ chai</td></tr>
+        </table>
+        <p>Công thức: FPS do thread chậm nhất quyết định. <span class="term-en">Game thread</span> cao → logic Blueprint/C++ nặng; <span class="term-en">GPU</span> cao → ánh sáng/Nanite/overdraw; <span class="term-en">Draw calls</span> nhiều → mesh nhỏ lẻ, thiếu instancing.</p>
+        <figure class="fig"><img src="images/2e91ed25-b93e-4a0d-9d2d-2909ad6d6270.jpg" alt="Unreal Insights — timeline profiling chuyên sâu" loading="lazy"><figcaption>Unreal Insights — timeline profiling chuyên sâu</figcaption></figure>
+
+        <h3 class="sec">Unreal Insights</h3>
+        <p><span class="term-en">Unreal Insights</span> (chuột phải project → Trace) ghi timeline mọi thread, cookie từng hàm, GPU timings. Mở file .utrace xem chính frame nào, hàm nào giết frame. Kết hợp <span class="term-en">Lyra/Mixer sample</span> để học cách game thật cấu hình.</p>
+        <figure class="fig"><img src="images/2602df9a-4b69-4edf-a9d9-b393a8aa8b52.webp" alt="Khởi chạy trace từ editor — session Unreal Insights" loading="lazy"><figcaption>Khởi chạy trace từ editor — session Unreal Insights</figcaption></figure>
+
+        <h3 class="sec">Scalability — một game, nhiều cấu hình</h3>
+        <p><span class="term-en">Scalability Settings</span> (settings engine group) auto theo máy: Low/Medium/High/Epic — chỉnh số đèn Lumen, Nanite density, shadow, AA. Editor: Settings → Engine Scalability Settings; runtime: node/console <code class="ic">sg.PostProcessQuality 2</code>. Bảng tham chiếu đầy đủ mỗi quality chỉnh gì nằm trong docs.</p>
+        <figure class="fig"><img src="images/a0e95651-99b1-4572-bfa6-935ee3456a88.webp" alt="Bảng Scalability Reference — mỗi cấp chỉnh gì" loading="lazy"><figcaption>Bảng Scalability Reference — mỗi cấp chỉnh gì</figcaption></figure>
+        <div class="box tip">
+          <span class="box-title">Checklist tối ưu nhanh</span>
+          (1) <code class="ic">stat unit</code> tìm cổ chai → (2) GPU nặng: giảm đèn Movable, kiểm tra Lumen quality, Nanite thay LOD → (3) Game thread: tắt Tick không cần (Event Tick = gánh nặng), bỏ logic trong Tick chu kỳ → (4) Draw calls: merge mesh, instance foliage, HLOD vùng xa → (5) Test trên máy thật mục tiêu.
+        </div>
+
+        <div class="exercise">
+          <div class="ex-head">🏋️ Bài tập 23 <span class="lvl hard">Advanced</span></div>
+          <p>Trong map CoinRush: ghi FPS/GPU ms ở 3 spot (đồng cỏ, rừng cây, trong nhà nhiều đèn). Tìm spot tệ nhất, sửa 1 thứ (xóa 2 đèn / giảm foliage / sg quality) và ghi lại cải thiện. Viết báo cáo 5 dòng — thói quen của team chuyên nghiệp.</p>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: <a class="inline" href="unreal-engine-5.8-docs/site/unreal-insights-in-unreal-engine/">Unreal Insights</a> · <a class="inline" href="unreal-engine-5.8-docs/site/scalability-reference-for-unreal-engine/">Scalability Reference</a> · <a class="inline" href="unreal-engine-5.8-docs/site/optimizing-and-debugging-projects-for-realtime-rendering-in-unreal-engine/">Optimizing and Debugging Projects for Real-Time Rendering</a></p>
+      </section>
+
+      <!-- ==================== CHƯƠNG 24 ==================== -->
+      <section class="chapter" id="ch24">
+        <h2 class="ch-title"><span class="num">Chương 24</span> Lộ trình tiếp theo</h2>
+        <p class="ch-sub">Bạn đã có nền — giờ đi theo nhánh nào của Unreal.</p>
+
+        <h3 class="sec">Bốn hướng chuyên sâu</h3>
+        <table>
+          <tr><th>Hướng</th><th>Học gì tiếp (đều có trong mirror)</th></tr>
+          <tr><td>🎮 <strong>Gameplay Programmer</strong></td><td>Gameplay Ability System (GAS), Enhanced Input, AI (Behavior Tree, State Tree), Physics</td></tr>
+          <tr><td>🎨 <strong>Tech Artist</strong></td><td>Material domain Post Process, Shaders, Niagara nâng cao, Mesh Paint, Motion Design</td></tr>
+          <tr><td>🌍 <strong>Level / World Designer</strong></td><td>PCG nâng cao, Water system, VFX climate, Landscape layer scripts</td></tr>
+          <tr><td>🎬 <strong>Cinematics / Virtual Production</strong></td><td>Movie Render Queue, Virtual Cameras, DMX, Switchboard, Live Link</td></tr>
+        </table>
+
+        <h3 class="sec">Học từ project mẫu của Epic</h3>
+        <ul>
+          <li><span class="term-en">Lyra Starter Game</span> — gameplay framework chuẩn GAS, multiplayer shooter đầy đủ.</li>
+          <li><span class="term-en">Valley of the Ancient</span> — demo Lumen/Nanite/vfx nguyên bản UE5.</li>
+          <li><span class="term-en">City Sample</span> — open world + Matrix Awakens, traffic/crowd PCG.</li>
+          <li><span class="term-en">Content Examples</span> — map "bảo tàng" từng tính năng, comment sẵn trong map.</li>
+        </ul>
+        <p>Tất cả có trong Fab (marketplace) miễn phí, và nhiều tutorial series (path "Puzzle Adventure" mà khóa này mượn ảnh) nằm sẵn trong mirror.</p>
+
+        <h3 class="sec">Thói quen để lên advanced thật sự</h3>
+        <ol>
+          <li><strong>Đọc docs gốc</strong> — mirror này có 3.644 trang, dùng search box.</li>
+          <li><strong>Mỗi tuần một mechanic</strong> nhỏ: grappling hook, inventory, save system — publish lên itch.io.</li>
+          <li><strong>Đo mọi thứ</strong> — Insights trước khi "tối ưu bằng cảm giác".</li>
+          <li><strong>Đọc source</strong> — UE mở mã nguồn: tra Actor.cpp khi thắc mắc lifecycle.</li>
+        </ol>
+
+        <div class="quiz" data-quiz="3">
+          <div class="q-head">📝 Quiz Level 3 — Advanced</div>
+          <div class="q"><p>1. Vì sao Nanite cho phép mesh triệu polygon?</p>
+            <label class="opt"><input type="radio" name="q7">Nó nén mesh bằng zip tốt hơn</label>
+            <label class="opt" data-ok><input type="radio" name="q7">Cluster chia nhỏ, GPU chỉ hiển thị mức đủ nhỏ trên màn hình</label>
+            <label class="opt"><input type="radio" name="q7">Nó tự tạo LOD offline lúc import</label>
+            <div class="explain">Nanite lưu cluster đa cấp và chọn cluster theo kích thước hiển thị mỗi frame — LOD tự động liên tục, không phải LOD offline truyền thống.</div>
+          </div>
+          <div class="q"><p>2. Client muốn bắn đạn — làm đúng cách?</p>
+            <label class="opt"><input type="radio" name="q8">Spawn projectile ngay trên client cho nhanh</label>
+            <label class="opt" data-ok><input type="radio" name="q8">Gọi Server RPC, server xác minh rồi spawn + replicate</label>
+            <label class="opt"><input type="radio" name="q8">NetMulticast từ client</label>
+            <div class="explain">Server authoritative: client chỉ gửi ý định, server kiểm tra và nhân bản kết quả — chống cheat và đồng bộ đúng.</div>
+          </div>
+          <div class="q"><p>3. Frame time 33 ms nhưng GPU chỉ 8 ms — vấn đề nằm đâu?</p>
+            <label class="opt" data-ok><input type="radio" name="q9">Game thread (CPU logic)</label>
+            <label class="opt"><input type="radio" name="q9">GPU vẽ quá nhiều</label>
+            <label class="opt"><input type="radio" name="q9">Lumen</label>
+            <div class="explain">FPS do thread chậm nhất quyết định — GPU rảnh nghĩa là CPU (game thread) đang nghẽn: Tick logic, Blueprint nặng. Dùng stat unit + Insights xác minh.</div>
+          </div>
+          <button class="check" onclick="checkQuiz(this)">Kiểm tra</button>
+        </div>
+      </section>
+
+      <!-- ==================== FLASHCARDS ==================== -->
+      <section class="chapter" id="flashcards">
+        <h2 class="ch-title"><span class="num">FC</span> Flashcards thuật ngữ</h2>
+        <p class="ch-sub">Bấm vào card để lật. Ôn trước phỏng vấn hoặc trước khi mở docs.</p>
+        <div class="fc-filters">
+          <button class="fc-filter active" data-lv="all">Tất cả <span class="fc-count" id="fcAll"></span></button>
+          <button class="fc-filter" data-lv="1">Starter</button>
+          <button class="fc-filter" data-lv="2">Intermediate</button>
+          <button class="fc-filter" data-lv="3">Advanced</button>
+        </div>
+        <div class="fc-grid" id="fcGrid"></div>
+      </section>
+
+      <!-- ==================== LỘ TRÌNH ==================== -->
+      <section class="chapter" id="lo-trinh">
+        <h2 class="ch-title"><span class="num">🗺</span> Bản đồ lộ trình</h2>
+        <p class="ch-sub">Tổng thể khóa học — in ra dán cạnh màn hình.</p>
+        <table>
+          <tr><th>Level</th><th>Chương</th><th>Kỹ năng đạt được</th><th>Dự án chứng minh</th></tr>
+          <tr><td><strong>1 · Starter</strong></td><td>1–7</td><td>Editor, Actor/Component, Blueprint cơ bản, import, material, lighting cơ bản</td><td>Mini game Coin Rush</td></tr>
+          <tr><td><strong>2 · Intermediate</strong></td><td>8–16</td><td>Lumen, landscape/foliage, physics, audio, VFX, animation, UI, cinematic, packaging</td><td>Open playground hoàn chỉnh + .exe chạy được</td></tr>
+          <tr><td><strong>3 · Advanced</strong></td><td>17–24</td><td>C++ framework, material dynamic, world partition, Nanite, PCG, multiplayer, profiling</td><td>Vertical slice open world nhỏ, multiplayer 2 máy</td></tr>
+        </table>
+        <div class="box game">
+          <span class="box-title">Lời kết</span>
+          Unreal to nhưng không khó — nó chỉ cần bạn đi đúng thứ tự. Khóa này đưa bạn qua từng nấc; docs mirror 3.644 trang là "sensei" luôn đứng cạnh. Build something. Ship something. 🚀
+        </div>
+      </section>
+
+      <footer class="foot">
+        <p><strong>Unreal Engine 5.8 — Khóa học từ Starter đến Advanced</strong> · Nội dung tiếng Việt tổng hợp từ Unreal Engine 5.8 Documentation (© Epic Games). Ảnh minh họa lấy từ mirror docs trong repo (<code>game-dev/unreal-engine-5.8-docs/</code>), chạy <code>python serve.py</code> để đọc docs đầy đủ.</p>
+      </footer>
+    </div>
+  </div>
+</div>
+
+<script>
+// ---- sidebar nav filter ----
+function filterNav(q){
+  q = q.toLowerCase();
+  document.querySelectorAll('#navMenu li a').forEach(a=>{
+    const li = a.parentElement;
+    if (!q || li.classList.contains('nav-section-title')) { if(!q) {li.style.display=''; a.style.display='';} }
+    if (q && !li.classList.contains('nav-section-title')) {
+      a.style.display = a.textContent.toLowerCase().includes(q) ? '' : 'none';
+    } else if (!q) { a.style.display=''; }
+  });
+}
+document.addEventListener('keydown', e=>{
+  if ((e.ctrlKey||e.metaKey) && e.key==='k'){ e.preventDefault(); document.getElementById('navSearch').focus(); }
+});
+
+// ---- active chapter highlight ----
+const chapters = [...document.querySelectorAll('section.chapter')];
+const navLinks = [...document.querySelectorAll('#navMenu a')];
+window.addEventListener('scroll', ()=>{
+  let cur = null;
+  const y = scrollY + 120;
+  for (const ch of chapters){ if (ch.offsetTop <= y) cur = ch.id; }
+  navLinks.forEach(a=>a.classList.toggle('active', a.getAttribute('href') === '#'+cur));
+  const lvl = cur && (parseInt(cur.slice(2))<=7) ? 'Starter' : cur && (parseInt(cur.slice(2))<=16) ? 'Intermediate' : cur ? 'Advanced' : '';
+  document.getElementById('crumbCh').textContent = '— ' + (cur ? lvl : 'Starter');
+}, {passive:true});
+
+// ---- quiz ----
+function checkQuiz(btn){
+  const quiz = btn.closest('.quiz');
+  quiz.querySelectorAll('.q').forEach(q=>{
+    let answered=false;
+    q.querySelectorAll('.opt').forEach(opt=>{
+      const inp = opt.querySelector('input');
+      inp.disabled = true;
+      if (inp.checked) answered = true;
+      if (opt.hasAttribute('data-ok')) opt.classList.add(inp.checked ? 'correct':'correct');
+      else if (inp.checked) opt.classList.add('wrong');
+    });
+    const ex = q.querySelector('.explain');
+    if (ex) ex.classList.add('show');
+  });
+}
+
+// ---- flashcards ----
+const FC = [
+ ['Actor','Đối tượng đặt được vào level — vị trí nằm ở Root Component',1],
+ ['Component','Bộ phận ghép vào Actor: mesh, light, camera, logic',1],
+ ['Blueprint','Visual scripting bằng node — kéo dây nối thay vì gõ code',1],
+ ['Material Instance','Bản sao material chỉ đổi parameter, không recompile shader',1],
+ ['Content Browser','Explorer quản lý uasset: mesh, texture, blueprint…',1],
+ ['Mobility','Static (tĩnh, rẻ) / Movable (động, đắt) của Actor — ảnh hưởng lighting',1],
+ ['Lumen','Global illumination + reflection thời gian thực, dùng Surface Cache',2],
+ ['Landscape','Hệ địa hình: sculpt/paint layer, mesh grid chuyên dụng',2],
+ ['Foliage','Công cụ rắc cây cỏ; Procedural Foliage tự sinh theo quy tắc',2],
+ ['Niagara','Hệ particle VFX: System > Emitter > Module > Renderer',2],
+ ['Skeletal Mesh','Mesh có skeleton để animate; chia sẻ Skeleton thì retarget được',2],
+ ['UMG / Widget','Hệ UI kéo thả; anchor để co giãn mọi màn hình',2],
+ ['Sequencer','Timeline cinematic: camera cuts, transform track, events',2],
+ ['Packaging','Cook + build executable cho nền tảng đích (Shipping = phát hành)',2],
+ ['UPROPERTY','Macro expose biến C++ ra editor/Blueprint/GC/network',3],
+ ['Gameplay Framework','Bộ khung: GameMode, Pawn, Controller, Actor, Component',3],
+ ['WPO','World Position Offset — dịch vertex trong shader (gió cỏ, vật thở)',3],
+ ['World Partition','Map chia cell tự streaming; OFPA + Data Layers + HLOD',3],
+ ['Nanite','Geometry ảo hóa: cluster đa cấp, hiển thị theo kích thước màn hình',3],
+ ['PCG','Procedural graph rải điểm/mesh — rừng, thành phố tự sinh',3],
+ ['Replication','Server đồng bộ biến/actor xuống client; RepNotify gọi hàm khi đổi',3],
+ ['RPC','Remote Procedure Call: Server RPC (client→server), Client RPC, Multicast',3],
+ ['stat unit / gpu','Console xem frame time theo thread — tìm cổ chai trước khi tối ưu',3],
+ ['Scalability','Bộ preset chất lượng (Low→Epic) cho một game chạy nhiều cấu hình',3],
+];
+const grid = document.getElementById('fcGrid');
+document.getElementById('fcAll').textContent = '('+FC.length+')';
+FC.forEach(([q,a,lv],i)=>{
+  const card = document.createElement('div');
+  card.className='flashcard'; card.dataset.lv=lv;
+  card.innerHTML = '<div class="fc-inner"><div class="fc-face fc-front"><span class="fc-tag t'+lv+'">'+(lv===1?'Starter':lv===2?'Intermediate':'Advanced')+'</span><div class="fc-q">'+q+'</div></div><div class="fc-face fc-back"><span class="fc-tag t'+lv+'">Ý nghĩa</span><div class="fc-a">'+a+'</div></div></div>';
+  card.addEventListener('click',()=>card.classList.toggle('flipped'));
+  grid.appendChild(card);
+});
+document.querySelectorAll('.fc-filter').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.fc-filter').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    const lv=b.dataset.lv;
+    document.querySelectorAll('.flashcard').forEach(c=>{
+      c.style.display = (lv==='all'||c.dataset.lv===lv)?'':'none';
+    });
+  });
+});
+</script>
+<script>
+/* Chạy trên GitHub Pages: docs mirror không được publish (giới hạn 1 GB) —
+   chuyển link tới trang docs sang site chính thức của Epic Developer Community.
+   Ở local (serve.py) link giữ nguyên, trỏ vào bản mirror. */
+(function () {
+  if (!/(^|\.)github\.io$/.test(location.hostname)) return;
+  var EPIC = "https://dev.epicgames.com/documentation/en-us/unreal-engine";
+  var PRE = "unreal-engine-5.8-docs/site/";
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest("a[href^='" + PRE + "']");
+    if (!a) return;
+    var rest = a.getAttribute("href").slice(PRE).split("#")[0].split("?")[0].replace(/\/+$/, "");
+    if (!rest || rest.indexOf("images/") === 0) return;
+    e.preventDefault();
+    location.href = EPIC + "/" + rest;
+  }, true);
+})();
+</script>
+</body>
+</html>

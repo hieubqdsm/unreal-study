@@ -1,0 +1,327 @@
+[
+ [
+  "ch1",
+  "images/8ebe4e86-a5d8-4771-a8af-214278d453f5.webp",
+  "Epic Games Launcher — nơi cài đặt Unreal Engine"
+ ],
+ [
+  "ch1",
+  "images/efb33e57-28b9-4e63-a8ba-fdc23c06a100.webp",
+  "Chọn components khi cài engine"
+ ],
+ [
+  "ch1",
+  "images/4d1bbe13-2215-4cd9-8f48-b22a5581262b.webp",
+  "Tạo project Third Person đầu tiên"
+ ],
+ [
+  "ch2",
+  "images/669481b3-c96f-4e63-9c89-2f8025e8210f.webp",
+  "Unreal Editor — bố cục các panel chính"
+ ],
+ [
+  "ch2",
+  "images/96d4b7e3-0822-4752-b8e4-1eedf68053a1.webp",
+  "Điều hướng viewport và các gizmo"
+ ],
+ [
+  "ch2",
+  "images/55cc5842-0874-4d8d-84fc-0f3fc2988797.webp",
+  "Content Browser với các asset của project"
+ ],
+ [
+  "ch2",
+  "images/eafa8ca5-da06-4c39-8914-6e81cc0573f1.webp",
+  "Thanh Modes: Select, Landscape, Foliage, Mesh Paint"
+ ],
+ [
+  "ch3",
+  "images/243cda68-835c-4965-a85d-6232f62e601c.webp",
+  "Transform: Location, Rotation, Scale của Actor"
+ ],
+ [
+  "ch3",
+  "images/cd47b4df-de0d-431b-8d02-ec72825caf5b.webp",
+  "Place Actors — kéo thả object vào level"
+ ],
+ [
+  "ch3",
+  "images/7770bea3-b127-4abd-a452-8ae76c4e4728.webp",
+  "Snap settings trên toolbar viewport"
+ ],
+ [
+  "ch3",
+  "images/28b0d6bd-3b33-4617-9c5b-b36a3c7d5394.webp",
+  "Wireframe blocking pass của một level"
+ ],
+ [
+  "ch4",
+  "images/2edc7c1c-893f-41db-b7b4-ab9dac464627.webp",
+  "Event Graph — nơi viết logic Blueprint"
+ ],
+ [
+  "ch4",
+  "images/79a3434c-8a07-4c16-b267-02a4dabd9781.webp",
+  "Blueprint của moving platform — logic thực tế từ tutorial Epic"
+ ],
+ [
+  "ch5",
+  "images/aa6c5cc4-1b84-4131-b17d-7df50fb1c70d.webp",
+  "Import dialog của Interchange framework"
+ ],
+ [
+  "ch5",
+  "images/ca24ef8d-65cd-4cb0-96f2-e4188f1938c2.webp",
+  "Pipeline Stack — tinh chỉnh kết quả import"
+ ],
+ [
+  "ch5",
+  "images/e349316f-e5f0-47a8-8959-4df34894425e.webp",
+  "Project setup và import content — chuẩn workflow nghệ thuật"
+ ],
+ [
+  "ch6",
+  "images/e33d7032-6d2b-4683-abe2-36460358de72.webp",
+  "Material Editor — node graph nối vào input chính"
+ ],
+ [
+  "ch6",
+  "images/0d9d87cd-5901-4d5c-9bf1-708327bf1312.webp",
+  "Các node cơ bản: Texture Sample, Multiply, Constant"
+ ],
+ [
+  "ch6",
+  "images/ad7c74e8-b609-4f76-952b-e1fe0f899768.webp",
+  "Material Instance chỉ đổi parameter — không đụng shader"
+ ],
+ [
+  "ch7",
+  "images/fbae4337-515a-44c7-9db3-47adfdb6f0bb.webp",
+  "Scene sau khi setup Directional + Sky Light + Fog"
+ ],
+ [
+  "ch7",
+  "images/9b3623de-1e01-4836-bccd-306f3196dcda.webp",
+  "Điều chỉnh ánh sáng và kiểm tra trong viewport"
+ ],
+ [
+  "ch8",
+  "images/2a0386d0-db8d-4054-a440-16be1c4084b3.webp",
+  "Scene chiếu sáng hoàn toàn bằng Lumen — không đèn bổ trợ"
+ ],
+ [
+  "ch8",
+  "images/1d4a1583-d0dd-4fb9-82d5-1e944515264e.webp",
+  "Cấu hình Lumen trong Post Process Volume"
+ ],
+ [
+  "ch8",
+  "images/24e7786b-b513-41c4-beb3-603c42f68206.webp",
+  "Local Fog Volume tạo vùng sương cục bộ có ánh sáng"
+ ],
+ [
+  "ch9",
+  "images/1be23ccb-39e4-4eb8-bdfa-30f811bd3677.webp",
+  "Landscape mode với các cọ sculpt"
+ ],
+ [
+  "ch9",
+  "images/2f8d1725-6e34-4787-a03a-29f9ad6a31aa.webp",
+  "Đắp núi bằng cọ Sculpt — Alt để đào"
+ ],
+ [
+  "ch9",
+  "images/b632b57f-f61b-4cda-a171-e47f8e98a995.webp",
+  "Landscape Material trộn nhiều layer texture"
+ ],
+ [
+  "ch9",
+  "images/d972d48e-cfff-499e-825a-49062d12597c.jpg",
+  "Foliage mode — rắc cây lên địa hình"
+ ],
+ [
+  "ch10",
+  "images/477b3aeb-33db-4f06-bd9a-6c941ef17039.webp",
+  "Actor bật Simulate Physics rơi theo trọng lực"
+ ],
+ [
+  "ch10",
+  "images/00d86f9d-f470-4ede-9699-6ef039904e2b.webp",
+  "Collision Presets trong Details panel"
+ ],
+ [
+  "ch10",
+  "images/e24144f3-ebab-43f5-b758-c2a5d812e3ac.webp",
+  "Moving platform dùng physics + collision thực tế"
+ ],
+ [
+  "ch11",
+  "images/f14405ef-e383-4ea3-b485-b4d999232cb1.webp",
+  "MetaSound graph — các node DSP xử lý âm"
+ ],
+ [
+  "ch11",
+  "images/82ae485a-ec2f-4edf-80c7-1214b668d965.webp",
+  "Gắn âm thanh cho fire trap — tutorial âm thanh của Epic"
+ ],
+ [
+  "ch12",
+  "images/06cc8496-4b5d-44ff-972c-e61b5a200438.webp",
+  "Niagara System gồm nhiều Emitter"
+ ],
+ [
+  "ch12",
+  "images/826b5938-ed12-4443-9e4a-9201f9fc2cd1.webp",
+  "Tạo system từ template Fountain"
+ ],
+ [
+  "ch12",
+  "images/c880567a-334b-4077-8cea-8eeec22567d8.webp",
+  "Chỉnh module trong Particle Update"
+ ],
+ [
+  "ch13",
+  "images/b3d98715-44ec-4bf5-a800-4edcb5f85c7d.webp",
+  "Skeletal Mesh với bộ xương hiển thị"
+ ],
+ [
+  "ch13",
+  "images/a66c1356-1294-49fc-823e-096ae4ac2ecf.webp",
+  "Animation Blueprint editor với state machine"
+ ],
+ [
+  "ch13",
+  "images/316c068c-51e6-4d0d-aea8-4b0bbfef697a.webp",
+  "Control Rig — chỉnh pose trực tiếp trong editor"
+ ],
+ [
+  "ch14",
+  "images/f1e37e5f-e22d-4a30-bd00-afd03a1bd113.webp",
+  "HUD với máu + điểm — kết quả cần đạt"
+ ],
+ [
+  "ch14",
+  "images/6c67e87c-f5d6-4c59-a316-cc43696df924.webp",
+  "Designer widget: Canvas, anchors, slots"
+ ],
+ [
+  "ch14",
+  "images/626d320b-962d-4d5d-b36f-63bec9034800.webp",
+  "Viewmodel tách bạch dữ liệu và UI"
+ ],
+ [
+  "ch15",
+  "images/4fae29f8-a06e-46a8-8825-38fd79949801.webp",
+  "Sequencer editor — timeline các track"
+ ],
+ [
+  "ch15",
+  "images/9183e3c2-43eb-4fa3-a663-f6cbbc7e36c5.webp",
+  "Camera Cuts track và Cine Camera"
+ ],
+ [
+  "ch15",
+  "images/34d56187-f42f-4c60-8941-be0fe1441d70.webp",
+  "Cinematic làm trong Sequencer"
+ ],
+ [
+  "ch16",
+  "images/39be121d-9228-456f-becf-6177e45c0362.webp",
+  "Packaging settings và kết quả đầu ra"
+ ],
+ [
+  "ch16",
+  "images/847e4530-1586-46a8-a346-44efcfb5e5c7.webp",
+  "Chọn build configuration trước khi package"
+ ],
+ [
+  "ch17",
+  "images/efe4c4de-8f4b-47d5-863d-532c3e68dd4f.webp",
+  "Visual Studio với project Unreal — solution explorer"
+ ],
+ [
+  "ch17",
+  "images/d388129a-7e49-4d68-beb6-b73fb9991e49.webp",
+  "Class Viewer — phả hệ lớp Gameplay Framework"
+ ],
+ [
+  "ch17",
+  "images/3f9a3d9f-27bd-435c-8c87-b8c92bddc709.webp",
+  "Compile và chạy — actor xuất hiện trong editor"
+ ],
+ [
+  "ch18",
+  "images/40d44538-133d-4c97-a727-7fc2a96eb562.webp",
+  "Material Instances phức tạp với nhiều parameters"
+ ],
+ [
+  "ch18",
+  "images/3c62b55c-e100-4dfa-9075-5fbcb91bc12a.webp",
+  "Các Utility Material Expressions tiết kiệm thời gian"
+ ],
+ [
+  "ch18",
+  "images/03d562c1-dce8-4de2-9209-b8442af5ca7b.webp",
+  "Utility expressions dùng cho WPO và hiệu ứng"
+ ],
+ [
+  "ch19",
+  "images/0ead0a47-0a29-4fa8-a408-1bbe08d95778.jpg",
+  "World Partition — bản đồ chia ô streaming"
+ ],
+ [
+  "ch19",
+  "images/e4ea786c-a54c-4a75-a155-4a4352fc863c.webp",
+  "World Partition panel — quản lý cells"
+ ],
+ [
+  "ch19",
+  "images/cdca091e-cb56-44c1-9f7f-176d92b04d3f.webp",
+  "Data Layers bật tắt theo ngữ cảnh gameplay"
+ ],
+ [
+  "ch20",
+  "images/fa3c3c0a-8291-43a1-a956-04db7d4646b2.webp",
+  "So sánh tường Laptop: LOD truyền thống vs Nanite"
+ ],
+ [
+  "ch20",
+  "images/3558d56b-9cfa-4f02-b3d0-caf66e1d5a95.webp",
+  "Nanite settings trong Static Mesh editor"
+ ],
+ [
+  "ch20",
+  "images/6a2b8060-2583-4f8a-8c83-b001a435b3b3.webp",
+  "Nanite cluster — cách geometry được phân cấp"
+ ],
+ [
+  "ch21",
+  "images/5b3dbc40-ed30-4856-b924-1719a5eae70c.webp",
+  "PCG graph — từ points tới rừng mesh"
+ ],
+ [
+  "ch21",
+  "images/86a3a84f-0e9d-48a4-9c0d-9b05fd61eff6.webp",
+  "PCG Editor Mode trong viewport"
+ ],
+ [
+  "ch21",
+  "images/30dbb36d-3090-42f0-92c5-633971c50f79.webp",
+  "Kết quả rừng procedural trên địa hình"
+ ],
+ [
+  "ch23",
+  "images/2e91ed25-b93e-4a0d-9d2d-2909ad6d6270.jpg",
+  "Unreal Insights — timeline profiling chuyên sâu"
+ ],
+ [
+  "ch23",
+  "images/2602df9a-4b69-4edf-a9d9-b393a8aa8b52.webp",
+  "Session browser trong Unreal Insights"
+ ],
+ [
+  "ch23",
+  "images/a0e95651-99b1-4572-bfa6-935ee3456a88.webp",
+  "Bảng Scalability Reference — mỗi cấp chỉnh gì"
+ ]
+]

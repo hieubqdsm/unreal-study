@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unreal Engine 5.8 — Skill Tree</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --bg:#0a0e14; --bg2:#0d1420; --panel:#111a29; --panel2:#15203233;
+    --border:#1e2c42; --text:#cbd5e1; --bright:#f1f5f9; --dim:#64748b;
+    --core:#eab308; --world:#22c55e; --logic:#3b82f6; --visual:#ec4899;
+    --fx:#f97316; --motion:#a855f7; --prod:#14b8a6;
+    --starter:#10b981; --mid:#f59e0b; --adv:#8b5cf6;
+  }
+  body { font-family:'Segoe UI',Tahoma,sans-serif; background:
+    radial-gradient(1200px 600px at 70% -10%, #12233d55, transparent),
+    radial-gradient(900px 500px at 10% 110%, #1a103055, transparent), var(--bg);
+    color:var(--text); min-height:100vh; overflow-x:hidden; }
+  code { font-family:'JetBrains Mono',Consolas,monospace; }
+
+  header.top { padding:26px 34px 8px; display:flex; flex-wrap:wrap; align-items:center; gap:22px; }
+  .logo { display:flex; align-items:center; gap:14px; }
+  .logo .mark { width:54px; height:54px; border-radius:14px; display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(135deg,#13d9cd,#0f766e); color:#04211c; font-weight:900; font-size:22px;
+    box-shadow:0 0 26px #14b8a666; }
+  .logo h1 { font-size:22px; color:var(--bright); letter-spacing:.4px; }
+  .logo h1 b { color:#2ae5b2; }
+  .logo p { font-size:11.5px; color:var(--dim); letter-spacing:2px; text-transform:uppercase; margin-top:2px; }
+  .hud { display:flex; gap:12px; margin-left:auto; flex-wrap:wrap; align-items:center; }
+  .ring { --p:0; width:64px; height:64px; border-radius:50%; flex:none;
+    background: conic-gradient(#2ae5b2 calc(var(--p)*1%), #16233a 0);
+    display:flex; align-items:center; justify-content:center; box-shadow:0 0 18px #2ae5b522; }
+  .ring .in { width:50px; height:50px; border-radius:50%; background:var(--bg); display:flex; align-items:center; justify-content:center;
+    font-weight:800; color:#2ae5b2; font-size:13px; }
+  .stat { background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:8px 14px; text-align:center; min-width:92px; }
+  .stat b { display:block; font-size:18px; color:var(--bright); }
+  .stat span { font-size:10.5px; color:var(--dim); letter-spacing:1px; text-transform:uppercase; }
+  .btn { background:var(--panel); color:var(--text); border:1px solid var(--border); border-radius:9px; padding:9px 16px;
+    font-size:12.5px; cursor:pointer; font-family:inherit; font-weight:700; transition:.15s; }
+  .btn:hover { border-color:#2ae5b2; color:#2ae5b2; }
+  .btn.primary { background:#0f766e; border-color:#14b8a6; color:#eafffa; }
+  .btn.primary:hover { background:#115e59; }
+
+  .legend { padding:4px 34px 10px; display:flex; gap:16px; flex-wrap:wrap; }
+  .lg { display:flex; align-items:center; gap:7px; font-size:12px; color:var(--dim); }
+  .dot { width:10px; height:10px; border-radius:50%; }
+  .divider { height:1px; background:linear-gradient(90deg,transparent,var(--border),transparent); margin:0 30px; }
+
+  .stage-wrap { position:relative; overflow:auto; padding:18px 30px 40px; }
+  .stage { position:relative; margin:0 auto; }
+
+  .tier-label { position:absolute; left:4px; width:104px; text-align:left; }
+  .tier-label .t { font-weight:800; color:var(--bright); font-size:13px; }
+  .tier-label .lv { font-size:10px; letter-spacing:1.5px; text-transform:uppercase; padding:2px 8px; border-radius:8px; }
+  .lv.s { color:var(--starter); background:#10b9811c; } .lv.m { color:var(--mid); background:#f59e0b1c; } .lv.a { color:var(--adv); background:#8b5cf61c; }
+
+  .lane-head { position:absolute; top:2px; display:flex; flex-direction:column; align-items:center; gap:4px; width:var(--nw); }
+  .lane-head .ico { font-size:20px; filter:drop-shadow(0 0 8px currentColor); }
+  .lane-head .nm { font-size:11.5px; font-weight:800; letter-spacing:1px; text-transform:uppercase; }
+
+  svg.edges { position:absolute; inset:0; overflow:visible; pointer-events:none; }
+  .edge { fill:none; stroke:#1b2942; stroke-width:1.6; opacity:.75; }
+  .edge.avail { stroke:#33507a; stroke-width:2.2; opacity:1; }
+  .edge.on { stroke-dasharray:7 5; animation:flow 1.2s linear infinite; }
+  @keyframes flow { to { stroke-dashoffset:-12; } }
+
+  .node { position:absolute; width:var(--nw); border-radius:13px; background:linear-gradient(160deg,var(--panel),#0d1522);
+    border:1.5px solid var(--border); padding:10px 11px 9px; cursor:pointer; user-select:none;
+    transition:transform .15s, box-shadow .15s, border-color .15s; }
+  .node .cost { position:absolute; top:-9px; right:-7px; background:#0b1220; border:1px solid var(--border); color:var(--dim);
+    font-size:10px; font-weight:800; padding:1px 7px; border-radius:9px; }
+  .node .ic { font-size:17px; margin-bottom:3px; }
+  .node .nm { font-size:12.5px; font-weight:800; color:var(--bright); line-height:1.25; }
+  .node .en { font-size:10px; color:var(--dim); font-family:'JetBrains Mono',monospace; margin-top:2px; }
+  .node.locked { opacity:.38; filter:grayscale(.7); cursor:not-allowed; }
+  .node.avail { border-color:color-mix(in srgb, var(--c) 55%, #22334e); box-shadow:0 0 0 1px #00000055, 0 0 16px color-mix(in srgb, var(--c) 22%, transparent); }
+  .node.avail:hover { transform:translateY(-3px) scale(1.03); }
+  .node.learned { border-color:var(--c); background:linear-gradient(160deg, color-mix(in srgb, var(--c) 16%, var(--panel)), #0d1522);
+    box-shadow:0 0 18px color-mix(in srgb, var(--c) 30%, transparent); }
+  .node.learned .nm { color:var(--bright); }
+  .node.learned::after { content:"✓"; position:absolute; top:-8px; left:-7px; width:18px; height:18px; border-radius:50%;
+    background:var(--c); color:#06131a; font-size:11px; font-weight:900; display:flex; align-items:center; justify-content:center; }
+  .node.sel { outline:2px solid #fff3; outline-offset:2px; }
+
+  aside.detail { position:fixed; right:18px; top:18px; bottom:18px; width:340px; z-index:50;
+    background:linear-gradient(170deg,#101a2b,#0b121e); border:1px solid var(--border); border-radius:16px;
+    padding:20px; display:none; flex-direction:column; gap:10px; box-shadow:-18px 0 50px #0009; }
+  aside.detail.open { display:flex; }
+  aside.detail .x { position:absolute; top:10px; right:12px; background:none; border:none; color:var(--dim); font-size:18px; cursor:pointer; }
+  aside.detail .lane-ic { font-size:30px; }
+  aside.detail h3 { color:var(--bright); font-size:17px; line-height:1.3; }
+  aside.detail .en { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--dim); }
+  aside.detail p.d { font-size:13px; line-height:1.65; }
+  .terms { background:#0b1220; border:1px solid var(--border); border-radius:10px; padding:10px 12px; font-size:12px; }
+  .terms b { color:var(--bright); display:block; margin-bottom:4px; font-size:11px; letter-spacing:1px; text-transform:uppercase; }
+  .terms span { display:inline-block; background:#16233a; border:1px solid #24344d; border-radius:6px; padding:1px 7px; margin:2px 3px 2px 0; font-size:11px; }
+  .reqs { font-size:12px; }
+  .reqs .r { display:inline-block; margin:2px 4px 2px 0; padding:2px 9px; border-radius:8px; border:1px solid var(--border); font-size:11px; }
+  .reqs .r.done { color:#2ae5b2; border-color:#14b8a655; }
+  .reqs .r.todo { color:var(--dim); }
+  .detail .links { display:flex; flex-direction:column; gap:7px; margin-top:2px; }
+  .detail a { display:block; text-decoration:none; font-size:12.5px; padding:9px 12px; border-radius:9px;
+    border:1px solid var(--border); color:var(--text); background:#0d1522; transition:.15s; }
+  .detail a:hover { border-color:#2ae5b2; color:#2ae5b2; }
+  .detail .learn-btn { margin-top:auto; }
+
+  footer.foot { padding:14px 34px 26px; color:var(--dim); font-size:12px; }
+  footer.foot a { color:#2ae5b2; text-decoration:none; }
+
+  @media (max-width:760px){
+    aside.detail { left:10px; right:10px; width:auto; top:auto; bottom:10px; max-height:62vh; }
+    .tier-label { display:none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="logo">
+    <div class="mark">UE</div>
+    <div>
+      <h1>Unreal Engine <b>Skill Tree</b></h1>
+      <p>Lộ trình học theo dạng cây kỹ năng RPG · 5.8</p>
+    </div>
+  </div>
+  <div class="hud">
+    <div class="stat"><b id="statLearned">0</b><span>đã học</span></div>
+    <div class="stat"><b id="statAvail">0</b><span>khả dụng</span></div>
+    <div class="ring" id="ring"><div class="in" id="ringTxt">0%</div></div>
+    <button class="btn" id="btnReset">↺ Reset tiến độ</button>
+    <button class="btn" id="btnExpand">Mở rộng hết</button>
+  </div>
+</header>
+
+<div class="legend" id="legend"></div>
+<div class="divider"></div>
+
+<div class="stage-wrap">
+  <div class="stage" id="stage"></div>
+</div>
+
+<aside class="detail" id="detail">
+  <button class="x" onclick="closeDetail()">✕</button>
+  <div class="lane-ic" id="dIco"></div>
+  <h3 id="dName"></h3>
+  <div class="en" id="dEn"></div>
+  <p class="d" id="dDesc"></p>
+  <div class="terms" id="dTerms"></div>
+  <div class="reqs" id="dReqs"></div>
+  <div class="links" id="dLinks"></div>
+  <button class="btn primary learn-btn" id="dLearn" onclick="learnSelected()">✦ Học kỹ năng này</button>
+</aside>
+
+<footer class="foot">
+  Skill tree tổng hợp từ <a href="khoa-hoc-unreal-engine.html">khóa học UE 5.8</a> và <a href="unreal-engine-5.8-docs/site/">bộ docs mirror 3.644 trang</a> — tiến độ lưu trong localStorage của trình duyệt. Thuật ngữ giữ nguyên tiếng Anh theo chuẩn docs Epic.
+</footer>
+
+<script>
+const COURSE = "khoa-hoc-unreal-engine.html#ch";
+const DOCS = "unreal-engine-5.8-docs/site/";
+
+const LANES = [
+  { id:"core",   name:"Nền tảng",  ico:"🏛", c:"var(--core)"   },
+  { id:"world",  name:"Thế giới",  ico:"🌍", c:"var(--world)"  },
+  { id:"logic",  name:"Logic",     ico:"⚙️", c:"var(--logic)"  },
+  { id:"visual", name:"Hình ảnh",  ico:"🎨", c:"var(--visual)" },
+  { id:"fx",     name:"Hiệu ứng",  ico:"✨", c:"var(--fx)"     },
+  { id:"motion", name:"Chuyển động",ico:"🎭", c:"var(--motion)" },
+  { id:"prod",   name:"Sản xuất",  ico:"🚀", c:"var(--prod)"   },
+];
+const TIER_LV = t => t<=3 ? ["Starter","s"] : t<=5 ? ["Intermediate","m"] : ["Advanced","a"];
+
+const NODES = [
+ // ---------- NỀN TẢNG ----------
+ {id:"install", lane:"core", t:1, ic:"💾", nm:"Cài đặt & Project", en:"Install · Project Setup",
+  d:"Cài Epic Games Launcher, engine 5.8, tạo project từ template (Third Person / First Person), hiểu Blueprint project vs C++ project.",
+  terms:["Epic Games Launcher","Project","Template","Starter Content"],
+  refs:{ch:1, docs:["install-unreal-engine","module-1-install-ue-and-create-your-first-project"]}},
+ {id:"editor", lane:"core", t:2, ic:"🧭", nm:"Điều hướng Editor", en:"Editor Interface",
+  d:"Làm chủ Viewport (WASD + chuột phải), Content Browser, World Outliner, Details, Modes. Phân biệt Main Toolbar vs Viewport Toolbar.",
+  terms:["Viewport","Content Browser","World Outliner","Details","Game View"],
+  refs:{ch:2, docs:["unreal-editor-interface","tools-and-editors-in-unreal-engine"]}, req:["install"]},
+ {id:"actor", lane:"core", t:3, ic:"📦", nm:"Actor & Component", en:"Actor · Component · Transform",
+  d:"Mọi thứ trong level là Actor; Actor ghép từ Component. Transform (Location/Rotation/Scale), Mobility Static vs Movable, Spawn/Destroy.",
+  terms:["Actor","Component","Root Component","Transform","Mobility"],
+  refs:{ch:3, docs:["actors-in-unreal-engine","transforming-actors-in-unreal-engine"]}, req:["editor"]},
+ {id:"content", lane:"core", t:4, ic:"📥", nm:"Content Pipeline", en:"Import · Interchange",
+  d:"Nhập Static Mesh / Skeletal Mesh / Texture qua Interchange, chuẩn FBX/glTF (đơn vị cm, pivot, collision), naming convention SM_/SK_/T_/M_/MI_.",
+  terms:["Static Mesh","Skeletal Mesh","Interchange","FBX","Naming Convention"],
+  refs:{ch:5, docs:["importing-assets-using-interchange-in-unreal-engine","importing-static-meshes-in-unreal-engine"]}, req:["actor"]},
+
+ // ---------- THẾ GIỚI ----------
+ {id:"blocking", lane:"world", t:2, ic:"🧱", nm:"Dựng Level khối", en:"Blocking · Player Start",
+  d:"Dựng phòng/khu chơi bằng cube + snap grid, đặt Player Start, đèn tạm, tư duy 4 lớp: geometry → lighting → gameplay → art pass.",
+  terms:["Grid Snapping","Player Start","Blocking","Layered Level Design"],
+  refs:{ch:3, docs:["level-designer-quick-start-in-unreal-engine"]}, req:["editor"]},
+ {id:"landscape", lane:"world", t:3, ic:"⛰", nm:"Landscape", en:"Landscape Sculpt & Paint",
+  d:"Tạo địa hình bằng cọ Sculpt/Erosion, tô layer vật liệu (cỏ/đá/tuyết) bằng LandscapeLayerBlend, quản lý component & LOD.",
+  terms:["Landscape","Sculpt","Layer Blend","Heightmap"],
+  refs:{ch:9, docs:["landscape-quick-start-guide-in-unreal-engine","landscape-materials-in-unreal-engine"]}, req:["blocking"]},
+ {id:"foliage", lane:"world", t:4, ic:"🌲", nm:"Foliage", en:"Foliage Painting",
+  d:"Rắc cây cỏ bằng Foliage mode, chỉnh mật độ, procedural foliage theo độ dốc/tầng đất, wind cho tán lá qua material WPO.",
+  terms:["Foliage","Procedural Foliage","Paint Tool"],
+  refs:{ch:9, docs:["foliage-mode-in-unreal-engine"]}, req:["landscape"]},
+ {id:"wpartition", lane:"world", t:5, ic:"🗺", nm:"World Partition", en:"World Partition · Data Layers",
+  d:"Map lớn tự streaming theo cell, One File Per Actor cho teamwork, Data Layers bật/tắt theo ngữ cảnh, HLOD gom mesh vùng xa.",
+  terms:["World Partition","Data Layer","HLOD","OFPA","Streaming"],
+  refs:{ch:19, docs:["world-partition-in-unreal-engine","world-partition---data-layers-in-unreal-engine"]}, req:["foliage","content"]},
+ {id:"pcg", lane:"world", t:6, ic:"🌳", nm:"PCG Framework", en:"Procedural Content Generation",
+  d:"Sinh rừng/đá/thành phố bằng node graph: Surface Sampler → Filter → Noise → Mesh Spawner. PCG tự chia theo World Partition cell.",
+  terms:["PCG","Surface Sampler","Attribute Noise","Static Mesh Spawner"],
+  refs:{ch:21, docs:["procedural-content-generation-overview","pcg-editor-mode-in-unreal-engine"]}, req:["wpartition"]},
+ {id:"cap-ow", lane:"world", t:7, ic:"🏆", nm:"CAPSTONE: Open World", en:"Open World Slice",
+  d:"Dựng vertical slice open world 2×2 km: landscape + foliage + PCG + World Partition + HLOD — chạy ổn 60 FPS trên máy trung bình.",
+  terms:["Vertical Slice","HLOD","Performance Budget"],
+  refs:{ch:24, docs:["city-sample-pcg-for-unreal-engine"]}, req:["pcg"], cap:1},
+
+ // ---------- LOGIC ----------
+ {id:"bpb", lane:"logic", t:2, ic:"🔵", nm:"Blueprint căn bản", en:"Event · Node · Wire",
+  d:"Event Graph, exec wire (trắng) vs data wire (màu), Event BeginPlay/Tick/Overlap, Cast, Print String — làm đồng xu tự xoay nhặt được.",
+  terms:["Event Graph","Exec Pin","Cast","Blueprint Class"],
+  refs:{ch:4, docs:["blueprints-visual-scripting-in-unreal-engine","module-3-create-a-coin-pickup-with-modeling-tools-and-blueprints"]}, req:["editor"]},
+ {id:"bpvar", lane:"logic", t:3, ic:"🔢", nm:"Variables & Branch", en:"Variables · Flow Control",
+  d:"Biến (Instance Editable), Branch/Sequence/ForEach, timeline, giao tiếp giữa Blueprint qua Cast & Event Dispatcher.",
+  terms:["Variable","Branch","Event Dispatcher","Timeline"],
+  refs:{ch:4, docs:["blueprint-variables-in-unreal-engine","blueprint-communications-in-unreal-engine"]}, req:["bpb"]},
+ {id:"collision", lane:"logic", t:4, ic:"💥", nm:"Collision & Overlap", en:"Collision Presets",
+  d:"Collision Presets, Object/Trace Channels, Hit vs Overlap events, physics runtime (Simulate, Impulse, Launch Character).",
+  terms:["BlockAll","Overlap","Trace Channel","Simulate Physics"],
+  refs:{ch:10, docs:["collision-in-unreal-engine","physics-in-unreal-engine"]}, req:["bpvar"]},
+ {id:"bpfunc", lane:"logic", t:5, ic:"🧩", nm:"Functions & Interfaces", en:"Functions · Interfaces",
+  d:"Tổ chức code: Functions, Macro Libraries, Blueprint Interfaces, Blueprint Function Libraries — hết cảnh copy chuỗi node.",
+  terms:["Function","Macro","Interface","Function Library"],
+  refs:{ch:4, docs:["blueprint-function-libraries-in-unreal-engine","implementing-blueprint-interfaces-in-unreal-engine"]}, req:["bpvar"]},
+ {id:"cpp", lane:"logic", t:6, ic:"⌨️", nm:"C++ nhập môn", en:"C++ Basics · UPROPERTY",
+  d:"Visual Studio workflow, UCLASS/UPROPERTY/UFUNCTION, expose C++ cho Blueprint, Live Coding. Quy tắc: hệ thống nặng C++, designer chỉnh Blueprint.",
+  terms:["UCLASS","UPROPERTY","UFUNCTION","Live Coding"],
+  refs:{ch:17, docs:["coder-01-set-up-and-compile-a-cplusplus-project-in-unreal-engine","exposing-cplusplus-to-blueprints-visual-scripting-in-unreal-engine"]}, req:["bpfunc"]},
+ {id:"framework", lane:"logic", t:7, ic:"🏗", nm:"Gameplay Framework", en:"GameMode · Pawn · Controller",
+  d:"Bộ khung: GameMode → PlayerController → Pawn/Character → ActorComponent. Custom Character movement, Enhanced Input.",
+  terms:["GameMode","PlayerController","Pawn","Character","Enhanced Input"],
+  refs:{ch:17, docs:["game-mode-and-game-state-in-unreal-engine","pawn-in-unreal-engine"]}, req:["cpp"]},
+ {id:"network", lane:"logic", t:8, ic:"🌐", nm:"Multiplayer", en:"Replication · RPC",
+  d:"Server-authoritative model, biến Replicated + RepNotify, Server/Client RPC, Network Emulation test ngay trong editor.",
+  terms:["Authority","Replication","RepNotify","RPC","Relevancy"],
+  refs:{ch:22, docs:["basics-of-network-multiplayer-in-unreal-engine","multiplayer-programming-quick-start-for-unreal-engine"]}, req:["framework"]},
+
+ // ---------- HÌNH ẢNH ----------
+ {id:"mat", lane:"visual", t:2, ic:"🎨", nm:"Material căn bản", en:"Base Color · Metallic · Roughness",
+  d:"Material là shader graph: Base Color / Metallic / Roughness / Normal. Node cơ bản, Apply & compile, preview.",
+  terms:["Material","PBR","Roughness","Normal Map"],
+  refs:{ch:6, docs:["artist-03-create-materials-and-material-instances","physically-based-materials-in-unreal-engine"]}, req:["content"]},
+ {id:"matinst", lane:"visual", t:3, ic:"🎚", nm:"Material Instances", en:"Parameters · Instances",
+  d:"Convert to Parameter + Material Instance: đổi màu/roughness không recompile. Dynamic Material Instance đổi runtime (flash sát thương, tint).",
+  terms:["Parameter","Material Instance","MID"],
+  refs:{ch:6, docs:["artist-03-create-materials-and-material-instances","instanced-materials-in-unreal-engine"]}, req:["mat"]},
+ {id:"light", lane:"visual", t:3, ic:"💡", nm:"Lighting cơ bản", en:"Direct · Sky · Fog",
+  d:"Directional Light, Sky Light, Height Fog, Point/Spot; intensity vật lý, auto exposure, đèn Movable vs Static.",
+  terms:["Directional Light","Sky Light","Height Fog","Auto Exposure"],
+  refs:{ch:7, docs:["lighting-the-environment-in-unreal-engine","features-and-properties-of-lights-in-unreal-engine"]}, req:["blocking"]},
+ {id:"lumen", lane:"visual", t:4, ic:"🔆", nm:"Lumen GI", en:"Global Illumination",
+  d:"GI + reflection thời gian thực, Surface Cache, cấu hình qua Post Process Volume, final gather quality, software ray tracing cho máy yếu.",
+  terms:["Lumen","Surface Cache","Final Gather"],
+  refs:{ch:8, docs:["lumen-global-illumination-and-reflections-in-unreal-engine","local-fog-volumes-in-unreal-engine"]}, req:["light"]},
+ {id:"post", lane:"visual", t:5, ic:"🎞", nm:"Post Process", en:"Exposure · Color Grading",
+  d:"Post Process Volume: khóa exposure, bloom, DOF, color grading, LUT — 'đạo diễn' cảm giác hình ảnh cuối cùng.",
+  terms:["Post Process Volume","Bloom","Depth of Field","LUT"],
+  refs:{ch:8, docs:["post-process-effects-in-unreal-engine"]}, req:["lumen"]},
+ {id:"nanite", lane:"visual", t:5, ic:"🗿", nm:"Nanite", en:"Virtualized Geometry",
+  d:"Mesh triệu polygon chạy mượt nhờ cluster đa cấp; biết khi nào bật (đá/foliage/scan) và khi nào không (mesh nhỏ, morph cũ).",
+  terms:["Nanite","Cluster","Nanite Foliage","Fallback Mesh"],
+  refs:{ch:20, docs:["nanite-virtualized-geometry-in-unreal-engine","nanite-technical-details"]}, req:["content"]},
+ {id:"cap-look", lane:"visual", t:7, ic:"🏆", nm:"CAPSTONE: Look Dev", en:"Art Direction Pass",
+  d:"Một scene 'postcard': Lumen + Nanite + post process + local fog volumes đúng mood — benchmark bằng stat gpu trước/sau.",
+  terms:["Look Development","Mood","stat gpu"],
+  refs:{ch:8, docs:["07-adjust-environment-lighting-features"]}, req:["post","nanite"], cap:1},
+
+ // ---------- HIỆU ỨNG ----------
+ {id:"niagara", lane:"fx", t:3, ic:"✨", nm:"Niagara VFX", en:"System · Emitter · Module",
+  d:"Particle từ template (Fountain/Fire/Smoke), hiểu stack Emitter Spawn/Update → Particle Spawn/Update, đổi renderer Sprite/Mesh.",
+  terms:["Niagara","Emitter","Module","Renderer"],
+  refs:{ch:12, docs:["overview-of-niagara-effects-for-unreal-engine","quick-start-for-niagara-effects-in-unreal-engine"]}, req:["bpvar"]},
+ {id:"niagara2", lane:"fx", t:5, ic:"🌀", nm:"Niagara nâng cao", en:"GPU Sim · Events",
+  d:"GPU sim cho hàng trăm nghìn hạt, collision module, Niagara Events chuyển từ gameplay sang, debug bằng Scratch Pad.",
+  terms:["GPU Sim","Simulation Target","Niagara Events"],
+  refs:{ch:12, docs:["debugging-and-optimization-in-niagara-effects-for-unreal-engine"]}, req:["niagara"]},
+ {id:"meta", lane:"fx", t:4, ic:"🔊", nm:"MetaSounds", en:"Sound Sources",
+  d:"Graph DSP cho âm thanh: pitch random, crossfade, parameter runtime. Play Sound at Location / Attached, Sound Class & Mix.",
+  terms:["MetaSound","Sound Cue","Sound Class","Audio Component"],
+  refs:{ch:11, docs:["metasounds-in-unreal-engine","metasound-templates-quick-start-in-unreal-engine"]}, req:["bpvar"]},
+ {id:"sounddesign", lane:"fx", t:6, ic:"🎼", nm:"Sound Design", en:"Mix · Ambient",
+  d:"Phối âm cảnh: ambient beds, reverb zone, attenuation, ducking nhạc khi dialogue — tầng âm 'vô hình' nhưng bán cảm xúc.",
+  terms:["Attenuation","Reverb","Sound Mix","Ambient"],
+  refs:{ch:11, docs:["artist-09-adding-sounds-to-fire-traps-artist-track-unreal-engine","audio-volume-actor-in-unreal-engine"]}, req:["meta"]},
+
+ // ---------- CHUYỂN ĐỘNG ----------
+ {id:"skel", lane:"motion", t:4, ic:"🦴", nm:"Skeletal Mesh", en:"Skeleton · Physics Asset",
+  d:"Pipeline animation: Skeleton chia sẻ, Physics Asset cho cloth/ragdoll, retarget animation giữa các skeleton (IK Rig).",
+  terms:["Skeletal Mesh","Skeleton","Physics Asset","Retarget"],
+  refs:{ch:13, docs:["skeletal-mesh-assets-in-unreal-engine","animation-retargeting-in-unreal-engine"]}, req:["content"]},
+ {id:"animbp", lane:"motion", t:5, ic:"🏃", nm:"Animation Blueprint", en:"Anim Graph · State Machine",
+  d:"Event Graph tính biến (Speed, IsInAir) → State Machine chọn pose; Blend Space trộn idle/walk/run mượt.",
+  terms:["Animation Blueprint","State Machine","Blend Space","Anim Montage"],
+  refs:{ch:13, docs:["animation-blueprints-in-unreal-engine"]}, req:["skel"]},
+ {id:"controlrig", lane:"motion", t:6, ic:"🕹", nm:"Control Rig", en:"Procedural Animation",
+  d:"Rigging trong engine: FK/IK, sửa pose, procedural runtime (tay nắm vật), full-body IK.",
+  terms:["Control Rig","IK","FK"],
+  refs:{ch:13, docs:["how-to-create-control-rigs-in-unreal-engine"]}, req:["animbp"]},
+ {id:"sequencer", lane:"motion", t:5, ic:"🎬", nm:"Sequencer", en:"Cinematics Timeline",
+  d:"Level Sequence: Camera Cuts, transform track, keyframe, Cine Camera, Track Event gọi Blueprint lúc chiếu.",
+  terms:["Sequencer","Level Sequence","Camera Cuts","Cine Camera"],
+  refs:{ch:15, docs:["cinematics-and-movie-making-in-unreal-engine","sequencer-cinematic-editor-unreal-engine"]}, req:["editor"]},
+ {id:"mrq", lane:"motion", t:7, ic:"🎥", nm:"Movie Render Queue", en:"MRQ Render",
+  d:"Render cinematic ra video cao cấp: multi-pass AA, motion blur đúng, xuất PNG sequence/MP4.",
+  terms:["Movie Render Queue","Anti-aliasing Pass"],
+  refs:{ch:15, docs:["rendering-out-cinematic-movies-in-unreal-engine"]}, req:["sequencer"]},
+
+ // ---------- SẢN XUẤT ----------
+ {id:"umg", lane:"prod", t:3, ic:"🖥", nm:"UMG / HUD", en:"Widget Blueprint",
+  d:"Widget Blueprint, Canvas + Anchors co giãn, bind dữ liệu, Add to Viewport, menu pause. Viewmodel (MVVM) cho dự án lớn.",
+  terms:["UMG","Widget","Anchor","Viewmodel"],
+  refs:{ch:14, docs:["umg-ui-designer-quick-start-guide-in-unreal-engine","designer-04-player-hud-in-unreal-engine"]}, req:["bpb"]},
+ {id:"package", lane:"prod", t:5, ic:"📦", nm:"Packaging", en:"Cook · Build · Ship",
+  d:"Đóng gói Windows: build configurations, pre-flight checklist (redirectors, default map, test exe trên máy sạch).",
+  terms:["Packaging","Shipping","Development Build","Pak"],
+  refs:{ch:16, docs:["packaging-your-project","build-configurations-reference-for-unreal-engine"]}, req:["bpfunc","umg"]},
+ {id:"insights", lane:"prod", t:6, ic:"📊", nm:"Profiling", en:"Unreal Insights · stat",
+  d:"stat unit/gpu tìm thread cổ chai, Unreal Insights timeline trace từng hàm, perf map trước khi tối ưu — không đo bằng cảm giác.",
+  terms:["stat unit","stat gpu","Game Thread","Trace"],
+  refs:{ch:23, docs:["unreal-insights-in-unreal-engine"]}, req:["package"]},
+ {id:"scalability", lane:"prod", t:7, ic:"🎚", nm:"Scalability", en:"Auto Quality",
+  d:"Bộ preset Low→Epic cho một build chạy nhiều cấu hình; tự scale theo máy, cân nhắc mobile (sg. commands).",
+  terms:["Scalability Settings","sg. commands"],
+  refs:{ch:23, docs:["scalability-reference-for-unreal-engine"]}, req:["insights"]},
+ {id:"cap-ship", lane:"prod", t:8, ic:"🏆", nm:"CAPSTONE: Ship It", en:"Vertical Slice Release",
+  d:"Ghép tất cả: gameplay + UI + audio + VFX + lighting, tối ưu theo insights, package Shipping và phát hành (itch.io cho bạn bè).",
+  terms:["Vertical Slice","Shipping Build","Release"],
+  refs:{ch:24, docs:["packaging-and-shipping-in-unreal-engine"]}, req:["scalability","animbp","meta"], cap:1},
+];
+
+// ================= ENGINE =================
+const NW = 168, NH = 82, GX = 46, GY = 136, PAD_X = 120, PAD_Y = 110;
+const laneOf = id => LANES.find(l => l.id === id);
+const nodeOf = id => NODES.find(n => n.id === id);
+let learned = new Set(JSON.parse(localStorage.getItem("ue-skill-tree") || "[]"));
+let selected = null;
+
+function pos(n){
+  const li = LANES.findIndex(l => l.id === n.lane);
+  const laneNodes = NODES.filter(x => x.lane === n.lane).sort((a,b)=>a.t-b.t);
+  const slot = laneNodes.indexOf(n);
+  return { x: PAD_X + li*(NW+GX), y: PAD_Y + (n.t-1)*GY + slot*4 };
+}
+
+function build(){
+  const stage = document.getElementById("stage");
+  const maxX = Math.max(...NODES.map(n=>pos(n).x)) + NW + 40;
+  const maxY = Math.max(...NODES.map(n=>pos(n).y)) + NH + 60;
+  stage.style.width = maxX + "px";
+  stage.style.height = maxY + "px";
+  stage.style.setProperty("--nw", NW + "px");
+  stage.innerHTML = "";
+
+  // legend
+  document.getElementById("legend").innerHTML = LANES.map(l =>
+    `<span class="lg"><span class="dot" style="background:${l.c};box-shadow:0 0 8px ${l.c}"></span>${l.name}</span>`).join("")
+    + `<span class="lg" style="margin-left:auto">Node ✦ = kỹ năng · <b style="color:var(--dim)">✓</b> đã học · viền sáng = khả dụng</span>`;
+
+  // lane headers
+  LANES.forEach((l, i) => {
+    const el = document.createElement("div");
+    el.className = "lane-head";
+    el.style.left = (PAD_X + i*(NW+GX)) + "px";
+    el.style.color = l.c;
+    el.innerHTML = `<span class="ico">${l.ico}</span><span class="nm">${l.name}</span>`;
+    stage.appendChild(el);
+  });
+
+  // tier labels
+  const tiers = [...new Set(NODES.map(n=>n.t))].sort((a,b)=>a-b);
+  tiers.forEach(t => {
+    const [lv, cls] = TIER_LV(t);
+    const el = document.createElement("div");
+    el.className = "tier-label";
+    el.style.top = (PAD_Y + (t-1)*GY + 18) + "px";
+    el.innerHTML = `<div class="t">Tier ${t}</div><span class="lv ${cls}">${lv}</span>`;
+    stage.appendChild(el);
+  });
+
+  // edges svg
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("class", "edges");
+  svg.setAttribute("width", maxX); svg.setAttribute("height", maxY);
+  let eIdx = 0;
+  NODES.forEach(n => (n.req||[]).forEach(r => {
+    const p = nodeOf(r), a = pos(p), b = pos(n);
+    const x1 = a.x + NW/2, y1 = a.y + NH, x2 = b.x + NW/2, y2 = b.y;
+    let d;
+    if (p.lane === n.lane) {
+      const my = (y1+y2)/2;
+      d = `M${x1},${y1} C${x1},${my} ${x2},${my} ${x2},${y2}`;
+    } else {
+      // hành lang ngang giữa 2 tier, lệch nhẹ mỗi line để không chồng
+      const jit = ((eIdx % 4) - 1.5) * 4;
+      const ym = (y1 + y2) / 2 + jit;
+      const r_ = 12;
+      d = `M${x1},${y1} C${x1},${y1+r_*2} ${x1},${ym-r_} ${x1},${ym} L${x2},${ym} C${x2},${ym-r_} ${x2},${y2-r_*2} ${x2},${y2}`;
+    }
+    eIdx++;
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute("d", d);
+    path.setAttribute("class", "edge");
+    path.dataset.from = r; path.dataset.to = n.id;
+    svg.appendChild(path);
+  }));
+  stage.appendChild(svg);
+
+  // nodes
+  NODES.forEach(n => {
+    const p = pos(n);
+    const el = document.createElement("div");
+    el.className = "node";
+    el.id = "node-" + n.id;
+    el.style.left = p.x + "px"; el.style.top = p.y + "px";
+    el.style.setProperty("--c", laneOf(n.lane).c);
+    el.innerHTML = `<span class="cost">${n.cap ? "★" : "SP"}</span><div class="ic">${n.ic}</div>
+      <div class="nm">${n.nm}</div><div class="en">${n.en}</div>`;
+    el.onclick = () => select(n.id);
+    stage.appendChild(el);
+  });
+  refresh();
+}
+
+function isAvail(n){ return (n.req||[]).every(r => learned.has(r)); }
+
+function refresh(){
+  let avail = 0;
+  NODES.forEach(n => {
+    const el = document.getElementById("node-" + n.id);
+    el.classList.remove("locked","avail","learned","sel");
+    if (learned.has(n.id)) el.classList.add("learned");
+    else if (isAvail(n)) { el.classList.add("avail"); avail++; }
+    else el.classList.add("locked");
+    if (selected === n.id) el.classList.add("sel");
+  });
+  document.querySelectorAll(".edge").forEach(e => {
+    e.classList.remove("on","avail");
+    if (learned.has(e.dataset.from)) {
+      if (learned.has(e.dataset.to)) e.classList.add("on"), e.style.stroke = laneOf(nodeOf(e.dataset.to).lane).c;
+      else { e.classList.add("avail"); e.style.stroke = ""; }
+    } else e.style.stroke = "";
+  });
+  const pct = Math.round(learned.size / NODES.length * 100);
+  document.getElementById("statLearned").textContent = learned.size + "/" + NODES.length;
+  document.getElementById("statAvail").textContent = avail;
+  document.getElementById("ring").style.setProperty("--p", pct);
+  document.getElementById("ringTxt").textContent = pct + "%";
+  localStorage.setItem("ue-skill-tree", JSON.stringify([...learned]));
+}
+
+function select(id){
+  selected = id;
+  const n = nodeOf(id), l = laneOf(n.lane);
+  document.getElementById("dIco").textContent = n.cap ? "🏆" : l.ico;
+  document.getElementById("dIco").style.color = l.c;
+  document.getElementById("dName").textContent = n.nm;
+  document.getElementById("dEn").textContent = n.en;
+  document.getElementById("dDesc").textContent = n.d;
+  document.getElementById("dTerms").innerHTML = "<b>Thuật ngữ</b>" +
+    n.terms.map(t=>`<span>${t}</span>`).join("");
+  const reqHtml = (n.req||[]).map(r => {
+    const rn = nodeOf(r);
+    return `<span class="r ${learned.has(r)?"done":"todo"}">${learned.has(r)?"✓":"🔒"} ${rn.nm}</span>`;
+  }).join(" ");
+  document.getElementById("dReqs").innerHTML = reqHtml ? "<b style='font-size:11px;letter-spacing:1px;color:var(--dim)'>YÊU CẦU TRƯỚC</b><br>" + reqHtml
+    : "<span style='color:var(--dim);font-size:12px'>Không có yêu cầu — có thể học ngay.</span>";
+  let links = `<a href="${COURSE}${n.refs.ch}" target="_blank">📖 Chương ${n.refs.ch} trong khóa học</a>`;
+  (n.refs.docs||[]).forEach(s => links += `<a href="${DOCS}${s}/" target="_blank">📚 Docs: ${s.replace(/-/g," ")}</a>`);
+  document.getElementById("dLinks").innerHTML = links;
+  const btn = document.getElementById("dLearn");
+  if (learned.has(id)) { btn.textContent = "✓ Đã học — bỏ đánh dấu?"; btn.onclick = () => { learned.delete(id); selected=id; refresh(); select(id); }; }
+  else if (isAvail(n)) { btn.textContent = "✦ Học kỹ năng này"; btn.onclick = () => { learned.add(id); refresh(); select(id); }; }
+  else { btn.textContent = "🔒 Chưa đủ yêu cầu trước"; btn.onclick = () => {}; btn.disabled = true; }
+  if (!learned.has(id) && isAvail(n)) btn.disabled = false;
+  document.getElementById("detail").classList.add("open");
+  refresh();
+}
+function learnSelected(){ /* legacy hook */ }
+function closeDetail(){ document.getElementById("detail").classList.remove("open"); selected = null; refresh(); }
+
+document.getElementById("btnReset").onclick = () => {
+  if (confirm("Reset toàn bộ tiến độ skill tree?")) { learned = new Set(); closeDetail(); refresh(); }
+};
+document.getElementById("btnExpand").onclick = () => {
+  // mở nhánh nhanh: học tất cả node khả dụng theo tầng (demo toàn cây)
+  let changed = true;
+  while (changed) {
+    changed = false;
+    NODES.forEach(n => { if (!learned.has(n.id) && isAvail(n)) { learned.add(n.id); changed = true; } });
+  }
+  refresh();
+};
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeDetail(); });
+build();
+</script>
+<script>
+/* Chạy trên GitHub Pages: docs mirror không được publish (giới hạn 1 GB) —
+   chuyển link tới trang docs sang site chính thức của Epic Developer Community.
+   Ở local (serve.py) link giữ nguyên, trỏ vào bản mirror. */
+(function () {
+  if (!/(^|\.)github\.io$/.test(location.hostname)) return;
+  var EPIC = "https://dev.epicgames.com/documentation/en-us/unreal-engine";
+  var PRE = "unreal-engine-5.8-docs/site/";
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest("a[href^='" + PRE + "']");
+    if (!a) return;
+    var rest = a.getAttribute("href").slice(PRE).split("#")[0].split("?")[0].replace(/\/+$/, "");
+    if (!rest || rest.indexOf("images/") === 0) return;
+    e.preventDefault();
+    location.href = EPIC + "/" + rest;
+  }, true);
+})();
+</script>
+</body>
+</html>

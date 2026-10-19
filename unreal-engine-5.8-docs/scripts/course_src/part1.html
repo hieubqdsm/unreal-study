@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unreal Engine 5.8 — Khóa học từ Starter đến Advanced</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --primary: #0f766e;        /* UE teal-dark */
+    --primary-glow: #115e59;
+    --accent: #0d9488;         /* teal accent */
+    --accent-2: #14b8a6;
+    --l1: #059669; --l2: #d97706; --l3: #6d28d9;
+    --ok: #10b981; --warn: #f59e0b; --danger: #ef4444; --info: #3b82f6;
+    --dark: #ffffff; --darker: #f6faf9; --light: #334155; --light-strong: #0f172a; --gray: #64748b;
+    --card: #ffffff; --card-2: #f8fafc; --border: #e2e8f0; --terminal: #0f172a;
+    --code-green: #86efac; --code-yellow: #fde047; --code-blue: #7dd3fc; --code-red: #fca5a5; --code-purple: #c4b5fd; --code-orange: #ffa657;
+  }
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--darker); color: var(--light); line-height: 1.75; overflow-x: hidden; }
+  code, pre, .term { font-family: 'JetBrains Mono', 'Consolas', 'Courier New', monospace; }
+  .container { display: flex; min-height: 100vh; }
+
+  .sidebar { width: 340px; background: var(--card); padding: 26px 0 60px; position: fixed; height: 100vh; overflow-y: auto; border-right: 2px solid var(--primary); z-index: 100; transition: transform 0.3s; box-shadow: 4px 0 30px rgba(15,118,110,0.15); }
+  .sidebar::-webkit-scrollbar { width: 8px; } .sidebar::-webkit-scrollbar-track { background: var(--darker); } .sidebar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+  .logo { text-align: center; padding: 0 20px 22px; border-bottom: 2px solid var(--border); margin-bottom: 16px; }
+  .logo .g-icon { font-size: 40px; margin-bottom: 8px; font-weight: 900; color: #0f172a; background: linear-gradient(135deg,#13d9cd,#0d9488); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 14px rgba(20,184,166,.35)); }
+  .logo h1 { font-size: 19px; color: var(--primary); font-weight: 900; }
+  .logo p { font-size: 10px; color: var(--gray); margin-top: 6px; letter-spacing: 1.5px; }
+  .sidebar-search { padding: 0 20px 14px; border-bottom: 1px solid var(--border); margin-bottom: 12px; }
+  .sidebar-search input { width: 100%; padding: 9px 12px; background: var(--card); border: 1px solid var(--border); border-radius: 6px; color: var(--light); font-size: 13px; }
+  .sidebar-search input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(15,118,110,0.15); }
+  .nav-menu { list-style: none; padding: 0 14px; } .nav-menu li { margin-bottom: 3px; }
+  .nav-section-title { font-size: 10px; text-transform: uppercase; letter-spacing: 1.2px; padding: 14px 12px 7px; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+  .nav-section-title .badge { font-size: 9px; padding: 2px 7px; border-radius: 10px; color: #fff; font-weight: 900; }
+  .nav-l1 { color: var(--l1); } .nav-l1 .badge { background: var(--l1); }
+  .nav-l2 { color: var(--l2); } .nav-l2 .badge { background: var(--l2); }
+  .nav-l3 { color: var(--l3); } .nav-l3 .badge { background: var(--l3); }
+  .nav-menu a { display: flex; align-items: center; padding: 8px 12px; color: var(--gray); text-decoration: none; border-radius: 6px; transition: all 0.2s; font-size: 12.5px; border-left: 3px solid transparent; }
+  .nav-menu a:hover, .nav-menu a.active { background: rgba(15,118,110,0.10); color: var(--primary-glow); border-left-color: var(--primary); transform: translateX(4px); }
+  .nav-menu .chapter-num { display: inline-flex; align-items:center; justify-content:center; width: 26px; height: 26px; background: var(--card); border-radius: 50%; margin-right: 10px; font-size: 11px; font-weight: bold; border: 1px solid var(--primary); color: var(--primary-glow); flex-shrink: 0; }
+
+  .main-content { margin-left: 340px; flex: 1; max-width: calc(100% - 340px); }
+  .topbar { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(10px); background: rgba(255,255,255,.9); border-bottom: 1px solid var(--border); padding: 12px 40px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .topbar .crumb { font-size: 13px; color: var(--gray); } .topbar .crumb b { color: var(--accent); }
+  .topbar .pill { font-size: 11px; color: var(--gray); border:1px solid var(--border); border-radius: 20px; padding: 4px 12px; white-space: nowrap; }
+  .content-inner { padding: 38px 48px 120px; max-width: 1000px; }
+
+  .hero { background: linear-gradient(135deg, #0f172a 0%, #134e4a 100%); border-radius: 16px; padding: 40px; margin-bottom: 34px; position: relative; overflow: hidden; color: #fff; }
+  .hero::after { content:"UE"; position:absolute; right:18px; bottom:-26px; font-size:150px; font-weight:900; opacity:.08; letter-spacing:-8px; }
+  .hero h1 { font-size: 30px; margin-bottom: 12px; line-height: 1.25; }
+  .hero h1 .grad { color: #2ae5b2; }
+  .hero p { color: rgba(255,255,255,.85); max-width: 780px; }
+  .hero .meta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+  .meta-pill { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.2); border-radius: 10px; padding: 10px 16px; font-size: 13px; color: #e2e8f0; }
+  .meta-pill b { color: #2ae5b2; display:block; font-size: 18px; }
+
+  section.chapter { margin-bottom: 56px; scroll-margin-top: 80px; }
+  .level-divider { display: flex; align-items: center; gap: 16px; margin: 60px 0 30px; scroll-margin-top: 80px; }
+  .level-divider .line { flex: 1; height: 2px; background: var(--border); }
+  .level-divider .tag { font-size: 13px; font-weight: 900; letter-spacing: 1.5px; padding: 8px 20px; border-radius: 30px; text-transform: uppercase; }
+  .tag-l1 { background: rgba(5,150,105,.12); color: var(--l1); border:1px solid var(--l1);}
+  .tag-l2 { background: rgba(217,119,6,.12); color: var(--l2); border:1px solid var(--l2);}
+  .tag-l3 { background: rgba(109,40,217,.12); color: var(--l3); border:1px solid var(--l3);}
+
+  h2.ch-title { font-size: 25px; color: var(--light-strong); margin-bottom: 6px; display:flex; align-items:center; gap:12px; }
+  h2.ch-title .num { font-size: 13px; background: var(--card); border:1px solid var(--primary); color: var(--primary-glow); padding: 4px 10px; border-radius: 8px; white-space: nowrap; }
+  .ch-sub { color: var(--gray); font-size: 14px; margin-bottom: 22px; }
+  h3.sec { font-size: 19px; color: var(--accent); margin: 28px 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); }
+  h4.sub { font-size: 16px; color: var(--primary-glow); margin: 20px 0 8px; }
+  p { margin-bottom: 12px; } ul, ol { margin: 0 0 14px 22px; } li { margin-bottom: 6px; }
+  a.inline { color: var(--info); text-decoration: none; border-bottom: 1px dashed var(--info); }
+  strong { color: var(--light-strong); }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13.5px; }
+  th, td { border: 1px solid var(--border); padding: 9px 12px; text-align: left; vertical-align: top; }
+  th { background: var(--card-2); color: var(--accent); }
+  tr:nth-child(even) td { background: rgba(248,250,252,.6); }
+  code.ic { background: var(--card-2); color: var(--code-purple); padding: 2px 6px; border-radius: 4px; font-size: 13px; border: 1px solid var(--border); }
+  .term-en { color: var(--primary-glow); font-weight: 700; }
+
+  figure.fig { margin: 18px 0; }
+  figure.fig img { max-width: 100%; height: auto; border: 1px solid var(--border); border-radius: 8px; background: #0f172a; display: block; }
+  figure.fig.sm { max-width: 460px; }
+  figure.fig.xs { max-width: 340px; }
+  figure.fig figcaption { font-size: 12px; color: var(--gray); margin-top: 6px; line-height: 1.5; }
+
+  .box { border-radius: 10px; padding: 16px 18px 16px 46px; margin: 18px 0; position: relative; border: 1px solid; font-size: 14px; }
+  .box::before { position: absolute; left: 14px; top: 15px; font-size: 18px; }
+  .box .box-title { font-weight: 800; margin-bottom: 4px; display:block; color: var(--light-strong); }
+  .box.info { background: rgba(59,130,246,.07); border-color: rgba(59,130,246,.35); } .box.info::before{content:"💡";}
+  .box.tip { background: rgba(16,185,129,.07); border-color: rgba(16,185,129,.35); } .box.tip::before{content:"✅";}
+  .box.warn { background: rgba(245,158,11,.08); border-color: rgba(245,158,11,.4); } .box.warn::before{content:"⚠️";}
+  .box.danger { background: rgba(239,68,68,.07); border-color: rgba(239,68,68,.35); } .box.danger::before{content:"🚫";}
+  .box.lab { background: rgba(14,116,144,.08); border-color: rgba(14,116,144,.35); } .box.lab::before{content:"🗂";}
+  .box.game { background: rgba(109,40,217,.08); border-color: rgba(109,40,217,.35); } .box.game::before{content:"🎮";}
+
+  .code-block { margin: 16px 0; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); background: var(--terminal); }
+  .code-head { display: flex; align-items: center; justify-content: space-between; padding: 8px 14px; background: var(--card); border-bottom: 1px solid var(--border); }
+  .code-head .fname { font-size: 12px; color: var(--gray); display:flex; align-items:center; gap:8px; }
+  .code-head .dots { display:flex; gap:6px; } .code-head .dots i { width:11px;height:11px;border-radius:50%; display:inline-block; }
+  .code-head .dots i:nth-child(1){background:#ff5f56;} .code-head .dots i:nth-child(2){background:#ffbd2e;} .code-head .dots i:nth-child(3){background:#27c93f;}
+  pre.code { padding: 16px; overflow-x: auto; font-size: 13px; line-height: 1.65; color: #e2e8f0; white-space: pre; tab-size: 4; }
+  pre.code .c { color: #94a3b8; font-style: italic; } pre.code .s { color: var(--code-green); } pre.code .k { color: var(--code-red); }
+  pre.code .n { color: var(--code-blue); } pre.code .f { color: var(--code-purple); } pre.code .d { color: var(--code-yellow); } pre.code .t { color: var(--code-orange); }
+
+  .checklist { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; margin: 18px 0; }
+  .checklist h4 { color: var(--primary-glow); margin-bottom: 10px; font-size: 15px; }
+  .checklist label { display: flex; align-items: flex-start; gap: 10px; padding: 6px 0; cursor: pointer; font-size: 14px; }
+  .checklist input { margin-top: 5px; accent-color: var(--primary); }
+  .checklist input:checked + span { color: var(--gray); text-decoration: line-through; }
+
+  .exercise { background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 10px; padding: 18px 20px; margin: 20px 0; }
+  .exercise .ex-head { font-weight: 800; color: var(--accent); margin-bottom: 6px; display:flex; align-items:center; gap:8px; }
+  .exercise .lvl { font-size: 11px; font-weight:700; color:#fff; background: var(--accent); padding: 2px 10px; border-radius: 12px; }
+  .exercise .lvl.hard { background: var(--l3); }
+  details.answer { margin-top: 12px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  details summary { cursor: pointer; padding: 9px 14px; font-size: 13px; font-weight: 700; user-select: none; list-style: none; }
+  details summary::-webkit-details-marker { display:none; } details summary::before { content: "▸ "; } details[open] summary::before { content: "▾ "; }
+  details.answer summary { background: rgba(13,148,136,.1); color: var(--accent); } details .body { padding: 8px 14px 12px; }
+
+  .docs-ref { background: rgba(15,118,110,.06); border: 1px dashed rgba(15,118,110,.4); border-radius: 8px; padding: 10px 14px; font-size: 13px; margin-top: 18px; }
+
+  .quiz { background: var(--card-2); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; margin: 22px 0; }
+  .quiz .q-head { font-weight: 800; color: var(--primary-glow); margin-bottom: 14px; }
+  .quiz .q { margin-bottom: 18px; } .quiz .q p { font-weight: 600; margin-bottom: 8px; }
+  .quiz .opt { display:block; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 7px; cursor: pointer; font-size: 14px; background: var(--card); }
+  .quiz .opt:hover { border-color: var(--primary); } .quiz .opt input { margin-right: 10px; }
+  .quiz .opt.correct { background: rgba(16,185,129,.14); border-color: var(--ok); } .quiz .opt.wrong { background: rgba(239,68,68,.12); border-color: var(--danger); }
+  .quiz .explain { display:none; margin-top: 8px; font-size: 13px; color: var(--gray); padding: 10px 12px; background: var(--card); border-radius: 8px; border-left: 3px solid var(--info); }
+  .quiz .explain.show { display:block; }
+  .quiz button.check { background: var(--primary); color: #fff; border:none; border-radius:8px; padding: 9px 22px; font-size:14px; font-weight:700; cursor:pointer; font-family: inherit; }
+  .quiz button.check:hover { background: var(--primary-glow); }
+
+  .fc-filters { display:flex; flex-wrap:wrap; gap:8px; margin: 14px 0 6px; }
+  .fc-filter { background: var(--card); border:1px solid var(--border); color: var(--gray); padding: 6px 14px; border-radius: 20px; font-size: 12.5px; cursor:pointer; font-family: inherit; }
+  .fc-filter:hover, .fc-filter.active { border-color: var(--primary); color: var(--primary-glow); }
+  .fc-count { font-size: 12px; color: var(--gray); margin-left: 4px; }
+  .fc-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap: 14px; margin: 16px 0; }
+  .flashcard { background: transparent; perspective: 1000px; height: 180px; cursor: pointer; }
+  .fc-inner { position: relative; width:100%; height:100%; transition: transform .5s; transform-style: preserve-3d; }
+  .flashcard.flipped .fc-inner { transform: rotateY(180deg); }
+  .fc-face { position:absolute; width:100%; height:100%; backface-visibility:hidden; border-radius: 12px; padding: 16px; display:flex; flex-direction:column; justify-content:center; border:1px solid var(--border); }
+  .fc-front { background: var(--card); } .fc-back { background: var(--card); transform: rotateY(180deg); overflow-y:auto; }
+  .fc-tag { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; padding: 2px 8px; border-radius: 8px; align-self:flex-start; margin-bottom: 8px; font-weight:800; }
+  .fc-tag.t1 { background: rgba(5,150,105,.15); color: var(--l1); } .fc-tag.t2 { background: rgba(217,119,6,.15); color: var(--l2); } .fc-tag.t3 { background: rgba(109,40,217,.15); color: var(--l3); }
+  .fc-q { font-weight: 700; color: var(--light-strong); font-size: 15px; line-height: 1.5; } .fc-a { font-size: 13px; color: var(--light); line-height: 1.6; } .fc-a code { background: rgba(15,118,110,.1); color: var(--primary-glow); padding: 1px 5px; border-radius: 4px; font-size: 12px; }
+
+  footer.foot { border-top: 1px solid var(--border); padding: 30px 48px; color: var(--gray); font-size: 13px; }
+
+  .menu-toggle { display: none; }
+  @media (max-width: 980px) {
+    .sidebar { transform: translateX(-100%); } .sidebar.open { transform: translateX(0); }
+    .main-content { margin-left: 0; max-width: 100%; }
+    .menu-toggle { display: flex; position: fixed; top: 14px; left: 14px; z-index: 200; background: var(--primary); color: #fff; border:none; width: 44px; height: 44px; border-radius: 10px; font-size: 20px; cursor: pointer; align-items:center; justify-content:center; }
+    .content-inner, .topbar { padding-left: 18px; padding-right: 18px; } .topbar { padding-left: 66px; }
+  }
+</style>
+</head>
+<body>
+<button class="menu-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">☰</button>
+<div class="container">
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="g-icon">UE</div>
+      <h1>Unreal Engine 5.8</h1>
+      <p>KHÓA HỌC TỪ STARTER ĐẾN ADVANCED</p>
+    </div>
+    <div class="sidebar-search">
+      <input type="text" id="navSearch" placeholder="Tìm chương… (Ctrl+K)" oninput="filterNav(this.value)">
+    </div>
+    <ul class="nav-menu" id="navMenu">
+      <li class="nav-section-title nav-l1"><span class="badge">LEVEL 1</span> STARTER — CƠ BẢN</li>
+      <li><a href="#ch1"><span class="chapter-num">1</span> Tổng quan &amp; Cài đặt</a></li>
+      <li><a href="#ch2"><span class="chapter-num">2</span> Unreal Editor Interface</a></li>
+      <li><a href="#ch3"><span class="chapter-num">3</span> Actor &amp; Level Design cơ bản</a></li>
+      <li><a href="#ch4"><span class="chapter-num">4</span> Blueprint căn bản</a></li>
+      <li><a href="#ch5"><span class="chapter-num">5</span> Content Pipeline — Import assets</a></li>
+      <li><a href="#ch6"><span class="chapter-num">6</span> Material căn bản</a></li>
+      <li><a href="#ch7"><span class="chapter-num">7</span> Lighting cơ bản + Mini Project</a></li>
+      <li class="nav-section-title nav-l2"><span class="badge">LEVEL 2</span> INTERMEDIATE — TRUNG CẤP</li>
+      <li><a href="#ch8"><span class="chapter-num">8</span> Lumen — Global Illumination</a></li>
+      <li><a href="#ch9"><span class="chapter-num">9</span> Landscape &amp; Foliage</a></li>
+      <li><a href="#ch10"><span class="chapter-num">10</span> Physics &amp; Collision</a></li>
+      <li><a href="#ch11"><span class="chapter-num">11</span> Audio với MetaSounds</a></li>
+      <li><a href="#ch12"><span class="chapter-num">12</span> Niagara — Visual Effects</a></li>
+      <li><a href="#ch13"><span class="chapter-num">13</span> Character Animation</a></li>
+      <li><a href="#ch14"><span class="chapter-num">14</span> UMG — UI / HUD</a></li>
+      <li><a href="#ch15"><span class="chapter-num">15</span> Sequencer &amp; Cinematics</a></li>
+      <li><a href="#ch16"><span class="chapter-num">16</span> Packaging — Đóng gói game</a></li>
+      <li class="nav-section-title nav-l3"><span class="badge">LEVEL 3</span> ADVANCED — NÂNG CAO</li>
+      <li><a href="#ch17"><span class="chapter-num">17</span> Lập trình C++ trong UE</a></li>
+      <li><a href="#ch18"><span class="chapter-num">18</span> Material nâng cao</a></li>
+      <li><a href="#ch19"><span class="chapter-num">19</span> World Partition &amp; Open World</a></li>
+      <li><a href="#ch20"><span class="chapter-num">20</span> Nanite — Virtualized Geometry</a></li>
+      <li><a href="#ch21"><span class="chapter-num">21</span> PCG — Procedural Generation</a></li>
+      <li><a href="#ch22"><span class="chapter-num">22</span> Networking &amp; Multiplayer</a></li>
+      <li><a href="#ch23"><span class="chapter-num">23</span> Tối ưu hiệu năng</a></li>
+      <li><a href="#ch24"><span class="chapter-num">24</span> Lộ trình tiếp theo</a></li>
+      <li class="nav-section-title"><span class="badge" style="background:var(--gray)">★</span> ÔN TẬP</li>
+      <li><a href="#flashcards"><span class="chapter-num">FC</span> Flashcards thuật ngữ</a></li>
+      <li><a href="#lo-trinh"><span class="chapter-num">🗺</span> Bản đồ lộ trình</a></li>
+    </ul>
+  </aside>
+
+  <div class="main-content">
+    <div class="topbar">
+      <div class="crumb">📖 <b>Unreal Engine 5.8 Course</b> <span id="crumbCh">— Starter</span></div>
+      <div class="pill">24 chương · 3 cấp độ · 5.8 Docs mirror</div>
+    </div>
+
+    <div class="content-inner">
+
+      <div class="hero">
+        <h1>Unreal Engine 5.8 — <span class="grad">Từ Starter đến Advanced</span></h1>
+        <p>Khóa học tổng hợp từ chính bộ <strong>Unreal Engine 5.8 Documentation</strong> chính chủ của Epic Games (mirror local kèm ảnh gốc). Nội dung tiếng Việt, thuật ngữ giữ nguyên tiếng Anh — đúng cách dev game chuyên nghiệp đọc docs. Mỗi chương có ảnh minh họa thật từ tài liệu, bài tập thực hành và link tham chiếu tới trang docs đầy đủ.</p>
+        <div class="meta-row">
+          <div class="meta-pill"><b>24</b>chương</div>
+          <div class="meta-pill"><b>3</b>cấp độ</div>
+          <div class="meta-pill"><b>3.644</b>trang docs mirror</div>
+          <div class="meta-pill"><b>0đ</b>miễn phí</div>
+        </div>
+      </div>
+
+      <div class="box info">
+        <span class="box-title">Cách dùng khóa học này</span>
+        Các link <span class="term-en">Xem docs đầy đủ</span> cuối mỗi chương trỏ tới bản mirror offline của UE 5.8 Docs trong repo (thư mục <code class="ic">unreal-engine-5.8-docs/site/</code>) — mở bằng <code class="ic">python serve.py</code> hoặc xem trực tiếp file HTML. Ảnh trong khóa là ảnh gốc từ tài liệu Epic.
+      </div>
+
+      <div class="level-divider" id="level1"><div class="tag tag-l1">Level 1 · Starter — Cơ bản</div><div class="line"></div></div>
+
+      <!-- ==================== CHƯƠNG 1 ==================== -->
+      <section class="chapter" id="ch1">
+        <h2 class="ch-title"><span class="num">Chương 1</span> Unreal Engine 5.8 — Tổng quan &amp; Cài đặt</h2>
+        <p class="ch-sub">Unreal Engine là gì, vì sao chọn nó, và thiết lập môi trường làm việc đầu tiên.</p>
+
+        <h3 class="sec">Unreal Engine là gì?</h3>
+        <p><strong>Unreal Engine (UE)</strong> là game engine mã nguồn mở (source-available) của Epic Games, được dùng từ game AAA (<em>Fortnite</em>, <em>Matrix Awakens</em>) tới phim ảo hóa, kiến trúc, ô tô. Phiên bản 5.8 tiếp tục hoàn thiện bộ ba công nghệ标志 của UE5: <span class="term-en">Nanite</span> (geometry ảo hóa), <span class="term-en">Lumen</span> (global illumination thời gian thực) và <span class="term-en">World Partition</span> (world khổng lồ).</p>
+        {{I:install-unreal-engine:0|Epic Games Launcher — nơi cài đặt Unreal Engine}}
+        <table>
+          <tr><th>Khái niệm</th><th>Giải thích</th></tr>
+          <tr><td><span class="term-en">Epic Games Launcher</span></td><td>Ứng dụng quản lý: cài engine versions, project, Fab marketplace</td></tr>
+          <tr><td><span class="term-en">Project</span></td><td>Một game/ứng dụng UE — chứa levels, assets, code, settings</td></tr>
+          <tr><td><span class="term-en">Template</span></td><td>Dự án mẫu: First Person, Third Person, Top Down… có sẵn gameplay</td></tr>
+          <tr><td><span class="term-en">Blueprint vs C++</span></td><td>Hai cách lập trình: visual scripting (kéo thá) và code thật — dùng song song được</td></tr>
+        </table>
+
+        <h3 class="sec">Cấu hình máy &amp; cài đặt</h3>
+        <ul>
+          <li><strong>Windows:</strong> Windows 10/11 64-bit, RAM 32 GB khuyến nghị (16 GB tối thiểu), GPU DirectX 12 với 8 GB VRAM (RTX càng tốt cho Lumen/Nanite), SSD còn trống ≥ 100 GB.</li>
+          <li><strong>macOS:</strong> macOS 13.5+, chip Apple Silicon hoặc Intel, Metal 2.</li>
+          <li><strong>Linux:</strong> Ubuntu 22.04+, Vulkan 1.2+ — thích hợp build từ source.</li>
+        </ul>
+        <p>Cài qua <span class="term-en">Epic Games Launcher → Unreal Engine → Library → +</span>, chọn <strong>5.8.x</strong>. Sau đó cài các <span class="term-en">Components</span> theo nhu cầu: <code class="ic">Core Components</code> (bắt buộc), <code class="ic">Android Support</code>, <code class="ic">Linux Support</code>, <code class="ic">iOS Support</code>…</p>
+        {{I:install-unreal-engine:1|Đăng nhập Epic account trong Launcher}}
+        <div class="box tip">
+          <span class="box-title">Mẹo chọn đường dẫn</span>
+          Đặt engine và project trên <strong>SSD</strong>, đường dẫn <strong>không dấu, không khoảng trắng, không dấu tiếng Việt</strong> (ví dụ <code class="ic">D:/UE/Projects/MyGame</code>) — tránh lỗi import asset và build.
+        </div>
+
+        <h3 class="sec">Project đầu tiên</h3>
+        <p>Khởi động engine → <span class="term-en">Game</span> category → template <strong>Third Person</strong>. Chọn:</p>
+        <ul>
+          <li><strong>Blueprint</strong> hoặc <strong>C++</strong> (C++ cần Visual Studio 2022 + workload "Game development with C++")</li>
+          <li><strong>Target platform:</strong> Maximum Quality (PC) / Scalable 3D-2D (mobile)</li>
+          <li><strong>Starter Content:</strong> tick để có sẵn assets luyện tập</li>
+          <li><strong>Raytracing:</strong> để trừ khi GPU mạnh</li>
+        </ul>
+        {{I:module-1-install-ue-and-create-your-first-project:0|Tạo project Third Person đầu tiên}}
+        <p>Nhấn <span class="term-en">Create</span> — UE sẽ mở editor với một level có character điều khiển được: bấm <strong>Play</strong> (hoặc Alt+P) và chạy quanh map bằng WASD + chuột.</p>
+
+        <div class="exercise">
+          <div class="ex-head">🏋️ Bài tập 1 <span class="lvl">Starter</span></div>
+          <p>Cài UE 5.8, tạo project <strong>Third Person Blueprint</strong> có Starter Content, đặt tên <code class="ic">UECourse_FirstGame</code>. Bấm Play, chạy nhặt 1 đồng coin trong map, chụp màn hình kết quả.</p>
+          <details class="answer"><summary>Gợi ý</summary>
+          <div class="body">Coin nằm ở khu vực gần cầu thang trong Third Person map. Muốn thay skin nhân vật: double-click <code class="ic">Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter</code> trong Content Browser.</div>
+          </details>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: {{L:install-unreal-engine}} · {{L:module-1-install-ue-and-create-your-first-project}} · {{L:first-hour-in-unreal-engine}}</p>
+      </section>
+
+      <!-- ==================== CHƯƠNG 2 ==================== -->
+      <section class="chapter" id="ch2">
+        <h2 class="ch-title"><span class="num">Chương 2</span> Unreal Editor Interface</h2>
+        <p class="ch-sub">Làm chủ các panel của editor — nơi bạn sẽ sống suốt mấy năm tới.</p>
+
+        <h3 class="sec">Layout tổng quan</h3>
+        {{I:unreal-editor-interface:0|Unreal Editor — bố cục các panel chính}}
+        <table>
+          <tr><th>Panel</th><th>Vai trò</th><th>Phím tắt hữu ích</th></tr>
+          <tr><td><span class="term-en">Viewport</span></td><td>Cửa sổ 3D chính — nhìn và chỉnh level</td><td>F focus, Alt+Kéo orbit, chuột giữa pan</td></tr>
+          <tr><td><span class="term-en">Content Browser</span></td><td>Quản lý mọi assets (mesh, texture, Blueprint…)</td><td>Ctrl+B mở asset trong Explorer</td></tr>
+          <tr><td><span class="term-en">World Outliner</span></td><td>Danh sách Actor trong level theo cây</td><td>Ctrl+Shift+F tìm trong outliner</td></tr>
+          <tr><td><span class="term-en">Details</span></td><td>Properties của Actor đang chọn</td><td>—</td></tr>
+          <tr><td><span class="term-en">Modes</span></td><th switch giữa các tool: Select, Landscape, Foliage, Mesh Paint…</td><td>Shift+1/2/3</td></tr>
+        </table>
+
+        <h3 class="sec">Điều hướng Viewport như pro</h3>
+        <ul>
+          <li><strong>WASD + chuột phải giữ:</strong> fly-through — cách di chuyển nhanh nhất.</li>
+          <li><strong>Alt + chuột trái kéo:</strong> orbit quanh điểm đang focus; <strong>Alt + chuột phải kéo:</strong> zoom.</li>
+          <li><strong>F:</strong> focus vào Actor đang chọn; <strong>Ctrl+Alt+Kéo chuột:</strong> box-select.</li>
+          <li><strong>G:</strong> bật <span class="term-en">Game View</span> — ẩn mọi icon/gizmo, xem game "thật".</li>
+          <li><strong>Tải Viewport:</strong> gõ <code class="ic">HighResShot 3840x2160</code> vào Console (~) để chụp 4K.</li>
+        </ul>
+        <h3 class="sec">Content Browser &amp; tìm asset</h3>
+        <p>Content Browser tương tự Explorer nhưng mọi thứ đều là <span class="term-en">uasset</span>. Dùng <strong>ô Search</strong> với filter: <code class="ic">type:Blueprint</code>, <code class="ic">type:Texture</code>, <code class="ic">name:*coin*</code>. Chuột phải → <span class="term-en">Asset Actions → Reference Viewer</span> xem asset này được ai dùng — cực giá trị khi dọn project.</p>
+        {{I:unreal-editor-interface:2|Content Browser với các asset của project}}
+
+        <div class="box warn">
+          <span class="box-title">Quy tắc sống còn</span>
+          <strong>Không bao giờ</strong> xoá/di chuyển asset bằng Windows Explorer — luôn dùng Content Browser để references không đứt. Nếu lỡ tay, dùng <span class="term-en">Fix Up Redirectors</span> trong Content Browser.
+        </div>
+
+        <h3 class="sec">Các chế độ làm việc (Modes)</h3>
+        {{I:unreal-editor-interface:3|Editor với các panel ở chế độ làm việc chuyên biệt}}
+        <p>Panel bên trái trên Viewport chứa các <span class="term-en">Editor Modes</span>: <code class="ic">Select</code> (mặc định), <code class="ic">Landscape</code> (tạo địa hình — Chương 9), <code class="ic">Foliage</code> (vẽ cây cỏ — Chương 9), <code class="ic">Mesh Paint</code>, <code class="ic">Brush Editing</code>. Mỗi mode có toolbar riêng đổi theo ngữ cảnh.</p>
+        <h4 class="sub">Hai thanh toolbar dễ nhầm</h4>
+        <p><span class="term-en">Main Toolbar</span> nằm ngang trên cùng (chứa Save, Play, Launch…), còn <span class="term-en">Viewport Toolbar</span> nằm trong góc trái trên viewport (chọn gizmo, snapping, view mode):</p>
+        {{I:unreal-editor-interface:1|Main Toolbar — thanh công cụ chính phía trên cùng}}
+        {{I:unreal-editor-interface:2|Viewport Toolbar — góc trái viewport: gizmo, snapping, view mode}}
+
+        <div class="exercise">
+          <div class="ex-head">🏋️ Bài tập 2 <span class="lvl">Starter</span></div>
+          <p>Trong project cũ: (1) bay camera một vòng map bằng WASD+chuột phải, (2) dùng World Outliner tìm <code class="ic">BP_ThirdPersonCharacter</code>, nhấn F focus, (3) mở Content Browser tìm tất cả texture có chữ "floor", (4) bấm G xem Game View rồi tắt.</p>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: {{L:unreal-editor-interface}} · {{L:tools-and-editors-in-unreal-engine}}</p>
+      </section>
+
+      <!-- ==================== CHƯƠNG 3 ==================== -->
+      <section class="chapter" id="ch3">
+        <h2 class="ch-title"><span class="num">Chương 3</span> Actor, Component &amp; Level Design cơ bản</h2>
+        <p class="ch-sub">Khối xây dựng cơ bản của mọi thứ trong Unreal — và dựng level đầu tay.</p>
+
+        <h3 class="sec">Mọi thứ đều là Actor</h3>
+        <p><span class="term-en">Actor</span> là bất kỳ object nào đặt được vào level: camera, ánh sáng, character, cube. Actor không tự chứa vị trí — vị trí nằm ở <span class="term-en">Root Component</span>. Actor sinh ra bằng <span class="term-en">Spawn</span> và chết bằng <span class="term-en">Destroy</span> (Chương 4 sẽ gọi hai hàm này từ Blueprint).</p>
+        {{I:transforming-actors-in-unreal-engine:0|Viewport toolbar — nơi chọn gizmo Select/Translate/Rotate/Scale}}
+        <table>
+          <tr><th>Khái niệm</th><th>Ý nghĩa</th></tr>
+          <tr><td><span class="term-en">Transform</span></td><td>Location (xyz cm), Rotation (pitch/yaw/roll độ), Scale</td></tr>
+          <tr><td><span class="term-en">Component</span></td><td>Phần tử ghép vào Actor: Static Mesh, Light, Camera, Audio… Actor là "cái khung", Component là "bộ phận"</td></tr>
+          <tr><td><span class="term-en">Static Mesh Actor</span></td><td>Actor chứa 1 Static Mesh — tường, sàn, prop tĩnh</td></tr>
+          <tr><td><span class="term-en">Mobility</span></td><td>Static (không di chuyển, cheap) / Movable (dynamic, đắt hơn) — quyết định cả lighting</td></tr>
+        </table>
+
+        <h3 class="sec">Đặt object: Place Actors panel</h3>
+        <p>Kéo thá từ <span class="term-en">Place Actors</span> (Window → Place Actors) vào viewport: cube, sphere, light, camera… Hoặc kéo mesh từ Content Browser thẳng vào level. <strong>End</strong> = snap xuống mặt dưới, <strong>End+Shift</strong> = snap lên mặt trên — tuyệt vời đặt prop lên sàn.</p>
+        {{I:level-designer-quick-start-in-unreal-engine:0|Place Actors — kéo thá object vào level}}
+
+        <h3 class="sec">Snap &amp; grid — độ chính xác của level designer</h3>
+        <ul>
+          <li>Thanh toolbar góc phải trên viewport: bật <span class="term-en">Grid Snapping</span> (10 cm mặc định), <span class="term-en">Rotation Snapping</span> (10°), <span class="term-en">Scale Snapping</span>.</li>
+          <li>Giữ <strong>Ctrl</strong> kéo trục = duplicate theo trục đó.</li>
+          <li><strong>Alt + kéo</strong> = duplicate ngay tại chỗ.</li>
+        </ul>
+        {{I:transforming-actors-in-unreal-engine:4|Alt + kéo gizmo Translate = duplicate Actor ngay tại chỗ}}
+
+        <h3 class="sec">Layers của một level chơi được</h3>
+        <p>Một level "đúng chuẩn" gồm: <strong>geometry</strong> (sàn tường - Blocking), <strong>lighting</strong> (Directional + Sky + vài point light), <strong>gameplay</strong> (Player Start, checkpoints, trigger volumes), <strong>art pass</strong> (mesh đẹp thay khối block). Làm theo thứ tự đó — không làm art trước gameplay!</p>
+        {{I:level-designer-quick-start-in-unreal-engine:2|Wireframe blocking pass của một level}}
+        <div class="box info">
+          <span class="box-title">Player Start ở đâu?</span>
+          Tìm trong Place Actors → All Classes → <code class="ic">Player Start</code>. Nhớ để trên mặt đất (có mũi tên xanh chỉ hướng spawn). Nếu game chạy mà "rơi xuyên sàn" — Player Start bị lơ lửng.
+        </div>
+
+        <div class="exercise">
+          <div class="ex-head">🏋️ Bài tập 3 <span class="lvl">Starter</span></div>
+          <p>Tạo level mới (File → New Level → Basic). Dựng một căn phòng 10×10 m bằng cube (scale đúng 100=1 m), thêm <span class="term-en">Player Start</span>, 1 <span class="term-en">Directional Light</span>, 1 <span class="term-en">Sky Light</span> và 2 <span class="term-en">Point Light</span>. Bấm Play chạy thử trong phòng.</p>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: {{L:actors-in-unreal-engine}} · {{L:transforming-actors-in-unreal-engine}} · {{L:level-designer-quick-start-in-unreal-engine}} · {{L:spawning-and-destroying-unreal-engine-actors}}</p>
+      </section>
+
+      <!-- ==================== CHƯƠNG 4 ==================== -->
+      <section class="chapter" id="ch4">
+        <h2 class="ch-title"><span class="num">Chương 4</span> Blueprint — Visual Scripting căn bản</h2>
+        <p class="ch-sub">Lập trình bằng kéo thá node — ngôn ngữ "ruột" của Unreal.</p>
+
+        <h3 class="sec">Blueprint là gì?</h3>
+        <p><span class="term-en">Blueprint Visual Scripting</span> là hệ thống lập trình bằng node của UE: mỗi node là một hàm/sự kiện, dây nối = luồng thực thi (dây trắng) hoặc dữ liệu (dây màu). Blueprint chạy trên máy ảo riêng, đủ nhanh cho 90% gameplay logic, và <strong>dùng chung ting cài với C++</strong>.</p>
+        {{I:module-3-create-a-coin-pickup-with-modeling-tools-and-blueprints:0|Dựng mesh coin pickup bằng in-editor Modeling Tools}}
+
+        <h3 class="sec">Các loại Blueprint</h3>
+        <table>
+          <tr><th>Loại</th><th>Dùng khi nào</th></tr>
+          <tr><td><span class="term-en">Level Blueprint</span></td><td>Logic riêng của một level: mở cửa khi bấm công tắc, trigger cutscene</td></tr>
+          <tr><td><span class="term-en">Blueprint Class</span></td><td>Class tái sử dụng: item, character, weapon — tạo nhiều instance</td></tr>
+          <tr><td><span class="term-en">Actor Component</span></td><td>Chức năng ghép vào Actor bất kỳ (health, inventory)</td></tr>
+          <tr><td><span class="term-en">Widget Blueprint</span></td><td>UI (Chương 14)</td></tr>
+          <tr><td><span class="term-en">Animation Blueprint</span></td><td>Điều khiển animation character (Chương 13)</td></tr>
+        </table>
+
+        <h3 class="sec">Event, Node, Pin — bộ ba cơ bản</h3>
+        <ul>
+          <li><span class="term-en">Event Node</span> (màu đỏ): điểm bắt đầu — <code class="ic">Event BeginPlay</code> (chạy 1 lần), <code class="ic">Event Tick</code> (mỗi frame), <code class="ic">Event ActorBeginOverlap</code> (va chạm)…</li>
+          <li><span class="term-en">Exec pin</span> (dây trắng): luồng thực thi theo thứ tự. <span class="term-en">Data pin</span> (dây màu): truyền giá trị.</li>
+          <li>Right-click mở menu đầy đủ; kéo từ pin ra gõ tên hàm để auto-create node.</li>
+          <li><strong>Ctrl+R</strong> refactor tên biến an toàn — mọi chỗ dùng tự đổi theo.</li>
+        </ul>
+
+        <h3 class="sec">Ví dụ đầu tiên: đồng xu tự xoay + nhặt được</h3>
+        <p>Mở Blueprint mới (Content Browser → right-click → Blueprint Class → Actor), thêm <span class="term-en">Static Mesh Component</span> (mesh sphere dẹt), rồi vẽ:</p>
+        <div class="code-block">
+          <div class="code-head"><div class="fname">BP_Coin — Event Graph</div><div class="dots"><i></i><i></i><i></i></div></div>
+          <pre class="code"><span class="k">Event BeginPlay</span> → Set Actor Enable Collision (true)
+<span class="k">Event Tick</span> → AddActorLocalRotation (Z = 2.0 mỗi frame)
+<span class="k">Event ActorBeginOverlap</span> (Other Actor) →
+    <span class="f">Cast To BP_ThirdPersonCharacter</span> (thành công) →
+        <span class="f">DestroyActor</span> (self)   <span class="c">// biến mất khi player chạm</span></pre>
+        </div>
+        <p><span class="term-en">Cast</span> là cách hỏi "Actor chạm vào tôi có phải là Player không?" — chỉ khi đúng mới chạy nhánh tiếp. Kéo mesh vào level làm vài bản — mỗi bản là một instance riêng.</p>
+
+        <h3 class="sec">Variables &amp; phát triển logic</h3>
+        <p>Panel <span class="term-en">My Blueprint</span> → Variables → + : tạo <code class="ic">Score</code> (Integer), <code class="ic">bIsOpen</code> (Boolean), <code class="ic">TargetPoint</code> (Vector)… Tick <span class="term-en">Instance Editable</span> để chỉnh giá trị từng instance trong Details panel ngay trong level. Get/Set bằng kéo thá tên biến vào graph.</p>
+        {{I:bp-event-graph:0|Event Graph thật từ tutorial Epic — node, exec wire (trắng) và data wire (màu)}}
+        <div class="box tip">
+          <span class="box-title">Thói quen tốt ngay từ đầu</span>
+          Đặt tên node/graph rõ nghĩa, dùng <span class="term-en">Comment box</span> (Chú thích vùng) nhóm logic, ưu tiên <span class="term-en">Functions</span> thay vì copy chuỗi node. Mỗi Blueprint chỉ nên lo một việc.
+        </div>
+
+        <div class="exercise">
+          <div class="ex-head">🏋️ Bài tập 4 <span class="lvl">Starter</span> → <span class="lvl hard">+</span></div>
+          <p>Nâng cấp BP_Coin: thêm biến <code class="ic">CoinValue</code> (Integer, Instance Editable, default 10). Khi overlap, trước khi Destroy hãy in ra màn hình console bằng node <code class="ic">Print String</code> ghép "Picked coin worth " + CoinValue. Rồi làm thêm 1 coin "đặc" CoinValue = 50.</p>
+          <details class="answer"><summary>Gợi ý</summary><div class="body">Print String chỉ nhận String → cần node <code class="ic">ToText(Integer)</code> hoặc dùng chuỗi format. Muốn cộng điểm thật: lưu biến Score trong BP_ThirdPersonCharacter và gọi qua Cast.</div></details>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: {{L:blueprints-visual-scripting-in-unreal-engine}} · {{L:designer-06-puzzles-moving-platforms-in-unreal-engine}} · {{L:module-3-create-a-coin-pickup-with-modeling-tools-and-blueprints}}</p>
+      </section>
+
+      <!-- ==================== CHƯƠNG 5 ==================== -->
+      <section class="chapter" id="ch5">
+        <h2 class="ch-title"><span class="num">Chương 5</span> Content Pipeline — Import assets</h2>
+        <p class="ch-sub">Đưa mesh, texture, animation từ DCC tools (Blender, Maya) vào project đúng chuẩn.</p>
+
+        <h3 class="sec">Asset types cần biết</h3>
+        <table>
+          <tr><th>Type</th><th>Nội dung</th><th>Nguồn thường gặp</th></tr>
+          <tr><td><span class="term-en">Static Mesh</span></td><td>Geometry tĩnh: tường, prop, weapon</td><td>FBX/glTF từ Blender/Maya</td></tr>
+          <tr><td><span class="term-en">Skeletal Mesh</span></td><td>Geometry có bone để animate</td><td>FBX rigged</td></tr>
+          <tr><td><span class="term-en">Texture 2D</span></td><td>Ảnh: diffuse, normal, roughness…</td><td>PNG/TGA/EXR</td></tr>
+          <tr><td><span class="term-en">Material</span></td><td>Công thức màu sắc bề mặt (Chương 6)</td><td>Tạo trong UE</td></tr>
+          <tr><td><span class="term-en">Sound Wave / MetaSound</span></td><td>Âm thanh (Chương 11)</td><td>WAV/OGG</td></tr>
+        </table>
+
+        <h3 class="sec">Hệ thống Interchange</h3>
+        <p>Từ UE 5.x, import đi qua framework <span class="term-en">Interchange</span>: kéo file FBX/glTF/abc vào Content Browser → hiện <span class="term-en">Interchange Pipeline Stack</span> để chọn trước lúc import: tạo material tự động, generate collision, import ánh xạ bone… Mọi lựa chọn đều lưu được thành preset tái sử dụng.</p>
+        {{I:importing-assets-using-interchange-in-unreal-engine:0|Import dialog của Interchange framework}}
+        {{I:importing-assets-using-interchange-in-unreal-engine:1|Pipeline Stack — tinh chỉnh kết quả import}}
+
+        <h3 class="sec">Chuẩn FBX từ Blender/Maya</h3>
+        <ul>
+          <li><strong>Đơn vị:</strong> 1 Unreal unit = 1 cm. Xuất FBX ở scale thực (Blender: Unit Scale 0.01 hoặc Apply Scale khi export).</li>
+          <li><strong>Hướng:</strong> UE là Z-up, import FBX tự xoay — kiểm tra Static Mesh → Details → <span class="term-en">Import Rotation</span>.</li>
+          <li><strong>Pivot:</strong> đặt origin đúng chỗ (chân prop) trước khi export.</li>
+          <li><strong>Collision:</strong> đơn giản nhất là trong Static Mesh Editor → Collision → Add Box Simplified Collision, hoặc tick <span class="term-en">Auto Generate Collision</span> khi import.</li>
+        </ul>
+        {{I:importing-assets-using-interchange-in-unreal-engine:2|Interchange Preview — xem trước danh sách asset sẽ được tạo}}
+        <div class="box warn">
+          <span class="box-title">Naming convention từ ngày đầu</span>
+          Đặt tên asset dạng <code class="ic">SM_Chair</code> (Static Mesh), <code class="ic">SK_Character</code> (Skeletal), <code class="ic">T_Wood_D</code> (Texture Diffuse), <code class="ic">M_Wood</code> (Material), <code class="ic">MI_Wood_Oak</code> (Material Instance). Khối lượng asset lên hàng nghìn thì sẽ cảm ơn chính mình.
+        </div>
+
+        <div class="exercise">
+          <div class="ex-head">🏋️ Bài tập 5 <span class="lvl">Starter</span></div>
+          <p>Tải 1 model miễn phí (glTF/FBX) từ Fab hoặc Sketchfab, import vào project bằng Interchange, bật auto collision, kéo vào level và bấm Play đi xuyên thử — nếu xuyên được thì collision chưa có.</p>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: {{L:importing-assets-using-interchange-in-unreal-engine}} · {{L:artist-01-project-setup-and-content-import}} · {{L:importing-static-meshes-in-unreal-engine}}</p>
+      </section>
+
+      <!-- ==================== CHƯƠNG 6 ==================== -->
+      <section class="chapter" id="ch6">
+        <h2 class="ch-title"><span class="num">Chương 6</span> Material căn bản</h2>
+        <p class="ch-sub">"Công thức nấu" bề mặt: màu, kim loại, nhám — viết bằng node trong Material Editor.</p>
+
+        <h3 class="sec">Material là công thức, không phải ảnh</h3>
+        <p><span class="term-en">Material</span> trong UE là shader graph: input ảnh + toán tử → tô lên mesh. Ba input quan trọng nhất của <span class="term-en">Unlit/Lit</span> surface:</p>
+        <table>
+          <tr><th>Pin</th><th>Ý nghĩa</th><th>Giá trị mẫu</th></tr>
+          <tr><td><span class="term-en">Base Color</span></td><td>Màu bản thể (albedo)</td><td>Vector3, 0–1</td></tr>
+          <tr><td><span class="term-en">Metallic</span></td><td>0 = sơn/đá/gỗ, 1 = kim loại thật</td><td>Scalar 0 hoặc 1</td></tr>
+          <tr><td><span class="term-en">Roughness</span></td><td>0 = bóng gương, 1 = nhám mờ</td><td>Scalar 0–1</td></tr>
+          <tr><td><span class="term-en">Normal</span></td><td>Giả chi tiết bề mặt không thêm polygon</td><td>Normal map (tím xanh)</td></tr>
+        </table>
+        {{I:artist-03-create-materials-and-material-instances:0|Material Editor — node graph nối vào input chính}}
+
+        <h3 class="sec">Material Editor nhanh</h3>
+        <p>Double-click bất kỳ material → mở editor. Right-click thêm node: <code class="ic">Constant</code> (giá trị), <code class="ic">Constant3Vector</code> (màu), <code class="ic">TextureSample</code> (ảnh), <code class="ic">Multiply/Lerp</code> (phối hợp). Kéo pin output vào pin input của Material. Bấm <strong>Apply</strong> để compile — kết quả xem ngay ở panel Preview.</p>
+        {{I:artist-03-create-materials-and-material-instances:1|Các node cơ bản: Texture Sample, Multiply, Constant}}
+
+        <h3 class="sec">Material Instance — lý do project của bạn nhanh</h3>
+        <p>Đừng tạo 20 material cho 20 màu gỗ. Tạo <strong>1 Material cha</strong> có tham số (right-click node Constant → Convert to Parameter), rồi right-click material → <span class="term-en">Create Material Instance</span>. Instance đổi tham số <strong>không cần recompile shader</strong> — pink 10 giây thành 0 giây.</p>
+        {{I:artist-03-create-materials-and-material-instances:2|Material Instance chỉ đổi parameter — không đụng shader}}
+
+        <div class="box tip">
+          <span class="box-title">Ba câu hỏi trước khi làm material</span>
+          (1) Đây là kim loại không? → Metallic. (2) Bóng hay nhám? → Roughness. (3) Có chi tiết bề mặt? → Normal map. 90% material đời thường chỉ cần 3 câu đó.
+        </div>
+
+        <div class="exercise">
+          <div class="ex-head">🏋️ Bài tập 6 <span class="lvl">Starter</span></div>
+          <p>Tạo material <code class="ic">M_Learning</code>: Base Color từ TextureSample (dùng texture trong Starter Content), Roughness là parameter. Tạo 2 instance: một bóng (0.1), một nhám (0.9), áp lên 2 quả cầu đặt cạnh nhau dưới đèn — so sánh.</p>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: {{L:artist-03-create-materials-and-material-instances}} · {{L:physically-based-materials-in-unreal-engine}}</p>
+      </section>
+
+      <!-- ==================== CHƯƠNG 7 ==================== -->
+      <section class="chapter" id="ch7">
+        <h2 class="ch-title"><span class="num">Chương 7</span> Lighting cơ bản + Mini Project</h2>
+        <p class="ch-sub">Ba vị thần ánh sáng của scene — và ghép tất cả kiến thức Level 1 thành một mini game.</p>
+
+        <h3 class="sec">Bộ ba ánh sáng ngoài trời</h3>
+        <table>
+          <tr><th>Light Actor</th><th>Vai trò</th><th>Notes</th></tr>
+          <tr><td><span class="term-en">Directional Light</span></td><td>Mặt trời — shadow song song</td><td>1 cái/level, chỉnh Atmosphere Sun Light</td></tr>
+          <tr><td><span class="term-en">Sky Light</span></td><td>Ánh sáng trời phản chiếu môi trường</td><td>SLS Capture Scene để ăn theo bầu trời</td></tr>
+          <tr><td><span class="term-en">Height Fog</span></td><td>Sương theo độ cao, tạo chiều sâu</td><td>Fog màu nên khớp màu trời</td></tr>
+          <tr><td><span class="term-en">Point / Spot Light</span></td><td>Đèn trong nhà, highlight prop</td><td>Đặt Mobility Movable nếu cần tắt/bật runtime</td></tr>
+        </table>
+        {{I:artist-02-light-a-scene:2|Hard shadow vs soft shadow — chất lượng bóng theo nguồn sáng}}
+
+        <h3 class="sec">Intensity, màu, và Exposure</h3>
+        <p>UE dùng đơn vị ánh sáng vật lý (<span class="term-en">lux, candela</span>) — đèn mặt trời mặc định ~10 lux × đơn vị lớn. Camera có <span class="term-en">Auto Exposure</span>: scene tối/ sáng tự cân. Muốn "như phim": Viewport → Show → Auto Exposure hoặc đặt <span class="term-en">Post Process Volume</span> khóa Exposure Min=Max.</p>
+        {{I:artist-02-light-a-scene:1|Điều chỉnh ánh sáng và kiểm tra trong viewport}}
+
+        <h3 class="sec">Mini Project 1 — "Coin Rush"</h3>
+        <div class="checklist">
+          <h4>🎯 Checklist dự án (ghép Chương 1–7)</h4>
+          <label><input type="checkbox"><span>Tạo project Third Person mới <code class="ic">CoinRush</code></span></label>
+          <label><input type="checkbox"><span>Dựng 1 khu sân ~20×20 m có vách ngăn (Ch3)</span></label>
+          <label><input type="checkbox"><span>Import 1 mesh prop ngoài + collision (Ch5)</span></label>
+          <label><input type="checkbox"><span>BP_Coin tự xoay, +điểm khi nhặt, CoinValue editable (Ch4)</span></label>
+          <label><input type="checkbox"><span>Material coin vàng kim loại bóng M_Gold + 2 instance màu khác (Ch6)</span></label>
+          <label><input type="checkbox"><span>Chiếu sáng: 1 Directional + Sky Light + Fog + 2 đèn điểm màu (Ch7)</span></label>
+          <label><input type="checkbox"><span>Play thử: nhặt đủ 10 coin không bị rơi khỏi map</span></label>
+        </div>
+
+        <div class="quiz" data-quiz="1">
+          <div class="q-head">📝 Quiz Level 1 — Starter</div>
+          <div class="q"><p>1. Actor đặt vị trí ở đâu?</p>
+            <label class="opt"><input type="radio" name="q1">Trong biến Location của chính nó</label>
+            <label class="opt" data-ok><input type="radio" name="q1">Ở Root Component của Actor</label>
+            <label class="opt"><input type="radio" name="q1">Trong World Outliner</label>
+            <div class="explain">Actor không tự lưu Transform — dữ liệu nằm ở Root Component (thường là Scene Component đầu tiên).</div>
+          </div>
+          <div class="q"><p>2. Muốn 10 màu gỗ mà không recompile shader 10 lần?</p>
+            <label class="opt"><input type="radio" name="q2">Copy material 10 file</label>
+            <label class="opt"><input type="radio" name="q2">Dùng 1 material + 10 Material Instance</label>
+            <label class="opt" data-ok><input type="radio" name="q2">Dùng Material Instance đổi parameter</label>
+            <div class="explain">Material Instance thay đổi parameter (đã convert trong material cha) mà không cần compile lại shader.</div>
+          </div>
+          <div class="q"><p>3. Node nào là điểm bắt đầu chạy mỗi frame?</p>
+            <label class="opt" data-ok><input type="radio" name="q3">Event Tick</label>
+            <label class="opt"><input type="radio" name="q3">Event BeginPlay</label>
+            <label class="opt"><input type="radio" name="q3">Construction Script</label>
+            <div class="explain">Event Tick chạy mỗi frame; BeginPlay chỉ 1 lần lúc spawn; Construction Script chạy trong editor khi thay đổi.</div>
+          </div>
+          <button class="check" onclick="checkQuiz(this)">Kiểm tra</button>
+        </div>
+        <p class="docs-ref">📚 Xem docs đầy đủ: {{L:artist-02-light-a-scene}} · {{L:lighting-the-environment-in-unreal-engine}} · {{L:features-and-properties-of-lights-in-unreal-engine}}</p>
+      </section>

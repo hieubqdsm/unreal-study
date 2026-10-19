@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unreal Study — Tài liệu học Unreal Engine 5.8 (tiếng Việt)</title>
+<meta name="description" content="Khóa học Unreal Engine 5.8 tiếng Việt 24 chương + sơ đồ kỹ năng RPG, đối chiếu tài liệu chính thức Epic.">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --bg:#0a0e14; --panel:#111a29; --border:#1e2c42;
+    --text:#cbd5e1; --bright:#f1f5f9; --dim:#64748b; --teal:#2ae5b2;
+  }
+  body {
+    font-family:'Segoe UI',Tahoma,sans-serif; color:var(--text); min-height:100vh;
+    background:
+      radial-gradient(1200px 600px at 70% -10%, #12233d55, transparent),
+      radial-gradient(900px 500px at 10% 110%, #1a103055, transparent), var(--bg);
+    display:flex; flex-direction:column;
+  }
+  header { padding:34px 34px 10px; display:flex; align-items:center; gap:14px; }
+  .mark { width:54px; height:54px; border-radius:14px; display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(135deg,#13d9cd,#0f766e); color:#04211c; font-weight:900; font-size:22px;
+    box-shadow:0 0 26px #14b8a666; }
+  h1 { font-size:22px; color:var(--bright); letter-spacing:.4px; }
+  header p { font-size:11.5px; color:var(--dim); letter-spacing:2px; text-transform:uppercase; margin-top:2px; }
+
+  main { flex:1; width:min(980px,100%); margin:0 auto; padding:30px 24px 60px; }
+  .lead { font-size:15px; line-height:1.7; color:var(--text); max-width:720px; margin-bottom:34px; }
+  .lead b { color:var(--bright); }
+
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:18px; }
+  a.card {
+    display:block; text-decoration:none; background:var(--panel); border:1px solid var(--border);
+    border-radius:16px; padding:26px 24px; transition:transform .15s ease, border-color .15s ease;
+  }
+  a.card:hover { transform:translateY(-3px); border-color:#2ae5b266; }
+  .card .icon { font-size:30px; margin-bottom:14px; }
+  .card h2 { font-size:17px; color:var(--bright); margin-bottom:8px; }
+  .card p { font-size:13.5px; line-height:1.6; color:var(--dim); }
+  .card .tag { display:inline-block; margin-top:14px; font-size:11px; letter-spacing:1.2px;
+    text-transform:uppercase; color:var(--teal); border:1px solid #2ae5b244; border-radius:99px; padding:3px 12px; }
+
+  .note {
+    margin-top:34px; background:#0d1420; border:1px dashed var(--border); border-radius:12px;
+    padding:18px 20px; font-size:13.5px; line-height:1.7; color:var(--dim);
+  }
+  .note a { color:var(--teal); text-decoration:none; }
+  .note a:hover { text-decoration:underline; }
+  .note b { color:var(--text); }
+
+  footer { padding:20px 34px; font-size:12px; color:#3b465c; border-top:1px solid #131b29; }
+</style>
+</head>
+<body>
+<header>
+  <div class="mark">UE</div>
+  <div>
+    <h1>Unreal <b style="color:var(--teal)">Study</b></h1>
+    <p>Tài liệu học Unreal Engine 5.8 · tiếng Việt</p>
+  </div>
+</header>
+
+<main>
+  <p class="lead">
+    Bộ tài liệu tự học <b>Unreal Engine 5.8</b> bằng tiếng Việt (giữ nguyên thuật ngữ Anh) —
+    đi từ <b>Starter</b> đến <b>Advanced</b>, có quiz, flashcards và sơ đồ kỹ năng dạng RPG
+    để theo dõi tiến độ học.
+  </p>
+
+  <div class="grid">
+    <a class="card" href="khoa-hoc-unreal-engine.html">
+      <div class="icon">🎓</div>
+      <h2>Khóa học 24 chương</h2>
+      <p>Lộ trình Starter → Intermediate → Advanced, kèm quiz cuối chương và flashcards ôn tập.
+      Ảnh minh họa lấy từ tài liệu chính thức của Epic.</p>
+      <span class="tag">Starter → Advanced</span>
+    </a>
+    <a class="card" href="unreal-skill-tree.html">
+      <div class="icon">🌳</div>
+      <h2>Skill tree RPG</h2>
+      <p>Sơ đồ kỹ năng 7 nhánh × 8 tier với 38 node, mở dần theo điều kiện tiên quyết.
+      Tiến độ được lưu ngay trên máy bạn (localStorage).</p>
+      <span class="tag">7 nhánh · 38 node</span>
+    </a>
+  </div>
+
+  <div class="note">
+    <b>Về tài liệu gốc (docs mirror):</b> bản mirror đầy đủ ~3.600 trang của
+    <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine" target="_blank" rel="noopener">Unreal Engine 5.8 Documentation</a>
+    nặng ~1,1 GB nên không thể đưa lên GitHub Pages (giới hạn 1 GB) — nó chỉ chạy offline ở local
+    trong repo này (xem README). Trên web, các link tới trang docs sẽ chuyển thẳng sang
+    site chính thức của Epic.
+  </div>
+</main>
+
+<footer>Unreal Study · build từ tài liệu Epic Games · Unreal® and its logo are Epic's trademarks</footer>
+</body>
+</html>

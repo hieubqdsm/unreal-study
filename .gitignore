@@ -1,0 +1,9 @@
+# Docs mirror ~1,1 GB — vượt giới hạn GitHub Pages (1 GB), chỉ dùng local.
+# Tái tạo bằng: cd unreal-engine-5.8-docs && python scripts/crawl_docs.py (xem README trong scripts/)
+unreal-engine-5.8-docs/site/
+unreal-engine-5.8-docs/_raw/
+
+# File kiểm tra/tạm do pipeline scripts sinh ra
+unreal-engine-5.8-docs/scripts/_*.png
+unreal-engine-5.8-docs/scripts/_*.html
+__pycache__/
