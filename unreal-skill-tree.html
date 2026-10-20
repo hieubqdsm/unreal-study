@@ -418,36 +418,7 @@ function build(){
     stage.appendChild(el);
   });
 
-  // edges svg
-  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-  svg.setAttribute("class", "edges");
-  svg.setAttribute("width", maxX); svg.setAttribute("height", maxY);
-  let eIdx = 0;
-  NODES.forEach(n => (n.req||[]).forEach(r => {
-    const p = nodeOf(r), a = pos(p), b = pos(n);
-    const x1 = a.x + NW/2, y1 = a.y + NH, x2 = b.x + NW/2, y2 = b.y;
-    let d;
-    if (p.lane === n.lane) {
-      const my = (y1+y2)/2;
-      d = `M${x1},${y1} C${x1},${my} ${x2},${my} ${x2},${y2}`;
-    } else {
-      // hành lang ngang giữa 2 tier, lệch nhẹ mỗi line để không chồng
-      const jit = ((eIdx % 4) - 1.5) * 4;
-      const ym = (y1 + y2) / 2 + jit;
-      const r_ = 12;
-      d = `M${x1},${y1} C${x1},${y1+r_*2} ${x1},${ym-r_} ${x1},${ym} L${x2},${ym} C${x2},${ym-r_} ${x2},${y2-r_*2} ${x2},${y2}`;
-    }
-    eIdx++;
-    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    path.setAttribute("d", d);
-    const laneDist = Math.abs(LANES.findIndex(l=>l.id===p.lane) - LANES.findIndex(l=>l.id===n.lane));
-    path.setAttribute("class", "edge" + (laneDist >= 2 ? " far" : ""));
-    path.dataset.from = r; path.dataset.to = n.id;
-    svg.appendChild(path);
-  }));
-  stage.appendChild(svg);
-
-  // nodes
+  // nodes (tạo TRƯỚC để đo kích thước thẻ thật — thẻ cao 75/86/90px tuỳ tên, khác hằng NH)
   NODES.forEach(n => {
     const p = pos(n);
     const el = document.createElement("div");
@@ -462,6 +433,71 @@ function build(){
     el.onmouseleave = () => focusEdges(n.id, false);
     stage.appendChild(el);
   });
+  const box = id => { const el = document.getElementById("node-" + id);
+    return { x: el.offsetLeft, y: el.offsetTop, w: el.offsetWidth, h: el.offsetHeight }; };
+
+  // edges svg — định tuyến trực giao qua các "khe" luôn trống:
+  //  • khe ngang: giữa 2 hàng của band 2 hàng (rowGap) hoặc giữa 2 band (interGap)
+  //  • khe dọc:   gutter giữa 2 nhánh (cột node không bao giờ vào gutter)
+  // mọi đoạn của path nằm gọn trong khe nên không xuyên/cắt bất kỳ node nào.
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("class", "edges");
+  svg.setAttribute("width", maxX); svg.setAttribute("height", maxY);
+  const colX = li => PAD_X + li * (NW + GX);
+  const gutterNear = (dstLi, srcLi) => {
+    const gl = colX(dstLi) - GX/2, gr = colX(dstLi) + NW + GX/2;   // gutter trái/phải của cột đích
+    return Math.abs(gl - colX(srcLi)) <= Math.abs(gr - colX(srcLi)) ? gl : gr;
+  };
+  const R = 12;
+  const rounded = pts => {
+    let s = `M${pts[0][0]},${pts[0][1]}`;
+    for (let i = 1; i < pts.length - 1; i++) {
+      const [px, py] = pts[i-1], [cx, cy] = pts[i], [nx, ny] = pts[i+1];
+      const l1 = Math.hypot(cx-px, cy-py), l2 = Math.hypot(nx-cx, ny-cy);
+      const r = Math.min(R, l1/2, l2/2);
+      s += ` L${cx-(cx-px)/l1*r},${cy-(cy-py)/l1*r} Q${cx},${cy} ${cx+(nx-cx)/l2*r},${cy+(ny-cy)/l2*r}`;
+    }
+    return s + ` L${pts[pts.length-1][0]},${pts[pts.length-1][1]}`;
+  };
+  const rowGap   = t => bandTop[t] + ROW_H - 13;   // khe 26px giữa hàng 0 và hàng 1 của band t
+  const interGap = t => bandTop[t] - 27;           // khe ~54px giữa band t-1 và band t
+  let eIdx = 0;
+  NODES.forEach(n => (n.req||[]).forEach(r => {
+    const p = nodeOf(r), a = pos(p), b = pos(n), ra = box(r), rb = box(n.id);
+    const liS = LANES.findIndex(l=>l.id===p.lane), liT = LANES.findIndex(l=>l.id===n.lane);
+    const xS = ra.x + ra.w/2, yBot = ra.y + ra.h, xT = rb.x + rb.w/2, yTop = rb.y;
+    const jit = ((eIdx % 3) - 1) * 4;
+    // khe xuất phát: ngay dưới nguồn (khe hàng nếu có node hàng dưới, không thì khe band)
+    const hExit  = (slotInTier[p.id] === 0 && bandRows[p.t] >= 2 ? rowGap(p.t) : interGap(p.t + 1)) + jit;
+    // khe vào đích: trên đỉnh đích (khe hàng nếu đích là hàng dưới, không thì khe band)
+    const hEntry = (slotInTier[n.id] === 1 ? rowGap(n.t) : interGap(n.t)) - jit;
+    const colClear = !NODES.some(m => {
+      if (m.lane !== p.lane || m.id === p.id || m.id === n.id) return false;
+      const mp = pos(m), mb = box(m.id);
+      return Math.abs(mp.x - a.x) < 1 && mb.y < Math.max(yBot, yTop) + 1 && mb.y + mb.h > Math.min(yBot, yTop) - 1;
+    });
+    let d;
+    if (liS === liT && yTop > yBot && colClear) {
+      const my = (yBot + yTop)/2;                                    // S-curve dọc như cũ, không có gì chắn giữa
+      d = `M${xS},${yBot} C${xS},${my} ${xT},${my} ${xT},${yTop}`;
+    } else if (liS !== liT && Math.abs(hExit - hEntry) < 8) {
+      const y = (hExit + hEntry) / 2;                                // chữ Z: xuống – ngang khe – xuống
+      d = rounded([[xS, yBot], [xS, y], [xT, y], [xT, yTop]]);
+    } else {
+      const g0 = liS === liT ? a.x + NW + GX/2 : gutterNear(liT, liS);
+      const g = g0 + ((eIdx % 3) - 1) * 5;   // lệch nhẹ trong gutter để line dài không chồng nhau
+      d = rounded([[xS, yBot], [xS, hExit], [g, hExit], [g, hEntry], [xT, hEntry], [xT, yTop]]);
+    }
+    eIdx++;
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute("d", d);
+    const laneDist = Math.abs(LANES.findIndex(l=>l.id===p.lane) - LANES.findIndex(l=>l.id===n.lane));
+    path.setAttribute("class", "edge" + (laneDist >= 2 ? " far" : ""));
+    path.dataset.from = r; path.dataset.to = n.id;
+    svg.appendChild(path);
+  }));
+  // svg phải nằm TRƯỚC node trong DOM để node đè lên line
+  stage.insertBefore(svg, stage.querySelector(".node"));
   refresh();
 }
 
