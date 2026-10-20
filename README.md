@@ -45,7 +45,7 @@ link đó tự chuyển sang dev.epicgames.com (nhờ script chèn cuối 2 file
 ```
 ├─ index.html                    # trang chủ (GitHub Pages root)
 ├─ khoa-hoc-unreal-engine.html   # khóa học tiếng Việt, 26 chương + quiz + flashcards
-├─ unreal-skill-tree.html        # sơ đồ kỹ năng RPG: 7 nhánh × 8 tier, unlock theo tiền đề
+├─ unreal-skill-tree.html        # sơ đồ kỹ năng RPG: 7 nhánh × 9 tier, unlock theo tiền đề
 ├─ unreal-skill-tree.md          # bản MD để kiểm tra/enum; regen bằng scripts/export_skilltree_md.py
 ├─ images/                       # 63 ảnh minh họa của khóa học (lấy từ docs Epic)
 ├─ 404.html                      # bắt link docs mirror → chuyển sang dev.epicgames.com

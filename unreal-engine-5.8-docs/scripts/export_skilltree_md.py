@@ -16,11 +16,11 @@ def mid(s):
 out = []
 out.append('# Unreal Engine 5.8 — Skill Tree (bản đối chiếu MD)')
 out.append('')
-out.append('Sơ đồ kỹ năng dạng RPG: **trục dọc = 7 nhánh chuyên môn**, **trục ngang = 8 tier** '
-           '(Tier 1–3 Starter · Tier 4–5 Intermediate · Tier 6–8 Advanced). '
+out.append('Sơ đồ kỹ năng dạng RPG: **trục dọc = 7 nhánh chuyên môn**, **trục ngang = 9 tier xếp theo dependency** '
+           '(Tier 1–3 Starter · Tier 4–6 Intermediate · Tier 7–9 Advanced). '
            'File này đối chiếu với `unreal-skill-tree.html` — xuất trực tiếp từ cùng dữ liệu trong HTML.')
 out.append('')
-out.append(f'**Tổng quan:** {len(nodes)} kỹ năng · {len(lanes)} nhánh · 8 tier · '
+out.append(f'**Tổng quan:** {len(nodes)} kỹ năng · {len(lanes)} nhánh · 9 tier (dependency) · '
            f'{sum(1 for n in nodes if n.get("cap"))} node capstone ★')
 out.append('')
 

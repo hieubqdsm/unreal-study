@@ -1,8 +1,8 @@
 # Unreal Engine 5.8 — Skill Tree (bản đối chiếu MD)
 
-Sơ đồ kỹ năng dạng RPG: **trục dọc = 7 nhánh chuyên môn**, **trục ngang = 8 tier** (Tier 1–3 Starter · Tier 4–5 Intermediate · Tier 6–8 Advanced). File này đối chiếu với `unreal-skill-tree.html` — xuất trực tiếp từ cùng dữ liệu trong HTML.
+Sơ đồ kỹ năng dạng RPG: **trục dọc = 7 nhánh chuyên môn**, **trục ngang = 9 tier xếp theo dependency** (Tier 1–3 Starter · Tier 4–6 Intermediate · Tier 7–9 Advanced). File này đối chiếu với `unreal-skill-tree.html` — xuất trực tiếp từ cùng dữ liệu trong HTML.
 
-**Tổng quan:** 40 kỹ năng · 7 nhánh · 8 tier · 3 node capstone ★
+**Tổng quan:** 40 kỹ năng · 7 nhánh · 9 tier (dependency) · 3 node capstone ★
 
 ## Sơ đồ Mermaid (render trên GitHub)
 

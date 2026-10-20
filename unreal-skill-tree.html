@@ -166,15 +166,16 @@ const COURSE = "khoa-hoc-unreal-engine.html#ch";
 const DOCS = "unreal-engine-5.8-docs/site/";
 
 const LANES = [
-  { id:"core",   name:"Nền tảng",  ico:"🏛", c:"var(--core)"   },
   { id:"world",  name:"Thế giới",  ico:"🌍", c:"var(--world)"  },
-  { id:"logic",  name:"Logic",     ico:"⚙️", c:"var(--logic)"  },
   { id:"visual", name:"Hình ảnh",  ico:"🎨", c:"var(--visual)" },
+  { id:"core",   name:"Nền tảng",  ico:"🏛", c:"var(--core)"   },
+  { id:"logic",  name:"Logic",     ico:"⚙️", c:"var(--logic)"  },
   { id:"fx",     name:"Hiệu ứng",  ico:"✨", c:"var(--fx)"     },
   { id:"motion", name:"Chuyển động",ico:"🎭", c:"var(--motion)" },
   { id:"prod",   name:"Sản xuất",  ico:"🚀", c:"var(--prod)"   },
 ];
-const TIER_LV = t => t<=3 ? ["Starter","s"] : t<=5 ? ["Intermediate","m"] : ["Advanced","a"];
+// Cấp độ theo HÀNG (layer 0-8): 0-2 Starter · 3-5 Intermediate · 6-8 Advanced
+const TIER_LV = t => t<=2 ? ["Starter","s"] : t<=5 ? ["Intermediate","m"] : ["Advanced","a"];
 
 const NODES = [
  // ---------- NỀN TẢNG ----------
@@ -360,17 +361,29 @@ const nodeOf = id => NODES.find(n => n.id === id);
 let learned = new Set(JSON.parse(localStorage.getItem("ue-skill-tree") || "[]"));
 let selected = null;
 
-// Mỗi tier là một band cao vừa đủ cho số node tối đa mà một nhánh có trong tier đó:
-// nhánh có 2 node cùng tier → xếp 2 hàng dọc trong band, hết đè nhau.
-const TIERS = [...new Set(NODES.map(n=>n.t))].sort((a,b)=>a-b);
-const slotInTier = {}, bandRows = {}, bandTop = {};
+// Hàng xếp theo DEPENDENCY (không theo tier SP): layer = 1 + max(layer các node tiền đề),
+// nên mọi line tiền đề chỉ đi xuống, không còn line ngược/cùng hàng.
+// Tier SP gốc vẫn nằm trong dữ liệu node (n.t) để xuất markdown.
+const lyrCache = {};
+const lyrOf = id => {
+  if (id in lyrCache) return lyrCache[id];
+  const reqs = nodeOf(id).req || [];
+  return lyrCache[id] = reqs.length ? 1 + Math.max(...reqs.map(lyrOf)) : 0;
+};
+NODES.forEach(n => { n.lyr = lyrOf(n.id); });
+
+// Mỗi layer là một band cao vừa đủ cho số node tối đa mà một nhánh có trong layer đó:
+// nhánh có 2 node cùng layer → xếp 2 hàng dọc trong band, hết đè nhau.
+const TIERS = [...new Set(NODES.map(n=>n.lyr))].sort((a,b)=>a-b);
+const slotInTier = {}, bandRows = {}, bandTop = {}, laneCnt = {};
 TIERS.forEach(t => {
   const groups = {};
   NODES.forEach(n => {
-    if (n.t !== t) return;
+    if (n.lyr !== t) return;
     groups[n.lane] = (groups[n.lane] || 0) + 1;
     slotInTier[n.id] = groups[n.lane] - 1;
   });
+  Object.entries(groups).forEach(([lane, c]) => laneCnt[t + "|" + lane] = c);
   bandRows[t] = Math.max(1, ...Object.values(groups));
 });
 {
@@ -380,7 +393,7 @@ TIERS.forEach(t => {
 
 function pos(n){
   const li = LANES.findIndex(l => l.id === n.lane);
-  return { x: PAD_X + li*(NW+GX), y: bandTop[n.t] + slotInTier[n.id]*ROW_H };
+  return { x: PAD_X + li*(NW+GX), y: bandTop[n.lyr] + slotInTier[n.id]*ROW_H };
 }
 
 function build(){
@@ -407,14 +420,14 @@ function build(){
     stage.appendChild(el);
   });
 
-  // tier labels
-  const tiers = [...new Set(NODES.map(n=>n.t))].sort((a,b)=>a-b);
+  // tier labels (hiển thị Tier 1..9 = layer 0..8)
+  const tiers = [...new Set(NODES.map(n=>n.lyr))].sort((a,b)=>a-b);
   tiers.forEach(t => {
     const [lv, cls] = TIER_LV(t);
     const el = document.createElement("div");
     el.className = "tier-label";
     el.style.top = (bandTop[t] + 18) + "px";
-    el.innerHTML = `<div class="t">Tier ${t}</div><span class="lv ${cls}">${lv}</span>`;
+    el.innerHTML = `<div class="t">Tier ${t+1}</div><span class="lv ${cls}">${lv}</span>`;
     stage.appendChild(el);
   });
 
@@ -459,18 +472,19 @@ function build(){
     }
     return s + ` L${pts[pts.length-1][0]},${pts[pts.length-1][1]}`;
   };
-  const rowGap   = t => bandTop[t] + ROW_H - 13;   // khe 26px giữa hàng 0 và hàng 1 của band t
   const interGap = t => bandTop[t] - 27;           // khe ~54px giữa band t-1 và band t
+  const rowKhe   = (t, slot) => bandTop[t] + slot * ROW_H - 13;   // khe 26px ngay TRÊN hàng `slot` (slot>=1)
   let eIdx = 0;
   NODES.forEach(n => (n.req||[]).forEach(r => {
     const p = nodeOf(r), a = pos(p), b = pos(n), ra = box(r), rb = box(n.id);
     const liS = LANES.findIndex(l=>l.id===p.lane), liT = LANES.findIndex(l=>l.id===n.lane);
     const xS = ra.x + ra.w/2, yBot = ra.y + ra.h, xT = rb.x + rb.w/2, yTop = rb.y;
     const jit = ((eIdx % 3) - 1) * 4;
-    // khe xuất phát: ngay dưới nguồn (khe hàng nếu có node hàng dưới, không thì khe band)
-    const hExit  = (slotInTier[p.id] === 0 && bandRows[p.t] >= 2 ? rowGap(p.t) : interGap(p.t + 1)) + jit;
-    // khe vào đích: trên đỉnh đích (khe hàng nếu đích là hàng dưới, không thì khe band)
-    const hEntry = (slotInTier[n.id] === 1 ? rowGap(n.t) : interGap(n.t)) - jit;
+    // khe xuất phát: ngay dưới nguồn (khe hàng dưới nếu còn node cùng nhánh + layer, không thì khe band dưới)
+    const hExit  = ((laneCnt[p.lyr + "|" + p.lane] || 1) > slotInTier[p.id] + 1
+                    ? rowKhe(p.lyr, slotInTier[p.id] + 1) : interGap(p.lyr + 1)) + jit;
+    // khe vào đích: khe ngay trên đích (khe hàng nếu đích không phải hàng đầu, không thì khe band)
+    const hEntry = (slotInTier[n.id] >= 1 ? rowKhe(n.lyr, slotInTier[n.id]) : interGap(n.lyr)) - jit;
     const colClear = !NODES.some(m => {
       if (m.lane !== p.lane || m.id === p.id || m.id === n.id) return false;
       const mp = pos(m), mb = box(m.id);
