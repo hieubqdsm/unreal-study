@@ -60,11 +60,11 @@
   .lane-head .nm { font-size:11.5px; font-weight:800; letter-spacing:1px; text-transform:uppercase; }
 
   svg.edges { position:absolute; inset:0; overflow:visible; pointer-events:none; }
-  .edge { fill:none; stroke:#1b2942; stroke-width:1.6; opacity:.75; }
+  .edge { fill:none; stroke:#26395f; stroke-width:1.6; opacity:.8; }
   .edge.avail { stroke:#33507a; stroke-width:2.2; opacity:1; }
   .edge.on { stroke-dasharray:7 5; animation:flow 1.2s linear infinite; }
   /* cạnh xuyên ≥2 nhánh: mờ bớt cho đỡ rối; hover node liên quan thì sáng lên */
-  .edge.far { opacity:.28; }
+  .edge.far { opacity:.34; }
   .edge.far.avail { opacity:.55; }
   .edge.hi { stroke:#2ae5b2; stroke-width:2.6; opacity:1; }
   .edge-focus .edge:not(.hi) { opacity:.08; }
@@ -461,14 +461,15 @@ function build(){
     const gl = colX(dstLi) - GX/2, gr = colX(dstLi) + NW + GX/2;   // gutter trái/phải của cột đích
     return Math.abs(gl - colX(srcLi)) <= Math.abs(gr - colX(srcLi)) ? gl : gr;
   };
-  const R = 12;
+  // bo góc kiểu bản đồ metro: cắt góc vuông bằng đoạn chéo 45° — bớt cảm giác "gấp khúc"
+  const BEVEL = 34;
   const rounded = pts => {
     let s = `M${pts[0][0]},${pts[0][1]}`;
     for (let i = 1; i < pts.length - 1; i++) {
       const [px, py] = pts[i-1], [cx, cy] = pts[i], [nx, ny] = pts[i+1];
       const l1 = Math.hypot(cx-px, cy-py), l2 = Math.hypot(nx-cx, ny-cy);
-      const r = Math.min(R, l1/2, l2/2);
-      s += ` L${cx-(cx-px)/l1*r},${cy-(cy-py)/l1*r} Q${cx},${cy} ${cx+(nx-cx)/l2*r},${cy+(ny-cy)/l2*r}`;
+      const b = Math.min(BEVEL, l1/2, l2/2);
+      s += ` L${cx-(cx-px)/l1*b},${cy-(cy-py)/l1*b} L${cx+(nx-cx)/l2*b},${cy+(ny-cy)/l2*b}`;
     }
     return s + ` L${pts[pts.length-1][0]},${pts[pts.length-1][1]}`;
   };
@@ -606,7 +607,7 @@ build();
   document.addEventListener("click", function (e) {
     var a = e.target.closest && e.target.closest("a[href^='" + PRE + "']");
     if (!a) return;
-    var rest = a.getAttribute("href").slice(PRE).split("#")[0].split("?")[0].replace(/\/+$/, "");
+    var rest = a.getAttribute("href").slice(PRE.length).split("#")[0].split("?")[0].replace(/\/+$/, "");
     if (!rest || rest.indexOf("images/") === 0) return;
     e.preventDefault();
     location.href = EPIC + "/" + rest;

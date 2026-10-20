@@ -1434,7 +1434,7 @@ window.addEventListener('scroll', ()=>{
   const y = scrollY + 120;
   for (const ch of chapters){ if (ch.offsetTop <= y) cur = ch.id; }
   navLinks.forEach(a=>a.classList.toggle('active', a.getAttribute('href') === '#'+cur));
-  const lvl = cur && (parseInt(cur.slice(2))<=7) ? 'Starter' : cur && (parseInt(cur.slice(2))<=16) ? 'Intermediate' : cur ? 'Advanced' : '';
+  const lvl = cur && (parseInt(cur.slice(2))<=8) ? 'Starter' : cur && (parseInt(cur.slice(2))<=18) ? 'Intermediate' : cur ? 'Advanced' : '';
   document.getElementById('crumbCh').textContent = '— ' + (cur ? lvl : 'Starter');
 }, {passive:true});
 
@@ -1517,7 +1517,7 @@ document.querySelectorAll('.fc-filter').forEach(b=>{
   document.addEventListener("click", function (e) {
     var a = e.target.closest && e.target.closest("a[href^='" + PRE + "']");
     if (!a) return;
-    var rest = a.getAttribute("href").slice(PRE).split("#")[0].split("?")[0].replace(/\/+$/, "");
+    var rest = a.getAttribute("href").slice(PRE.length).split("#")[0].split("?")[0].replace(/\/+$/, "");
     if (!rest || rest.indexOf("images/") === 0) return;
     e.preventDefault();
     location.href = EPIC + "/" + rest;

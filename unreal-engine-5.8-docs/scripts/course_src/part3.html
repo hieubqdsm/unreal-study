@@ -391,7 +391,7 @@ window.addEventListener('scroll', ()=>{
   const y = scrollY + 120;
   for (const ch of chapters){ if (ch.offsetTop <= y) cur = ch.id; }
   navLinks.forEach(a=>a.classList.toggle('active', a.getAttribute('href') === '#'+cur));
-  const lvl = cur && (parseInt(cur.slice(2))<=7) ? 'Starter' : cur && (parseInt(cur.slice(2))<=16) ? 'Intermediate' : cur ? 'Advanced' : '';
+  const lvl = cur && (parseInt(cur.slice(2))<=8) ? 'Starter' : cur && (parseInt(cur.slice(2))<=18) ? 'Intermediate' : cur ? 'Advanced' : '';
   document.getElementById('crumbCh').textContent = '— ' + (cur ? lvl : 'Starter');
 }, {passive:true});
 

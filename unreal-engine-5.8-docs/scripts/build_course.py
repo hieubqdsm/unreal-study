@@ -77,7 +77,7 @@ SHIM = """<script>
   document.addEventListener("click", function (e) {
     var a = e.target.closest && e.target.closest("a[href^='" + PRE + "']");
     if (!a) return;
-    var rest = a.getAttribute("href").slice(PRE).split("#")[0].split("?")[0].replace(/\\/+$/, "");
+    var rest = a.getAttribute("href").slice(PRE.length).split("#")[0].split("?")[0].replace(/\\/+$/, "");
     if (!rest || rest.indexOf("images/") === 0) return;
     e.preventDefault();
     location.href = EPIC + "/" + rest;
